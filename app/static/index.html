@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SecondLook</title>
+<meta name="description" content="Before you buy used baby gear, SecondLook checks the listing for banned products, recalls, missing safety parts and expired car seats.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3 L30 28 H2 Z' fill='%23ffd100' stroke='%2318322b' stroke-width='2.5' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='20' r='4.5' fill='none' stroke='%2318322b' stroke-width='2.5'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <div class="wrap bar-row">
+    <a href="/" class="brand" aria-label="SecondLook home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L30 28 H2 Z"/><circle cx="16" cy="20" r="4.5"/></svg>
+      SecondLook
+    </a>
+    <span class="bar-note">Recall data from CPSC and NHTSA, checked Oct 25, 2026</span>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <section id="ask" class="ask" aria-labelledby="askTitle">
+    <h1 id="askTitle">Found used baby gear online? Check it before you buy.</h1>
+    <p class="lede">Drop a screenshot of the listing. SecondLook looks for banned products, recalls, missing safety parts and expired car seats, then tells you what to ask the seller.</p>
+
+    <form id="checkForm" class="check-form">
+      <label class="drop" id="drop" for="fileInput">
+        <span class="drop-icon" aria-hidden="true"></span>
+        <span class="drop-title">Drop a screenshot or photos here</span>
+        <span class="drop-sub" id="fileName">Listing screenshot, or photos of the item and its labels</span>
+        <input id="fileInput" type="file" accept="image/*" multiple>
+      </label>
+      <details class="more" id="moreBox">
+        <summary>Or paste a link or the listing text</summary>
+        <label class="field"><span>Listing link</span><input id="urlInput" type="url" inputmode="url" placeholder="https://"></label>
+        <label class="field"><span>Listing title and description</span><textarea id="textInput" rows="4" placeholder="Paste what the seller wrote"></textarea></label>
+      </details>
+      <button type="submit" class="btn primary" id="checkBtn">Check this listing</button>
+    </form>
+
+    <section class="samples" aria-labelledby="sampleTitle">
+      <h2 id="sampleTitle">Or try one of these listings</h2>
+      <p class="hint">Built from real CPSC recall photos and one sample car-seat label.</p>
+      <div id="sampleRow" class="sample-row"></div>
+    </section>
+  </section>
+
+  <section id="busy" class="busy" hidden aria-live="polite">
+    <div class="busy-card">
+      <span class="spinner" aria-hidden="true"></span>
+      <p id="busyText">Looking at the listing</p>
+    </div>
+  </section>
+
+  <section id="result" class="result" hidden aria-live="polite">
+    <button type="button" class="link back" id="againBtn">Check another listing</button>
+    <article class="label" id="label">
+      <header class="signal" id="signal"><span class="tri" aria-hidden="true"></span><span id="signalWord"></span></header>
+      <div class="label-body">
+        <div class="label-top">
+          <img id="thumb" alt="" hidden>
+          <div>
+            <p class="cat" id="catLabel"></p>
+            <h2 id="verdictTitle"></h2>
+            <p id="summary" class="summary"></p>
+          </div>
+        </div>
+        <ol id="reasons" class="reasons"></ol>
+      </div>
+    </article>
+
+    <section id="recallSec" class="recalls" hidden aria-labelledby="recallTitle">
+      <h3 id="recallTitle">Recalls we matched</h3>
+      <div id="recallList"></div>
+    </section>
+
+    <section id="carSec" class="carseat" hidden aria-labelledby="carTitle">
+      <h3 id="carTitle">Car seat lifespan</h3>
+      <div id="carBody"></div>
+    </section>
+
+    <section class="seller" aria-labelledby="sellerTitle">
+      <h3 id="sellerTitle">Message to the seller</h3>
+      <div class="msg"><p id="sellerMsg"></p><button type="button" class="btn small" id="copyBtn">Copy message</button></div>
+      <p id="altText" class="alt"></p>
+    </section>
+
+    <section class="checklist" id="checkSec" aria-labelledby="checkTitle">
+      <h3 id="checkTitle">If you go see it, check</h3>
+      <ul id="checkList"></ul>
+    </section>
+
+    <details class="how">
+      <summary>How this was checked</summary>
+      <div id="howBody"></div>
+    </details>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>SecondLook gives safety information from CPSC and NHTSA records, federal rules and manufacturer guidance. It isn't legal advice and can't inspect the item; always check labels and parts in person. Recall photos are from U.S. CPSC recall notices, which CPSC allows to be copied; CPSC doesn't endorse this tool.</p>
+    <p>Built for the Nebius × NVIDIA Global AI Hackathon with Nemotron models on Nebius Token Factory and Tavily.</p>
+  </div>
+</footer>
+<script src="/static/app.js"></script>
+</body>
+</html>

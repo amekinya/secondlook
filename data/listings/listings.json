@@ -1,0 +1,50 @@
+[
+ {
+  "file": "listing_1.png",
+  "title": "Baby swing with mosquito net, great for naps",
+  "price": "$40",
+  "text": "Electric baby swing / rocker, white and gray, comes with net and remote. My son napped in it every day. Model BB501. Smoke-free home.",
+  "credit": "Photo: U.S. CPSC recall notice #26074",
+  "expected_level": "RECALLED"
+ },
+ {
+  "file": "listing_2.png",
+  "title": "Braided crib bumper, gray, like new",
+  "price": "$15",
+  "text": "Soft braided bumper that ties around the crib. Keeps little arms and legs from getting stuck in the slats. Washed, like new.",
+  "credit": "Photo: U.S. CPSC recall notice #26169",
+  "expected_level": "ILLEGAL_TO_SELL"
+ },
+ {
+  "file": "listing_3.png",
+  "title": "Fisher-Price Snugabunny cradle 'n swing",
+  "price": "$35",
+  "text": "Cradle swing with the cute bunny headrest and insert, all music and motion settings work. Model V0099. Pick up only.",
+  "credit": "Photo: U.S. CPSC recall notice #25009",
+  "expected_level": "RECALLED"
+ },
+ {
+  "file": "listing_4.png",
+  "title": "Solid wood crib, side drops down for easy access",
+  "price": "$60",
+  "text": "Older crib but sturdy. The front side slides down so it's easy to lift baby out. Mattress not included.",
+  "credit": "Photo: U.S. CPSC recall notice #10046",
+  "expected_level": "ILLEGAL_TO_SELL"
+ },
+ {
+  "file": "listing_5.png",
+  "title": "Bumbo floor seat with safety belt",
+  "price": "$12",
+  "text": "Bumbo seat in good shape, has the restraint belt installed. Great for sitting practice on the floor.",
+  "credit": "Photo: U.S. CPSC recall notice #12247",
+  "expected_level": "OK_SO_FAR"
+ },
+ {
+  "file": "listing_6.png",
+  "title": "Evenflo convertible car seat",
+  "price": "$30",
+  "text": "Convertible car seat, rear or forward facing, clean cover. Here's the sticker from the bottom.",
+  "credit": "Synthetic label created for SecondLook's demo",
+  "expected_level": "UNSAFE_ADVISORY"
+ }
+]

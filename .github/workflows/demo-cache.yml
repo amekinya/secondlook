@@ -1,0 +1,26 @@
+name: Build demo cache (live models)
+# Actions tab → "Build demo cache (live models)" → Run workflow. Costs a few cents.
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  cache:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements.txt
+      - name: Build cache
+        env:
+          NEBIUS_API_KEY: ${{ secrets.NEBIUS_API_KEY }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+        run: python -m scripts.build_demo_cache
+      - name: Commit cache
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/listings/demo_cache.json
+          git commit -m "Update demo cache" || echo "No changes"
+          git push

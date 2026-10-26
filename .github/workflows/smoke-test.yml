@@ -1,0 +1,32 @@
+name: Platform smoke test
+
+# Run from the GitHub "Actions" tab → "Platform smoke test" → "Run workflow".
+# Needs repository secrets NEBIUS_API_KEY and (optionally) TAVILY_API_KEY.
+on:
+  workflow_dispatch:
+    inputs:
+      long_context:
+        description: "Also run the ~150K-token Ultra long-context test (~$0.20)"
+        type: boolean
+        default: false
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Run smoke test
+        env:
+          NEBIUS_API_KEY: ${{ secrets.NEBIUS_API_KEY }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+        run: |
+          if [ "${{ inputs.long_context }}" = "true" ]; then
+            python -m scripts.smoke_test --long
+          else
+            python -m scripts.smoke_test
+          fi

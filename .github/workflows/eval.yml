@@ -1,0 +1,28 @@
+name: Benchmark (live models)
+# Actions tab → "Benchmark (live models)" → Run workflow. Costs roughly $1-2 of Token Factory credits.
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements.txt
+      - name: Run benchmark
+        env:
+          NEBIUS_API_KEY: ${{ secrets.NEBIUS_API_KEY }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+        run: |
+          python -m eval.run_eval
+          cat eval/RESULTS.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add eval/results.json eval/RESULTS.md
+          git commit -m "Update benchmark results" || echo "No changes"
+          git push
