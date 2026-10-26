@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "SecondLook: used baby gear safety check",
+  "version": "0.1.0",
+  "description": "Stamps warnings on second-hand baby gear listings: banned products, recalls and expired car seats.",
+  "action": { "default_popup": "popup.html", "default_title": "SecondLook" },
+  "permissions": ["activeTab", "scripting", "storage"],
+  "host_permissions": ["<all_urls>"],
+  "icons": { "128": "icon128.png" }
+}

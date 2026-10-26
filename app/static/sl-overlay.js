@@ -38,8 +38,7 @@
   @keyframes sl-in{from{transform:scale(.6) rotate(-4deg);opacity:0}}
   @media (prefers-reduced-motion:reduce){.sl-stamp{animation:none}}
   .sl-band{display:flex;align-items:center;gap:8px;padding:6px 10px;font-weight:700;letter-spacing:.04em;font-size:18px;text-transform:uppercase}
-  .sl-band:before{content:"!";display:grid;place-items:center;width:20px;height:18px;background:currentColor;color:var(--sl-fill);font-size:12px;line-height:22px;
-    clip-path:polygon(50% 0,100% 100%,0 100%);font-weight:900}
+  .sl-ico{width:20px;height:18px;flex:none;display:block}
   .sl-msg{padding:6px 10px 8px;font-weight:700;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .sl-deaths{display:block;margin:-4px 10px 8px;font-size:14px;font-weight:700;color:#B0001E !important}
   .sl-bad{--sl-fill:#B0001E}.sl-bad .sl-band{background:#B0001E;color:#fff}
@@ -47,17 +46,17 @@
   .sl-check{--sl-fill:#FFD23F;box-shadow:0 0 0 2px #8A6D00,0 4px 14px rgba(0,0,0,.28)}.sl-check .sl-band{background:#FFD23F;color:#000}
   .sl-ok{left:auto;right:8px;width:auto;border-radius:999px;background:#E8F5EE;color:#0B5D3B;box-shadow:0 0 0 1.5px #2E7D5B}
   .sl-ok .sl-band{padding:4px 12px 4px 8px;font-size:14px;letter-spacing:0;text-transform:none;gap:6px}
-  .sl-ok .sl-band:before{content:"✓";clip-path:none;border-radius:50%;width:18px;height:18px;line-height:18px;background:#2E7D5B;color:#fff;font-size:12px}
+  .sl-ok .sl-ico{width:18px;height:18px}
   .sl-msg,.sl-deaths{color:#1A1A1A}
   .sl-dim img{filter:grayscale(.5) brightness(.85)}
   .sl-drawer{position:fixed;top:0;right:0;bottom:0;z-index:2147483001;width:min(460px,100vw);background:#fff;color:#18322b;
     box-shadow:-10px 0 30px rgba(0,0,0,.3);overflow:auto;font:17px/1.5 "Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,sans-serif;transform:translateX(100%);transition:transform .25s}
   .sl-drawer.sl-open{transform:none}
   .sl-drawer *{box-sizing:border-box}
-  .sl-dhead{display:flex;align-items:center;gap:10px;padding:14px 16px;font-weight:700;font-size:22px;letter-spacing:.05em}
-  .sl-dhead.sl-bad{background:#B0001E;color:#fff}.sl-dhead.sl-warn{background:#FF7A00;color:#000}.sl-dhead.sl-check{background:#FFD23F;color:#000;border-bottom:2px solid #8A6D00}
-  .sl-dhead.sl-good{background:#E8F5EE;color:#0B5D3B;border-bottom:2px solid #2E7D5B}.sl-dhead.sl-good:before{clip-path:none;border-radius:50%}
-  .sl-dhead:before{content:"";width:24px;height:21px;background:currentColor;clip-path:polygon(50% 0,100% 100%,0 100%)}
+  .sl-dhead{--sl-fill:#fff;display:flex;align-items:center;gap:10px;padding:14px 16px;font-weight:700;font-size:22px;letter-spacing:.05em}
+  .sl-dhead.sl-bad{--sl-fill:#B0001E;background:#B0001E;color:#fff}.sl-dhead.sl-warn{--sl-fill:#FF7A00;background:#FF7A00;color:#000}.sl-dhead.sl-check{--sl-fill:#FFD23F;background:#FFD23F;color:#000;border-bottom:2px solid #8A6D00}
+  .sl-dhead.sl-good{background:#E8F5EE;color:#0B5D3B;border-bottom:2px solid #2E7D5B}
+  .sl-dhead .sl-ico{width:26px;height:23px}
   .sl-dhead span{flex:1}.sl-dhead button{background:none;border:0;color:inherit;font-size:22px;cursor:pointer}
   .sl-dbody{padding:16px;display:grid;gap:14px}
   .sl-dbody h3{margin:0;font-size:22px;line-height:1.2}
@@ -73,6 +72,8 @@
   .sl-skel{height:12px;border-radius:3px;background:#e3e9e6;margin:8px 0}
   `;
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const TRI = `<svg class="sl-ico" viewBox="0 0 20 18" aria-hidden="true"><path d="M10 1.2 19 16.8H1Z" fill="currentColor"/><path d="M10 6.2v5" stroke="var(--sl-fill)" stroke-width="2.2" stroke-linecap="round"/><circle cx="10" cy="14" r="1.25" fill="var(--sl-fill)"/></svg>`;
+  const CHECK = `<svg class="sl-ico" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="9" fill="#2E7D5B"/><path d="M5 9.3l2.6 2.6L13 6.5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   const TONE_OF = { DANGER: "bad", WARNING: "warn", CAUTION: "check", OK: "good" };
   const LABEL = { DANGER: "Danger", WARNING: "Warning", CAUTION: "Caution", OK: "No known issues" };
 
@@ -169,8 +170,8 @@
       const b = document.createElement("button"); b.type = "button";
       b.className = "sl-stamp sl-" + tone + (tone === "good" ? " sl-ok" : "");
       b.setAttribute("aria-label", `${LABEL[d.word]}: ${d.headline}. Open details.`);
-      b.innerHTML = tone === "good" ? `<span class="sl-band">No known issues</span>`
-        : `<span class="sl-band">${LABEL[d.word]}</span><span class="sl-msg">${esc(d.headline)}</span>${d.deaths ? `<span class="sl-deaths">${d.deaths} infant death${d.deaths > 1 ? "s" : ""} reported</span>` : ""}`;
+      b.innerHTML = tone === "good" ? `<span class="sl-band">${CHECK}No known issues</span>`
+        : `<span class="sl-band">${TRI}${LABEL[d.word]}</span><span class="sl-msg">${esc(d.headline)}</span>${d.deaths ? `<span class="sl-deaths">${d.deaths} infant death${d.deaths > 1 ? "s" : ""} reported</span>` : ""}`;
       b.onclick = (e) => { e.preventDefault(); e.stopPropagation(); open(c, d); };
       (c.stampHost || c.el).appendChild(b);
       if (tone === "bad") c.el.classList.add("sl-dim");
@@ -179,7 +180,7 @@
 
     async function open(c, d) {
       const tone = TONE_OF[d.word];
-      drawer.innerHTML = `<div class="sl-dhead sl-${tone}"><span>${LABEL[d.word]}</span><button aria-label="Close">×</button></div>
+      drawer.innerHTML = `<div class="sl-dhead sl-${tone}">${tone === "good" ? CHECK : TRI}<span>${LABEL[d.word]}</span><button aria-label="Close">×</button></div>
         <div class="sl-dbody"><p><small>${esc(c.title)}</small></p><div class="sl-skel"></div><div class="sl-skel" style="width:70%"></div><div class="sl-skel" style="width:85%"></div>
         <p><small>Nemotron 3 Ultra is reading the recall notices…</small></p></div>`;
       drawer.classList.add("sl-open"); drawer.querySelector("button").onclick = () => drawer.classList.remove("sl-open");
@@ -188,7 +189,7 @@
           body: JSON.stringify({ demo: !!opts.demo, id: c.id, title: c.title, text: c.text, image: c.image }) });
         const x = await r.json();
         const t2 = TONE_OF[x.word];
-        drawer.innerHTML = `<div class="sl-dhead sl-${t2}"><span>${LABEL[x.word]}</span><button aria-label="Close">×</button></div>
+        drawer.innerHTML = `<div class="sl-dhead sl-${t2}">${t2 === "good" ? CHECK : TRI}<span>${LABEL[x.word]}</span><button aria-label="Close">×</button></div>
           <div class="sl-dbody"><p><small>${esc([x.category_label, x.item.brand].filter(Boolean).join(" · "))}</small></p>
           <h3>${esc(x.label)}</h3><p>${esc(x.writeup?.summary || "")}</p>
           <ul class="sl-rs">${x.reasons.map((r) => `<li class="${r.level}"><b>${esc(r.title)}</b>${esc(r.detail)}<br><small>${esc(r.cite)}</small></li>`).join("")}</ul>

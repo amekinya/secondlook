@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  body { width: 300px; margin: 0; font: 15px/1.45 system-ui, sans-serif; background: #18322b; color: #f2f5f1; }
+  .wrap { padding: 16px; display: grid; gap: 12px; }
+  h1 { font-size: 18px; margin: 0; display: flex; gap: 8px; align-items: center; }
+  h1 span { width: 22px; height: 19px; background: #FFD23F; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+  button { min-height: 44px; border: 0; border-radius: 6px; background: #FFD23F; color: #000; font: 700 15px/1 system-ui; cursor: pointer; }
+  label { font-size: 13px; display: grid; gap: 4px; }
+  input { padding: 8px; border-radius: 6px; border: 0; font: inherit; }
+  p { margin: 0; font-size: 13px; opacity: .85; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1><span aria-hidden="true"></span>SecondLook</h1>
+  <button id="scan">Scan this page</button>
+  <p>Checks every listing on the page for banned products, recalls and expired car seats. Listing photos and text are sent to your SecondLook server; nothing is stored.</p>
+  <label>SecondLook server <input id="api" type="url" placeholder="https://your-secondlook.onrender.com"></label>
+</div>
+<script src="popup.js"></script>
+</body>
+</html>
