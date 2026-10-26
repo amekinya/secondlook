@@ -159,7 +159,7 @@ def cpsc_candidates(category: str, brand: str, text: str, k: int = 6) -> list[di
         if not (definite or possible):
             continue
         out.append({**{k_: r[k_] for k_ in ("source", "id", "date", "title", "url", "category", "brand", "units", "hazard", "remedy",
-                                             "remedy_options", "deaths", "images", "description", "products")},
+                                             "remedy_options", "deaths", "images", "description", "products", "models")},
                     "score": score, "reasons": reasons, "match": "definite" if definite else "possible",
                     "all_models": r["id"] in ALL_MODELS})
     out.sort(key=lambda x: (x["match"] == "definite", x["score"], x["date"]), reverse=True)

@@ -39,6 +39,7 @@
   @media (prefers-reduced-motion:reduce){.sl-stamp{animation:none}}
   .sl-band{display:flex;align-items:center;gap:8px;padding:6px 10px;font-weight:700;letter-spacing:.04em;font-size:18px;text-transform:uppercase}
   .sl-ico{width:20px;height:18px;flex:none;display:block}
+  .sl-possible{display:block;font-weight:700;color:#5c4600}
   .sl-msg{padding:6px 10px 0;margin-bottom:8px;font-weight:700;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .sl-deaths{display:block;margin:-4px 10px 8px;font-size:14px;font-weight:700;color:#B0001E !important}
   .sl-bad{--sl-fill:#B0001E}.sl-bad .sl-band{background:#B0001E;color:#fff}
@@ -193,13 +194,21 @@
           <div class="sl-dbody"><p><small>${esc([x.category_label, x.item.brand].filter(Boolean).join(" · "))}</small></p>
           <h3>${esc(x.label)}</h3><p>${esc(x.writeup?.summary || "")}</p>
           <ul class="sl-rs">${x.reasons.map((r) => `<li class="${r.level}"><b>${esc(r.title)}</b>${esc(r.detail)}<br><small>${esc(r.cite)}</small></li>`).join("")}</ul>
-          ${(x.recalls || []).filter((r) => r.match === "definite").map((r) => `<div class="sl-rc">${r.images?.[0] ? `<img src="${esc(r.images[0].url)}" alt="">` : "<span></span>"}
-            <div><b>${esc(r.title)}</b><small>${esc(r.source)} ${esc(r.id)} · ${esc(r.date)}${r.deaths ? ` · ${r.deaths} deaths reported` : ""}</small>
+          ${(x.recalls || []).filter((r) => r.match === "definite" || r.match === "possible").slice(0, 3).map((r) => `<div class="sl-rc">${r.images?.[0] ? `<img src="${esc(r.images[0].url)}" alt="">` : "<span></span>"}
+            <div>${r.match === "possible" ? `<small class="sl-possible">Possible match: check the label</small>` : ""}<b>${esc(r.title)}</b><small>${esc(r.source)} ${esc(r.id)} · ${esc(r.date)}${r.deaths ? ` · ${r.deaths} deaths reported` : ""}</small>
+            ${r.match === "possible" && r.models?.length ? `<small><b>Recalled model numbers:</b> ${esc(r.models.slice(0, 8).join(", "))}</small>` : ""}
             ${r.remedy ? `<small><b>Remedy:</b> ${esc(r.remedy.slice(0, 200))}</small>` : ""}${r.why ? `<small><i>${esc(r.why)}</i></small>` : ""}
             <small><a href="${esc(r.url)}" target="_blank" rel="noopener">Official notice</a></small></div></div>`).join("")}
           ${x.writeup?.seller_message ? `<div><b>Message to the seller</b><div class="sl-msgbox">${esc(x.writeup.seller_message)}</div><button class="sl-copy">Copy message</button></div>` : ""}
           <p><small>Recall data from CPSC and NHTSA (checked ${esc(x.rules_verified_as_of)}). Not legal advice; check the item in person.</small></p></div>`;
         drawer.querySelector(".sl-dhead button").onclick = () => drawer.classList.remove("sl-open");
+        if (x.word && x.word !== d.word) {  // the closer look (Ultra with reasoning) changed the verdict: update the stamp to match
+          (c.stampHost || c.el).querySelectorAll(".sl-stamp").forEach((s) => s.remove());
+          c.el.classList.remove("sl-dim");
+          const deaths = Math.max(0, ...x.reasons.map((r) => r.deaths || 0));
+          stamp(c, { ...d, word: x.word, headline: x.reasons[0]?.title || d.headline, deaths });
+          drawer.querySelector(".sl-dbody").insertAdjacentHTML("afterbegin", `<p class="sl-note"><small>Updated after a closer look at the recall notices.</small></p>`);
+        }
         const cp = drawer.querySelector(".sl-copy");
         if (cp) cp.onclick = () => navigator.clipboard?.writeText(x.writeup.seller_message).then(() => (cp.textContent = "Copied"));
       } catch (e) {
