@@ -1,0 +1,25 @@
+{
+ "n_test": 660,
+ "generator_test": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+ "methods": {
+  "keyword": {
+   "branded": {
+    "n": 132,
+    "top1": 0.568,
+    "top3": 0.636
+   },
+   "unbranded": {
+    "n": 132,
+    "top1": 0.098,
+    "top3": 0.121
+   },
+   "rebranded": {
+    "n": 132,
+    "top1": 0.159,
+    "top3": 0.22
+   },
+   "distractor_any_candidate_rate": 0.42,
+   "seconds": 75.3
+  }
+ }
+}
