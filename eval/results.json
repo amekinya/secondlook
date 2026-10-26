@@ -1,13 +1,13 @@
 {
- "run_at": "2026-10-26 18:50 UTC",
+ "run_at": "2026-10-26 19:14 UTC",
  "recognition": {
   "n": 54,
-  "strict": 0.519,
-  "lenient": 0.667,
+  "strict": 0.481,
+  "lenient": 0.648,
   "by_category": {
    "bassinet": "4/5",
-   "bath": "2/5",
-   "bouncer_rocker": "1/1",
+   "bath": "1/5",
+   "bouncer_rocker": "0/1",
    "carrier": "2/4",
    "crib": "2/5",
    "crib_bumper": "0/5",
@@ -33,7 +33,7 @@
    {
     "file": "eval_16157.jpg",
     "expected": "carrier",
-    "got": "carrier"
+    "got": "other"
    },
    {
     "file": "eval_16249.jpg",
@@ -43,7 +43,7 @@
    {
     "file": "eval_16268.jpg",
     "expected": "carrier",
-    "got": "other"
+    "got": "carrier"
    },
    {
     "file": "eval_16743.jpg",
@@ -93,7 +93,7 @@
    {
     "file": "eval_19174.jpg",
     "expected": "bouncer_rocker",
-    "got": "bouncer_rocker"
+    "got": "swing"
    },
    {
     "file": "eval_19177.jpeg",
@@ -138,7 +138,7 @@
    {
     "file": "eval_22768.jpg",
     "expected": "bath",
-    "got": "bath"
+    "got": "other"
    },
    {
     "file": "eval_23290.png",
@@ -228,7 +228,7 @@
    {
     "file": "eval_26132.png",
     "expected": "crib_bumper",
-    "got": "lounger"
+    "got": "other"
    },
    {
     "file": "eval_26169.jpg",
@@ -349,6 +349,7 @@
    }
   ]
  },
+ "matching_run_at": "2026-10-26 18:50 UTC",
  "tiers": {
   "nano": {
    "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
@@ -358,9 +359,9 @@
   },
   "super_vl": {
    "model": "nvidia/Nemotron-3.5-Super-VL",
-   "calls": 61,
-   "avg_seconds": 1.94,
-   "cost_usd": 0.0387
+   "calls": 60,
+   "avg_seconds": 1.97,
+   "cost_usd": 0.0362
   },
   "ultra": {
    "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
