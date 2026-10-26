@@ -21,6 +21,7 @@ class Item:
     features: dict = field(default_factory=dict)  # incline_raised, marketed_for_sleep, drop_side, padded_bumper, ...
     missing_parts: list[str] = field(default_factory=list)
     colors: str = ""  # colors and prints seen in the photos (recalls are often limited to them)
+    looks: str = ""  # what the vision model says the photo shows (used by the look-alike matcher)
 
 
 def short_name(rc: dict) -> str:
@@ -42,7 +43,9 @@ def _add(reasons: list[dict], rule_id: str, **extra) -> None:
                     "cite": r.cite, "tag": r.tag, **extra})
 
 
-def assess(item: Item, today: date | None = None, judgments: dict[str, str] | None = None) -> dict:
+def assess(item: Item, today: date | None = None, judgments: dict[str, str] | None = None,
+           lookalikes: list[dict] | None = None) -> dict:
+    """lookalikes: [{id, score}] from our look-alike matcher (app/ai/lookalike.py), computed by the caller."""
     today = today or date.today()
     f = item.features or {}
     cat = item.category
@@ -95,12 +98,15 @@ def assess(item: Item, today: date | None = None, judgments: dict[str, str] | No
         recalls = nhtsa_candidates(item.brand, f"{item.model_text} {item.product_name}", item.dom)
     elif cat != "other":
         recalls = cpsc_candidates(cat, item.brand, text)
+        recalls += lookalike_candidates(lookalikes or [], {r["id"] for r in recalls})
     for rc in recalls:
         j = judgments.get(rc["id"])
         if j == "does_not_apply":
             rc["match"] = "ruled_out"
         elif j == "applies":
             rc["match"] = "definite"
+        elif j == "lookalike":
+            rc["match"] = "lookalike"
     live = [r for r in recalls if r["match"] != "ruled_out"]
     definite = [r for r in live if r["match"] == "definite"]
     for rc in definite:
@@ -124,9 +130,13 @@ def assess(item: Item, today: date | None = None, judgments: dict[str, str] | No
         _add(reasons, "R-RCL-03", recall=rc["id"], title=f"Recall fix appears done ({short_name(rc)})")
     else:
         possible = [r for r in live if r["match"] == "possible"]
+        looks = [r for r in live if r["match"] == "lookalike"]
         if possible:
             _add(reasons, "R-RCL-02", recall=possible[0]["id"], title=f"Possible recall: {short_name(possible[0])}",
                  detail=C.RULES["R-RCL-02"].detail + (f" ({len(possible)} candidate notices.)" if len(possible) > 1 else ""))
+        elif looks:
+            # A look-alike is never more than CAUTION: recalls name a brand, and the brand isn't confirmed.
+            _add(reasons, "R-RCL-LOOK", recall=looks[0]["id"], title=f"Looks like a recalled product: {short_name(looks[0])}")
     recalls = [r for r in recalls if r["match"] != "ruled_out"]
 
     if item.missing_parts:
@@ -142,6 +152,8 @@ def assess(item: Item, today: date | None = None, judgments: dict[str, str] | No
     questions = list(dict.fromkeys(C.QUESTIONS.get(cat, []) + C.QUESTIONS["_any"]))
     if any(r["rule_id"] == "R-RCL-02" for r in reasons):
         questions.insert(0, "What's the exact model number on the label? (It decides whether the recall applies.)")
+    if any(r["rule_id"] == "R-RCL-LOOK" for r in reasons):
+        questions.insert(0, "Who made it? Could you send a photo of the label with the brand and model number?")
     return {
         "level": level, "word": word, "label": label, "tone": tone, "sub": sub, "category": cat,
         "category_label": C.CATEGORIES.get(cat, cat), "reasons": reasons, "recalls": recalls[:4],
@@ -150,6 +162,23 @@ def assess(item: Item, today: date | None = None, judgments: dict[str, str] | No
                  "printed_expiration": item.printed_expiration.isoformat() if item.printed_expiration else None},
         "rules_verified_as_of": C.RULES_VERIFIED_AS_OF.isoformat(),
     }
+
+
+def lookalike_candidates(found: list[dict], already: set[str]) -> list[dict]:
+    """Recall records for the matcher's look-alikes that brand/model search didn't already find."""
+    from app.engine.recalls import cpsc  # noqa: PLC0415
+
+    by_id = {r["id"]: r for r in cpsc()}
+    out = []
+    for x in found:
+        r = by_id.get(x["id"])
+        if r is None or r["id"] in already:
+            continue
+        out.append({**{k: r[k] for k in ("source", "id", "date", "title", "url", "category", "brand", "units", "hazard", "remedy",
+                                         "remedy_options", "deaths", "images", "description", "products", "models")},
+                    "score": x["score"], "reasons": [f"looks like it (matcher {x['score']:.2f})"], "match": "lookalike", "all_models": False,
+                    "lookalike_score": x["score"]})
+    return out
 
 
 def signal_word(level: str, reasons: list[dict], recalls: list[dict]) -> str:

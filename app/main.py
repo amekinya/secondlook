@@ -11,7 +11,7 @@ from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
-from app.ai import tasks
+from app.ai import lookalike, tasks
 from app.ai.client import CallRecord, LiveModelUnavailable, ledger
 from app.config import settings
 from app.engine import catalog as C
@@ -39,7 +39,11 @@ def _calls_json(calls: list[CallRecord]) -> list[dict]:
 
 
 def run_check(item: Item, today: date, calls: list[CallRecord], steps: list[dict], cached: dict | None = None) -> dict:
-    first = assess(item, today)
+    looks = cached.get("lookalikes", []) if cached else lookalike.for_item(item, calls)
+    if looks:
+        steps.append({"step": "Searched for look-alike recalls", "detail": f"{len(looks)} recalled products this listing resembles",
+                      "model": f"{settings.lookalike_model} (our fine-tuned NVIDIA reranker, Nebius endpoint)"})
+    first = assess(item, today, lookalikes=looks)
     steps.append({"step": "Checked bans, standards and recalls", "detail": f"{len(first['recalls'])} recall candidates from CPSC/NHTSA data", "model": None})
     judgments: dict[str, str] = {}
     why: dict[str, str] = {}
@@ -58,8 +62,9 @@ def run_check(item: Item, today: date, calls: list[CallRecord], steps: list[dict
         why[j["recall_id"]] = j["why"]
     if js:
         steps.append({"step": "Read the recall notices", "detail": f"{len(js)} recalls checked against this item", "model": settings.ultra.model_id})
-    result = assess(item, today, judgments)
+    result = assess(item, today, judgments, lookalikes=looks)
     result["judgments_raw"] = js
+    result["lookalikes"] = looks
     for rc in result["recalls"]:
         rc["why"] = why.get(rc["id"], "")
     if cached and "verdict" in cached:

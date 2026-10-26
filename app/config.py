@@ -35,6 +35,11 @@ class Settings:
     tavily_api_key: str = field(default_factory=lambda: _env("TAVILY_API_KEY"))
     # Hard cap on live model spend per day (USD) so judges' traffic can't drain credits.
     daily_spend_cap_usd: float = field(default_factory=lambda: float(_env("DAILY_SPEND_CAP_USD", "2.0")))
+    # Our fine-tuned look-alike recall matcher (NVIDIA llama-nemotron-rerank-1b-v2) on a Nebius Serverless Endpoint.
+    endpoint_url: str = field(default_factory=lambda: _env("ENDPOINT_URL"))
+    endpoint_token: str = field(default_factory=lambda: _env("ENDPOINT_TOKEN"))
+    lookalike_model: str = field(default_factory=lambda: _env("LOOKALIKE_MODEL", "secondlook-matcher"))
+    lookalike_threshold: float = field(default_factory=lambda: float(_env("LOOKALIKE_THRESHOLD", "0.8")))
 
     # Model IDs are overridable because Token Factory's live catalog is the source of truth.
     # Defaults come from third-party catalog listings (Oct 2026) and MUST be confirmed with

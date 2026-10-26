@@ -98,6 +98,10 @@ RULES: dict[str, Rule] = {r.id: r for r in [
     Rule("R-RCL-02", "CHECK", "Possible recall: confirm the model number",
          "This brand and product type have a recall that depends on the model number or manufacture date. Ask for a photo of the label.",
          "CPSC Recalls database"),
+    Rule("R-RCL-LOOK", "CHECK", "Looks like a recalled product",
+         "The description and photo match a recalled product, but the brand or model isn't confirmed. Recalled products are often resold "
+         "with no brand or under a different brand name. Ask the seller who made it and for a photo of the label before buying.",
+         "CPSC Recalls database; SecondLook look-alike matcher (fine-tuned NVIDIA reranker)"),
     Rule("R-RCL-03", "OK_SO_FAR", "Recall remedy appears to be done",
          "This model was recalled, but the photos suggest the fix was applied. Confirm with the seller.",
          "CPSC recall remedy"),

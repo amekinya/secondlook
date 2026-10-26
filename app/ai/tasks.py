@@ -118,7 +118,7 @@ def item_from_identify(d: dict, extra_text: str = "") -> Item:
         listing_text=" ".join(x for x in [d.get("listing_text", ""), extra_text] if x)[:3000],
         dom=parse_any_date(d.get("date_of_manufacture", "")), printed_expiration=parse_any_date(d.get("printed_expiration", "")),
         features={k: v for k, v in feats.items() if v is not None}, missing_parts=d.get("missing_parts", [])[:6],
-        colors=(d.get("colors_and_prints") or "")[:200],
+        colors=(d.get("colors_and_prints") or "")[:200], looks=(d.get("what_i_see") or "")[:400],
     )
     for k in ("model_text", "product_name"):
         if getattr(item, k).strip().lower() in {"unknown", "n/a", "none", "not visible"}:
@@ -205,7 +205,21 @@ def judge_recalls(item: Item, candidates: list[dict], calls: list[CallRecord] | 
         {"role": "user", "content": f"Item: {json.dumps(facts)}\nRecall notices: {json.dumps(cands)}\nAnswer for every recall_id."}],
         schema=JUDGE_SCHEMA, purpose="Judge recall matches" + (" (quick)" if quick else ""), reasoning=not quick,
         max_tokens=1600 if quick else 6000, calls=calls)
-    return [j | decide(j, by_id[j["recall_id"]], item) for j in out.get("judgments", []) if j.get("recall_id") in (by_id := {c["id"]: c for c in candidates})]
+    by_id = {c["id"]: c for c in candidates}
+    return [lookalike_verdict(j | decide(j, by_id[j["recall_id"]], item), by_id[j["recall_id"]])
+            for j in out.get("judgments", []) if j.get("recall_id") in by_id]
+
+
+def lookalike_verdict(j: dict, cand: dict) -> dict:
+    """A look-alike (found by our matcher, not by brand or model) is kept unless the notice reading rules it out on what
+    the listing actually shows: a different kind of product, a model number or date that differs. A different brand name
+    does NOT rule it out, because recalled products are resold under other names; the result is CAUTION, never RECALLED,
+    unless the model number confirms it."""
+    if cand.get("match") != "lookalike" or j["verdict"] == "applies":
+        return j
+    ruled_out = j["same_kind_of_product"] == "no" or j["item_detail_vs_limit"] == "differs" or \
+        (j.get("decided_by") == "model number" and j["verdict"] == "does_not_apply")
+    return j | {"verdict": "does_not_apply" if ruled_out else "lookalike"}
 
 
 def named_words(cand: dict, item: Item) -> list[str]:

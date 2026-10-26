@@ -19,7 +19,7 @@ from urllib.parse import urlparse
 
 import httpx
 
-from app.ai import tasks
+from app.ai import lookalike, tasks
 from app.engine.textfacts import item_from_text
 from app.ai.client import CallRecord, LiveModelUnavailable, ledger
 from app.config import settings
@@ -102,12 +102,13 @@ def scan_one(listing: dict, today: date, live: bool) -> dict:
         except Exception:
             ident = None
     item = tasks.item_from_identify(ident, text) if ident else item_from_text(text)
-    res = assess(item, today)
-    possible = [r for r in res["recalls"] if r["match"] == "possible"]
+    looks = lookalike.for_item(item, calls) if live else []
+    res = assess(item, today, lookalikes=looks)
+    possible = [r for r in res["recalls"] if r["match"] in ("possible", "lookalike")]
     if possible and live:  # Nemotron Ultra (reasoning off) reads the candidate notices fast; with reasoning on it re-checks on the detail view
         try:
             js = tasks.judge_recalls(item, possible, calls, quick=True)
-            res = assess(item, today, {j["recall_id"]: j["verdict"] for j in js})
+            res = assess(item, today, {j["recall_id"]: j["verdict"] for j in js}, lookalikes=looks)
         except Exception:
             pass
     return {"id": listing.get("id"), **_stamp(res), "mode": mode, "seconds": round(time.perf_counter() - t0, 2),
