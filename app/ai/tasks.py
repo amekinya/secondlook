@@ -68,9 +68,35 @@ ID_PROMPT = (
 )
 
 
+def normalize_image(data: bytes, max_side: int = 1280) -> tuple[bytes, str]:
+    """Any upload (PNG with transparency, WebP, huge photos) -> RGB JPEG on white, longest side <= max_side.
+    Transparent PNGs otherwise reach the model with undefined backgrounds, and big photos cost tokens for nothing."""
+    import io
+
+    from PIL import Image, ImageOps
+
+    try:
+        im = Image.open(io.BytesIO(data))
+        im = ImageOps.exif_transpose(im)
+        if im.mode in ("RGBA", "LA", "P"):
+            im = im.convert("RGBA")
+            bg = Image.new("RGB", im.size, (255, 255, 255))
+            bg.paste(im, mask=im.split()[-1])
+            im = bg
+        else:
+            im = im.convert("RGB")
+        im.thumbnail((max_side, max_side))
+        out = io.BytesIO()
+        im.save(out, "JPEG", quality=90)
+        return out.getvalue(), "image/jpeg"
+    except Exception:  # noqa: BLE001  (not an image PIL can read: send as-is and let the API decide)
+        return data, "image/jpeg"
+
+
 def identify(images: list[tuple[bytes, str]], listing_text: str, calls: list[CallRecord] | None = None) -> dict:
     content: list[dict[str, Any]] = [{"type": "text", "text": ID_PROMPT + (f"\n\nListing text provided:\n{listing_text[:3000]}" if listing_text else "")}]
-    for data, mime in images[:4]:
+    for data, _mime in images[:4]:
+        data, mime = normalize_image(data)
         content.append({"type": "image_url", "image_url": {"url": f"data:{mime};base64,{base64.b64encode(data).decode()}"}})
     return chat_json(settings.super_vl, [{"role": "user", "content": content}], schema=ID_SCHEMA,
                      purpose="Identify the product", reasoning=False, max_tokens=1500, calls=calls)
@@ -129,6 +155,8 @@ JUDGE_SYSTEM = (
     "Otherwise the limit: model_numbers, manufacture_dates, colors_or_prints, named_product_line (only a named product such as 'Snuga swings'), or several.\n"
     "- item_detail_vs_limit: for that limit, does the item's model/date/print/product name match the recall ('matches'), clearly differ ('differs'), "
     "or is it not shown ('not_shown')? A missing model number is 'not_shown', never 'differs'. 'not_needed' when recall_limited_to is nothing_more.\n"
+    "- product_name_words_found_in_listing (computed by code): distinctive words of the recalled product's name that the listing also uses; "
+    "when they name the recalled product line, a product-line limit counts as matching.\n"
     "- why: one short sentence."
 )
 
@@ -139,8 +167,10 @@ def judge_verdict(j: dict, item: Item | None = None) -> str:
     if item is not None:
         if not item.brand and j["same_brand"] == "no":
             j["same_brand"] = "unclear"  # we don't know the item's brand, so it can't "differ"
-        if j["recall_limited_to"] == "model_numbers" and not item.model_text.strip() and j["item_detail_vs_limit"] == "differs":
+        if j["recall_limited_to"] == "model_numbers" and not item.model_text.strip() and j["item_detail_vs_limit"] in ("differs", "matches"):
             j["item_detail_vs_limit"] = "not_shown"  # no model number in the listing is "not shown", not "different"
+        if j["recall_limited_to"] == "colors_or_prints" and j["item_detail_vs_limit"] == "differs":
+            j["item_detail_vs_limit"] = "not_shown"  # colors in a seller's photo are too unreliable to clear a recall
     if j["same_brand"] == "no" or j["same_kind_of_product"] == "no":
         return "does_not_apply"
     if j["same_kind_of_product"] == "yes" and j["same_brand"] in ("yes", "unclear"):
@@ -162,6 +192,7 @@ def judge_recalls(item: Item, candidates: list[dict], calls: list[CallRecord] | 
              "listing_text": item.listing_text[:800]}
     cands = [{"recall_id": c["id"], "source": c["source"], "title": c["title"], "date": c["date"],
               "products": c.get("products", [])[:6], "models": c.get("models", [])[:20],
+              "product_name_words_found_in_listing": named_words(c, item),
               "covers": c["description"][:1400], "mfg_range": f"{c.get('begin', '')}..{c.get('end', '')}" if c["source"] == "NHTSA" else ""}
              for c in candidates[:6]]
     spec = settings.ultra  # quick = Ultra with reasoning off (page scan); otherwise reasoning on (detail view)
@@ -170,8 +201,40 @@ def judge_recalls(item: Item, candidates: list[dict], calls: list[CallRecord] | 
         {"role": "user", "content": f"Item: {json.dumps(facts)}\nRecall notices: {json.dumps(cands)}\nAnswer for every recall_id."}],
         schema=JUDGE_SCHEMA, purpose="Judge recall matches" + (" (quick)" if quick else ""), reasoning=not quick,
         max_tokens=1600 if quick else 6000, calls=calls)
-    known = {c["id"] for c in candidates}
-    return [j | {"verdict": judge_verdict(j, item)} for j in out.get("judgments", []) if j.get("recall_id") in known]
+    return [j | decide(j, by_id[j["recall_id"]], item) for j in out.get("judgments", []) if j.get("recall_id") in (by_id := {c["id"]: c for c in candidates})]
+
+
+def named_words(cand: dict, item: Item) -> list[str]:
+    """Distinctive words of the recalled product's name (not brand, not generic) that the listing also uses.
+    Code computes this so the model doesn't overlook a product line the seller named ('Slumber & Soothe')."""
+    import re as _re
+
+    from app.engine.recalls import COMMON, GENERIC, _tokens  # noqa: PLC0415
+
+    listing = _tokens(" ".join([item.product_name, item.listing_text]))
+    brand = _tokens(" ".join([cand.get("brand", ""), item.brand]))
+    words = set()
+    for name in cand.get("products", [])[:6]:
+        for seg in _re.split(r";|,| and ", name):
+            words |= {w for w in _tokens(seg) if w not in brand and w not in GENERIC and w not in COMMON and not w.isdigit()}
+    return sorted(w for w in words if w in listing)[:8]
+
+
+def decide(j: dict, cand: dict, item: Item) -> dict:
+    """Model numbers are compared by code; the model's reading decides only what code can't.
+    - The item's model number matches the notice: applies (unless the notice also limits manufacture dates and they differ).
+    - The notice lists model numbers, the item shows one, and none match: doesn't apply.
+    - Otherwise the fixed-question reading decides (judge_verdict)."""
+    from app.engine.recalls import _model_match, _models  # noqa: PLC0415
+
+    mods = _models(item.model_text)
+    if cand.get("source") == "CPSC" and mods:
+        if any(_model_match(m, cand.get("models", []), cand.get("description", "").upper()) for m in mods):
+            date_out = j["recall_limited_to"] in ("manufacture_dates", "several") and j["item_detail_vs_limit"] == "differs" and item.dom
+            return {"verdict": "does_not_apply" if date_out else "applies", "decided_by": "model number"}
+        if cand.get("models"):
+            return {"verdict": "does_not_apply", "decided_by": "model number"}
+    return {"verdict": judge_verdict(j, item), "decided_by": "notice reading"}
 
 
 VERDICT_SCHEMA = {

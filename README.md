@@ -1,11 +1,13 @@
 # SecondLook
 
-**Found used baby gear online? Drop a screenshot of the listing. SecondLook checks it for banned products, recalls, missing safety parts and expired car seats, then tells you what to ask the seller.**
+**Scrolling a marketplace for used baby gear? Press one button. SecondLook checks every listing on the page in parallel and stamps the banned, recalled and expired ones before you buy. Then it tells you what to ask the seller.**
 
-Built for the Nebius × NVIDIA Global AI Hackathon (Best Apps & Agents track) with NVIDIA Nemotron models on **Nebius Token Factory** and **Tavily**.
+Built for the Nebius × NVIDIA Global AI Hackathon (Best Apps and Agents track) with NVIDIA Nemotron models on **Nebius Token Factory** and **Tavily**.
 
-- Live demo: _link added at deploy_
+- Live demo: _link added at deploy_ (marketplace scan at `/market`, single-listing check at `/`)
 - Demo video: _link added after recording_
+
+![A scanned demo marketplace page with DANGER, CAUTION and No known issues stamps](docs/design/scan_screenshot.png)
 
 ## The problem nobody checks
 
@@ -20,41 +22,65 @@ Recall apps exist, but they all check things you *already own* by barcode. **Non
 
 ## How it works
 
+**Models read, code decides.** No model ever picks the verdict.
+
 ```
-Listing screenshot / photos / link / text
-  │
-  ├─ Nemotron 3.5 Super VL ── product type (24 categories), brand, model numbers, printed dates,
+Marketplace page (demo site or browser extension) → listing cards: photo + title + text
+  │   8 at a time, streamed back to the page as each finishes (server-sent events)
+  ├─ Nemotron 3.5 Super VL ── product type (24 categories), brand, model numbers, printed dates, colors/prints,
   │                           visible safety features (incline, drop-side rails, padded bumper, Snuga headrest, Bumbo belt…)
-  ├─ Tavily Extract ───────── text of a public listing link
+  │   + listing text read by rules ("great for naps", "side drops down", label dates in any format)
   ▼
-Rules engine (no AI) ─────── bans, date-gated federal standards, car seat lifespan by brand, safety-parts checklist
-Local recall index ───────── 779 CPSC infant-product recalls + 69 NHTSA car seat campaigns (with manufacture-date ranges)
+Rules engine (no AI) ─────── federal bans, date-gated standards, car seat lifespan by brand, safety-parts checklist
+Local recall index ───────── 813 CPSC infant-product recalls + 69 NHTSA car seat campaigns (with manufacture-date ranges)
   ▼
-Nemotron 3 Ultra ─────────── reads each candidate recall notice and decides whether THIS model/date is covered
+Nemotron 3 Ultra ─────────── reads each candidate recall notice and answers fixed questions:
+                              same brand? same kind of product? does the recall limit models, dates, prints or a product line?
+                              does the listing match, differ, or not show it?  → code turns the answers into a verdict
+                              (reasoning off during the page scan; reasoning on when you open a listing)
 Tavily Search + Nemotron Nano ─ anything newer than our recall snapshot for this product?
 Nemotron 3 Ultra ─────────── plain-language summary + a polite message to the seller (from the findings only)
 ```
 
-The verdict follows the warning-label scale on baby products: **DANGER** (banned or recalled), **WARNING** (safety agencies advise against), **CAUTION** (ask before you buy), **NO KNOWN ISSUES**. Every reason cites its rule (16 CFR part, statute, recall number) and recall cards show the official CPSC photo, hazard and remedy. Remedies visible in photos are recognized (e.g., Snuga swing headrest removed, Bumbo belt installed).
+The verdict uses the signal words of the ANSI Z535 warning-label standard:
+
+| Stamp | Meaning |
+|---|---|
+| **DANGER** | Banned from sale, or recalled for deaths or with a stop-use or refund remedy |
+| **WARNING** | Safety agencies advise against it (an expired car seat, an infant lounger used for sleep), or a recall with a repair remedy |
+| **CAUTION** | Ask the seller first: a possible recall whose model number or date isn't shown, a crib with no manufacture date |
+| **No known issues** | No ban, standard problem or recall found |
+
+Every reason cites its rule (16 CFR part, statute, recall number), and recall cards show the official CPSC photo, hazard and remedy. A recall fix visible in the photos is recognized (Snuga swing headrest removed, Bumbo belt installed). When a recall covers only one model number and the listing doesn't show it, SecondLook says CAUTION and names the label to ask for, rather than guessing.
+
+### Browser extension
+
+[`extension/`](extension/) runs the same scan on any listing page: site adapters for common marketplaces plus a generic finder (an image next to a price). Install with Load unpacked; see [`extension/README.md`](extension/README.md). It only runs when you press **Scan this page**.
 
 ## How NVIDIA Nemotron and Nebius Token Factory are used
 
 | Job | Model | Why this tier |
 |---|---|---|
-| Recognize the product and read labels from amateur photos and screenshots | **Nemotron 3.5 Super VL**, strict JSON schema | Vision + structured output; many recalled items are unbranded marketplace products, so recognition beats barcode lookup |
-| Decide whether a recall covers this exact model/date (free-text model lists, date ranges) | **Nemotron 3 Ultra**, reasoning on | The CPSC database's model field is empty; model numbers live in prose |
-| Summary and seller message | **Nemotron 3 Ultra** | Careful, grounded wording |
-| Recall-news freshness check | **Nemotron 3 Nano** (+ Tavily) | Fast, cheap yes/no |
+| Recognize the product and read labels from amateur photos and screenshots | **Nemotron 3.5 Super VL**, strict JSON schema | Vision plus structured output; many recalled items are unbranded marketplace products, so recognition beats barcode lookup |
+| Read candidate recall notices during the page scan | **Nemotron 3 Ultra**, reasoning off | The CPSC model field is usually empty; model numbers, prints and product lines live in prose. Fast enough for a 24-listing page |
+| Re-read the notices when you open a listing; write the summary and seller message | **Nemotron 3 Ultra**, reasoning on | Careful, grounded wording |
+| Recall-news freshness check | **Nemotron 3 Nano** (+ Tavily Search) | Fast, cheap yes/no |
+| Read a public listing link | **Tavily Extract** | Listing text and image URLs |
 
-Token Factory features used: OpenAI-compatible chat completions with image input, strict JSON-schema output, per-request reasoning toggle, usage accounting (cost per check shown in the app), daily spend cap. Model IDs verified live via `GET /v1/models` (`scripts/smoke_test.py`).
+Token Factory features used: OpenAI-compatible chat completions with image input, strict JSON-schema output, the per-request reasoning switch (`chat_template_kwargs.enable_thinking`), usage accounting (cost per scan shown live), and a daily spend cap. Rate limits and transient errors are retried; a reply without valid JSON falls back cleanly. Model IDs are verified live via `GET /v1/models` (`scripts/smoke_test.py`).
+
+The public demo replays a recorded live scan ([`scripts/build_market_cache.py`](scripts/build_market_cache.py), log in [`eval/market_scan_log.txt`](eval/market_scan_log.txt)) with its real per-listing timings and costs, so visitors don't spend credits. Add `?live` to the marketplace URL to scan live.
+
+## Design
+
+Colors, signal words and layout follow published warning research rather than taste; see [`docs/design/design_evidence.md`](docs/design/design_evidence.md). Signal words and colors follow ANSI Z535; DANGER is used only for banned or deadly-recall items to avoid warning fatigue; the palette was checked under simulated color-vision deficiency ([`docs/design/cvd_market.png`](docs/design/cvd_market.png)); the pages pass an axe-core accessibility audit (`tests/ui_audit.py`); the summary comes first and the detail on demand.
 
 ## Measured results
 
-[`eval/RESULTS.md`](eval/RESULTS.md), generated by `python -m eval.run_eval` against live models:
-1. **Product recognition** on 57 CPSC recall photos across 14 product types.
-2. **Recall matching** on 40 listings built from real recall records + 40 decoys: rules + index vs. rules + index + Nemotron 3 Ultra vs. Ultra alone from memory.
-3. **Demo listings**: expected verdict on the 6 demo screenshots.
-4. **Cost and latency per model tier.**
+_Filled from the live runs below before submission._
+
+- **Live marketplace scan** (24 listings built from real CPSC recall photos and stock photos, each labeled with the verdict a careful reader would give): see [`eval/market_scan_log.txt`](eval/market_scan_log.txt).
+- **Benchmark** [`eval/RESULTS.md`](eval/RESULTS.md), generated by `python -m eval.run_eval` against live models: product recognition on CPSC recall photos, recall matching (rules + index vs. rules + index + Ultra vs. Ultra from memory) on listings built from real recall records plus decoys, the 6 demo screenshots, and cost and latency per model tier.
 
 ## Run it
 
@@ -62,8 +88,10 @@ Token Factory features used: OpenAI-compatible chat completions with image input
 pip install -r requirements.txt
 export NEBIUS_API_KEY=...   # Nebius Token Factory
 export TAVILY_API_KEY=...   # optional: listing links + recall news
-uvicorn app.main:app --reload
+uvicorn app.main:app --reload      # http://localhost:8000  (marketplace scan: /market)
 ```
+
+Marketplace URL options: `?live` scans with live models instead of the recorded scan, `?auto` starts scanning on load, `?plain` hides the built-in button so the browser extension does the scanning.
 
 Without keys, the demo listings use cached model outputs and new checks fall back to reading the listing text with rules.
 
@@ -72,6 +100,7 @@ python -m pytest -q                       # rules engine tests
 python -m scripts.smoke_test              # model IDs, reasoning toggle, vision JSON, Tavily
 python -m eval.run_eval                   # benchmark
 python -m scripts.build_demo_cache        # refresh cached outputs for the demo listings
+python -m scripts.build_market_cache      # record a live scan of the demo marketplace (prints accuracy, time, cost)
 python -m data.build_index --cpsc all.json --nhtsa FLAT_RCL_POST_2010.txt   # rebuild the recall index
 python -m data.make_listings              # rebuild demo listing screenshots
 ```
@@ -80,7 +109,7 @@ python -m data.make_listings              # rebuild demo listing screenshots
 
 - Recalls: U.S. CPSC Recalls API (public, no key) and NHTSA recalls flat file. Snapshot Oct 25, 2026.
 - Recall photos are from U.S. CPSC recall notices, which CPSC states may be copied and distributed without permission; shown with credit. CPSC does not endorse SecondLook.
-- Demo listings are mock-ups built from those photos; the car seat label is synthetic.
+- Demo listings and the "Swapboard" marketplace are mock-ups built from those photos and free Pexels stock photos; sellers are invented and the car seat label is synthetic.
 
 ## Limits
 
