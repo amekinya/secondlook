@@ -34,26 +34,30 @@ LENIENT = {"inclined_sleeper": {"swing", "bassinet", "bouncer_rocker", "play_yar
 
 
 def recognition() -> dict:
+    """Photo only, no listing text. Scores the model's own category pick and the app's category after code reads the
+    model's description (it sometimes writes 'a baby walker' but picks 'other')."""
     labels = json.loads((ROOT / "data/cpsc_images/eval_labels.json").read_text())
-    strict = lenient = 0
+    score = {"model": [0, 0], "app": [0, 0]}
     per_cat = defaultdict(lambda: [0, 0])
     rows = []
     for lab in labels:
         p = ROOT / "data/cpsc_images" / lab["file"]
         local: list[CallRecord] = []
         try:
-            d = tasks.identify([(p.read_bytes(), "image/jpeg" if p.suffix == ".jpg" else "image/png")], "", local)
-            got = d.get("category", "")
-        except Exception as e:
-            got = "ERR"
+            d = tasks.identify([(p.read_bytes(), "image/png")], "", local)
+            got, app_cat, seen = d.get("category", ""), tasks.item_from_identify(d).category, d.get("what_i_see", "")
+        except Exception:  # noqa: BLE001
+            got = app_cat = "ERR"; seen = ""
         calls.extend(local)
-        s = got == lab["category"]
-        l = s or got in LENIENT.get(lab["category"], set())
-        strict += s; lenient += l
-        per_cat[lab["category"]][0] += s; per_cat[lab["category"]][1] += 1
-        rows.append({"file": lab["file"], "expected": lab["category"], "got": got})
+        for key, val in (("model", got), ("app", app_cat)):
+            score[key][0] += val == lab["category"]
+            score[key][1] += val == lab["category"] or val in LENIENT.get(lab["category"], set())
+        per_cat[lab["category"]][0] += app_cat == lab["category"]; per_cat[lab["category"]][1] += 1
+        rows.append({"file": lab["file"], "expected": lab["category"], "got": got, "app": app_cat, "what_i_see": seen[:200]})
     n = len(labels)
-    return {"n": n, "strict": round(strict / n, 3), "lenient": round(lenient / n, 3),
+    return {"n": n, "strict": round(score["app"][0] / n, 3), "lenient": round(score["app"][1] / n, 3),
+            "model_strict": round(score["model"][0] / n, 3), "model_lenient": round(score["model"][1] / n, 3),
+            "described_but_picked_other": sum(1 for r in rows if r["got"] == "other" and r["app"] not in ("other", "ERR")),
             "by_category": {k: f"{a}/{b}" for k, (a, b) in sorted(per_cat.items())}, "rows": rows}
 
 
@@ -155,7 +159,11 @@ def main():
     (ROOT / "eval/results.json").write_text(json.dumps(r, indent=1))
     md = [f"# SecondLook benchmark results\n\nRun {r['run_at']}.\n",
           f"## 1. Product recognition ({r['recognition']['n']} CPSC recall photos, 14 product types)\n",
-          f"Nemotron 3.5 Super VL named the exact product type in {r['recognition']['strict']:.0%} of photos ({r['recognition']['lenient']:.0%} counting near neighbors such as swing vs. inclined sleeper).\n",
+          f"From the photo alone (no listing text), SecondLook named the exact product type in {r['recognition']['strict']:.0%} of photos "
+          f"({r['recognition']['lenient']:.0%} counting near neighbors such as swing vs. inclined sleeper). Nemotron 3.5 Super VL's own category pick: "
+          f"{r['recognition'].get('model_strict', r['recognition']['strict']):.0%} ({r['recognition'].get('model_lenient', r['recognition']['lenient']):.0%}); "
+          f"in {r['recognition'].get('described_but_picked_other', 0)} photos it described the product correctly but picked 'other', and code used its description instead. "
+          "Real listings also have a title, which the app reads too.\n",
           f"## 2. Recall matching ({r['matching']['n_positive']} recalled listings + {r['matching']['n_decoy']} decoys; run {r['matching_run_at']})\n",
           "| System | Recalls caught | False alarms on decoys |", "|---|---|---|"]
     names = {"rules_only": "Rules + recall index", "rules_plus_ultra": "Rules + recall index + Nemotron 3 Ultra reading the notices",
