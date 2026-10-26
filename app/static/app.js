@@ -2,7 +2,7 @@
   const $ = (s, el = document) => el.querySelector(s);
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const monthYear = (iso) => iso ? new Date(iso + "T12:00:00").toLocaleDateString("en-US", { month: "short", year: "numeric" }) : "";
-  const SIGNAL = { ILLEGAL_TO_SELL: ["DANGER", "bad"], RECALLED: ["DANGER", "bad"], UNSAFE_ADVISORY: ["WARNING", "warn"], CHECK: ["CAUTION", "check"], OK_SO_FAR: ["NO KNOWN ISSUES", "good"] };
+  const SIGNAL = { DANGER: ["DANGER", "bad"], WARNING: ["WARNING", "warn"], CAUTION: ["CAUTION", "check"], OK: ["No known issues", "good"] };
   let files = [];
   let thumbUrl = null;
 
@@ -57,7 +57,7 @@
 
   function render(d) {
     $("#result").hidden = false; window.scrollTo(0, 0);
-    const [word, tone] = SIGNAL[d.level];
+    const [word, tone] = SIGNAL[d.word];
     $("#signal").className = "signal " + tone;
     $("#signalWord").textContent = word;
     const th = $("#thumb");

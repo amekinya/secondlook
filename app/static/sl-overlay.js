@@ -4,49 +4,59 @@
   if (window.SecondLook) return;
   const CSS = `
   .sl-hud{position:fixed;right:16px;bottom:16px;z-index:2147483000;width:min(360px,calc(100vw - 32px));background:#18322b;color:#f2f5f1;
-    border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.35);font:15px/1.45 "Atkinson Hyperlegible",system-ui,sans-serif;overflow:hidden}
+    border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.35);font:16px/1.45 "Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,sans-serif;overflow:hidden}
   .sl-hud *{box-sizing:border-box}
   .sl-hud-head{display:flex;align-items:center;gap:10px;padding:12px 14px}
-  .sl-logo{width:24px;height:21px;background:#ffd100;clip-path:polygon(50% 0,100% 100%,0 100%);flex:none;position:relative}
+  .sl-logo{width:24px;height:21px;background:#FFD23F;clip-path:polygon(50% 0,100% 100%,0 100%);flex:none;position:relative}
   .sl-logo:after{content:"";position:absolute;left:8px;top:9px;width:8px;height:8px;border:2px solid #18322b;border-radius:50%}
   .sl-name{font-weight:700;font-size:17px;flex:1}
   .sl-x{background:none;border:0;color:inherit;opacity:.7;cursor:pointer;font-size:18px;padding:2px 6px}
   .sl-body{padding:0 14px 14px}
-  .sl-btn{width:100%;min-height:44px;border:0;border-radius:6px;background:#ffd100;color:#18322b;font:700 16px/1 inherit;cursor:pointer}
+  .sl-btn{width:100%;min-height:44px;border:0;border-radius:6px;background:#FFD23F;color:#000;font:700 16px/1 inherit;cursor:pointer}
   .sl-btn:disabled{opacity:.6;cursor:progress}
   .sl-mode{font-size:13px;opacity:.85;margin:8px 0 0}
   .sl-bar{height:6px;background:rgba(255,255,255,.18);border-radius:3px;overflow:hidden;margin:12px 0 10px}
-  .sl-bar i{display:block;height:100%;width:0;background:#ffd100;transition:width .25s}
+  .sl-bar i{display:block;height:100%;width:0;background:#FFD23F;transition:width .25s}
   .sl-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center}
   .sl-stats b{display:block;font-size:20px;font-variant-numeric:tabular-nums}
   .sl-stats span{font-size:12px;opacity:.8}
   .sl-stats .sl-red b{color:#ff8a8a}
-  .sl-sum{margin-top:12px;padding:10px 12px;background:rgba(255,255,255,.08);border-radius:6px;font-size:14px}
+  .sl-sum{margin-top:12px;padding:10px 12px;background:rgba(255,255,255,.08);border-radius:6px;font-size:15px}
+  .sl-tiers{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .sl-tier{border:0;border-radius:999px;padding:6px 12px;font:700 14px/1 inherit;cursor:pointer;min-height:32px}
+  .sl-tier.t-DANGER{background:#B0001E;color:#fff}.sl-tier.t-WARNING{background:#FF7A00;color:#000}.sl-tier.t-CAUTION{background:#FFD23F;color:#000}
+  .sl-tier.t-OK{background:#E8F5EE;color:#0B5D3B}
+  .sl-flash{outline:4px solid #FFD23F;outline-offset:3px;border-radius:12px}
   .sl-card{position:relative !important}
-  .sl-scanning:after{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:#ffd100;box-shadow:0 0 12px #ffd100;
+  .sl-scanning:after{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:#FFD23F;box-shadow:0 0 12px #FFD23F;
     animation:sl-sweep 1.4s ease-in-out infinite;z-index:5;pointer-events:none}
   @keyframes sl-sweep{0%{top:0}50%{top:calc(var(--sl-h,60%) - 3px)}100%{top:0}}
   @media (prefers-reduced-motion:reduce){.sl-scanning:after{animation:none;top:0}}
   .sl-stamp{position:absolute;left:8px;right:8px;top:8px;z-index:6;border-radius:6px;overflow:hidden;cursor:pointer;
-    font:14px/1.35 "Atkinson Hyperlegible",system-ui,sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.28);transform-origin:top center;
+    font:15px/1.35 "Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.28);transform-origin:top center;
     animation:sl-in .35s cubic-bezier(.2,.9,.2,1.2) both;text-align:left;border:0;padding:0;background:#fff;color:#18322b}
   @keyframes sl-in{from{transform:scale(.6) rotate(-4deg);opacity:0}}
   @media (prefers-reduced-motion:reduce){.sl-stamp{animation:none}}
-  .sl-band{display:flex;align-items:center;gap:8px;padding:6px 10px;font-weight:700;letter-spacing:.06em;font-size:15px}
-  .sl-band:before{content:"";width:18px;height:16px;background:currentColor;clip-path:polygon(50% 0,100% 100%,0 100%)}
+  .sl-band{display:flex;align-items:center;gap:8px;padding:6px 10px;font-weight:700;letter-spacing:.04em;font-size:18px;text-transform:uppercase}
+  .sl-band:before{content:"!";display:grid;place-items:center;width:20px;height:18px;background:currentColor;color:var(--sl-fill);font-size:12px;line-height:22px;
+    clip-path:polygon(50% 0,100% 100%,0 100%);font-weight:900}
   .sl-msg{padding:6px 10px 8px;font-weight:700;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .sl-deaths{display:block;margin:-4px 10px 8px;font-size:13px;font-weight:700;color:#c8102e}
-  .sl-bad .sl-band{background:#c8102e;color:#fff}.sl-warn .sl-band{background:#f47b20;color:#18322b}
-  .sl-check .sl-band{background:#ffd100;color:#18322b}
-  .sl-ok{left:auto;right:8px;width:auto;border-radius:999px;background:#00843d;color:#fff}
-  .sl-ok .sl-band{padding:4px 10px;font-size:13px;letter-spacing:.02em}.sl-ok .sl-band:before{display:none}
+  .sl-deaths{display:block;margin:-4px 10px 8px;font-size:14px;font-weight:700;color:#B0001E !important}
+  .sl-bad{--sl-fill:#B0001E}.sl-bad .sl-band{background:#B0001E;color:#fff}
+  .sl-warn{--sl-fill:#FF7A00}.sl-warn .sl-band{background:#FF7A00;color:#000}
+  .sl-check{--sl-fill:#FFD23F;box-shadow:0 0 0 2px #8A6D00,0 4px 14px rgba(0,0,0,.28)}.sl-check .sl-band{background:#FFD23F;color:#000}
+  .sl-ok{left:auto;right:8px;width:auto;border-radius:999px;background:#E8F5EE;color:#0B5D3B;box-shadow:0 0 0 1.5px #2E7D5B}
+  .sl-ok .sl-band{padding:4px 12px 4px 8px;font-size:14px;letter-spacing:0;text-transform:none;gap:6px}
+  .sl-ok .sl-band:before{content:"✓";clip-path:none;border-radius:50%;width:18px;height:18px;line-height:18px;background:#2E7D5B;color:#fff;font-size:12px}
+  .sl-msg,.sl-deaths{color:#1A1A1A}
   .sl-dim img{filter:grayscale(.5) brightness(.85)}
   .sl-drawer{position:fixed;top:0;right:0;bottom:0;z-index:2147483001;width:min(460px,100vw);background:#fff;color:#18322b;
-    box-shadow:-10px 0 30px rgba(0,0,0,.3);overflow:auto;font:16px/1.5 "Atkinson Hyperlegible",system-ui,sans-serif;transform:translateX(100%);transition:transform .25s}
+    box-shadow:-10px 0 30px rgba(0,0,0,.3);overflow:auto;font:17px/1.5 "Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,sans-serif;transform:translateX(100%);transition:transform .25s}
   .sl-drawer.sl-open{transform:none}
   .sl-drawer *{box-sizing:border-box}
   .sl-dhead{display:flex;align-items:center;gap:10px;padding:14px 16px;font-weight:700;font-size:22px;letter-spacing:.05em}
-  .sl-dhead.sl-bad{background:#c8102e;color:#fff}.sl-dhead.sl-warn{background:#f47b20}.sl-dhead.sl-check{background:#ffd100}.sl-dhead.sl-good{background:#00843d;color:#fff}
+  .sl-dhead.sl-bad{background:#B0001E;color:#fff}.sl-dhead.sl-warn{background:#FF7A00;color:#000}.sl-dhead.sl-check{background:#FFD23F;color:#000;border-bottom:2px solid #8A6D00}
+  .sl-dhead.sl-good{background:#E8F5EE;color:#0B5D3B;border-bottom:2px solid #2E7D5B}.sl-dhead.sl-good:before{clip-path:none;border-radius:50%}
   .sl-dhead:before{content:"";width:24px;height:21px;background:currentColor;clip-path:polygon(50% 0,100% 100%,0 100%)}
   .sl-dhead span{flex:1}.sl-dhead button{background:none;border:0;color:inherit;font-size:22px;cursor:pointer}
   .sl-dbody{padding:16px;display:grid;gap:14px}
@@ -54,7 +64,7 @@
   .sl-dbody p{margin:0}
   .sl-rs{list-style:none;margin:0;padding:0;border-top:2px solid #18322b}
   .sl-rs li{padding:10px 0 10px 12px;border-left:5px solid #d3ddd8;border-bottom:1px solid #d3ddd8}
-  .sl-rs li.ILLEGAL_TO_SELL,.sl-rs li.RECALLED{border-left-color:#c8102e}.sl-rs li.UNSAFE_ADVISORY{border-left-color:#f47b20}.sl-rs li.CHECK{border-left-color:#ffd100}.sl-rs li.OK_SO_FAR{border-left-color:#00843d}
+  .sl-rs li.ILLEGAL_TO_SELL,.sl-rs li.RECALLED{border-left-color:#B0001E}.sl-rs li.UNSAFE_ADVISORY{border-left-color:#FF7A00}.sl-rs li.CHECK{border-left-color:#FFD23F}.sl-rs li.OK_SO_FAR{border-left-color:#2E7D5B}
   .sl-rs b{display:block}.sl-rs small{color:#74867f}
   .sl-rc{display:grid;grid-template-columns:110px 1fr;gap:12px;border:1px solid #d3ddd8;border-radius:6px;padding:10px}
   .sl-rc img{width:110px;border-radius:3px}.sl-rc small{color:#74867f;display:block}
@@ -63,8 +73,8 @@
   .sl-skel{height:12px;border-radius:3px;background:#e3e9e6;margin:8px 0}
   `;
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-  const TONE = { ILLEGAL_TO_SELL: "bad", RECALLED: "bad", UNSAFE_ADVISORY: "warn", CHECK: "check", OK_SO_FAR: "good" };
-  const WORD = { ILLEGAL_TO_SELL: "DANGER", RECALLED: "DANGER", UNSAFE_ADVISORY: "WARNING", CHECK: "CAUTION", OK_SO_FAR: "NO KNOWN ISSUES" };
+  const TONE_OF = { DANGER: "bad", WARNING: "warn", CAUTION: "check", OK: "good" };
+  const LABEL = { DANGER: "Danger", WARNING: "Warning", CAUTION: "Caution", OK: "No known issues" };
 
   function init(opts) {
     const api = (opts.api || "").replace(/\/$/, "");
@@ -78,7 +88,8 @@
       <div class="sl-live" hidden><div class="sl-bar"><i></i></div>
       <div class="sl-stats"><div><b class="sl-n">0</b><span>scanned</span></div><div class="sl-red"><b class="sl-f">0</b><span>flagged</span></div>
       <div><b class="sl-t">0.0s</b><span>time</span></div><div><b class="sl-c">$0.000</b><span>AI cost</span></div></div></div>
-      <div class="sl-sum" hidden aria-live="polite"></div></div>`;
+      <div class="sl-sum" hidden aria-live="polite"></div>
+      <div class="sl-tiers" hidden></div></div>`;
     document.body.appendChild(hud);
     hud.querySelector(".sl-x").onclick = () => hud.remove();
     const drawer = document.createElement("aside"); drawer.className = "sl-drawer"; drawer.setAttribute("aria-label", "Listing check");
@@ -131,30 +142,44 @@
           hud.querySelector(".sl-bar i").style.width = (100 * p.done / p.total) + "%";
         } else if (ev === "done") {
           clearInterval(tick);
+          const counts = { DANGER: 0, WARNING: 0, CAUTION: 0, OK: 0 };
+          cards.forEach((c) => { if (c.el.dataset.slWord) counts[c.el.dataset.slWord]++; });
+          const tiers = hud.querySelector(".sl-tiers"); tiers.hidden = false;
+          tiers.innerHTML = Object.entries(counts).filter(([, n]) => n).map(([w, n]) =>
+            `<button type="button" class="sl-tier t-${w}" data-w="${w}">${n} ${w === "OK" ? "no known issues" : LABEL[w].toLowerCase()}</button>`).join("");
+          const cursor = {};
+          tiers.querySelectorAll(".sl-tier").forEach((t) => t.onclick = () => {
+            const list = cards.filter((c) => c.el.dataset.slWord === t.dataset.w); if (!list.length) return;
+            cursor[t.dataset.w] = ((cursor[t.dataset.w] ?? -1) + 1) % list.length;
+            const el = list[cursor[t.dataset.w]].el;
+            el.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
+            el.classList.add("sl-flash"); setTimeout(() => el.classList.remove("sl-flash"), 1200);
+          });
           hud.querySelector(".sl-t").textContent = data.elapsed.toFixed(1) + "s";
           const sum = hud.querySelector(".sl-sum"); sum.hidden = false;
           sum.innerHTML = data.flagged
-            ? `<b>${data.flagged} of ${data.total} listings</b> shouldn't be bought as-is. Scanned in ${data.elapsed.toFixed(1)} s for $${data.cost_usd.toFixed(3)}. Tap a label for details.`
-            : `No banned or recalled items found in ${data.total} listings. Still check labels in person.`;
+            ? `<b>${data.flagged} of ${data.total} listings</b> shouldn't be bought as-is. Scanned in ${data.elapsed.toFixed(1)} s for $${data.cost_usd.toFixed(3)}. Tap a count to jump to those listings.`
+            : `No banned or recalled items found in ${data.total} listings (CPSC and NHTSA recalls, checked ${data.rules_verified_as_of}). Recalls are added over time; check labels in person.`;
         }
       }
     }
 
     function stamp(c, d) {
-      const tone = TONE[d.level];
+      const tone = TONE_OF[d.word];
       const b = document.createElement("button"); b.type = "button";
       b.className = "sl-stamp sl-" + tone + (tone === "good" ? " sl-ok" : "");
-      b.setAttribute("aria-label", `${WORD[d.level]}: ${d.headline}. Open details.`);
-      b.innerHTML = tone === "good" ? `<span class="sl-band">✓ No known issues</span>`
-        : `<span class="sl-band">${WORD[d.level]}</span><span class="sl-msg">${esc(d.headline)}</span>${d.deaths ? `<span class="sl-deaths">${d.deaths} infant death${d.deaths > 1 ? "s" : ""} reported</span>` : ""}`;
+      b.setAttribute("aria-label", `${LABEL[d.word]}: ${d.headline}. Open details.`);
+      b.innerHTML = tone === "good" ? `<span class="sl-band">No known issues</span>`
+        : `<span class="sl-band">${LABEL[d.word]}</span><span class="sl-msg">${esc(d.headline)}</span>${d.deaths ? `<span class="sl-deaths">${d.deaths} infant death${d.deaths > 1 ? "s" : ""} reported</span>` : ""}`;
       b.onclick = (e) => { e.preventDefault(); e.stopPropagation(); open(c, d); };
       (c.stampHost || c.el).appendChild(b);
       if (tone === "bad") c.el.classList.add("sl-dim");
+      c.el.dataset.slWord = d.word;
     }
 
     async function open(c, d) {
-      const tone = TONE[d.level];
-      drawer.innerHTML = `<div class="sl-dhead sl-${tone}"><span>${WORD[d.level]}</span><button aria-label="Close">×</button></div>
+      const tone = TONE_OF[d.word];
+      drawer.innerHTML = `<div class="sl-dhead sl-${tone}"><span>${LABEL[d.word]}</span><button aria-label="Close">×</button></div>
         <div class="sl-dbody"><p><small>${esc(c.title)}</small></p><div class="sl-skel"></div><div class="sl-skel" style="width:70%"></div><div class="sl-skel" style="width:85%"></div>
         <p><small>Nemotron 3 Ultra is reading the recall notices…</small></p></div>`;
       drawer.classList.add("sl-open"); drawer.querySelector("button").onclick = () => drawer.classList.remove("sl-open");
@@ -162,8 +187,8 @@
         const r = await fetch(api + "/api/listing", { method: "POST", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ demo: !!opts.demo, id: c.id, title: c.title, text: c.text, image: c.image }) });
         const x = await r.json();
-        const t2 = TONE[x.level];
-        drawer.innerHTML = `<div class="sl-dhead sl-${t2}"><span>${WORD[x.level]}</span><button aria-label="Close">×</button></div>
+        const t2 = TONE_OF[x.word];
+        drawer.innerHTML = `<div class="sl-dhead sl-${t2}"><span>${LABEL[x.word]}</span><button aria-label="Close">×</button></div>
           <div class="sl-dbody"><p><small>${esc([x.category_label, x.item.brand].filter(Boolean).join(" · "))}</small></p>
           <h3>${esc(x.label)}</h3><p>${esc(x.writeup?.summary || "")}</p>
           <ul class="sl-rs">${x.reasons.map((r) => `<li class="${r.level}"><b>${esc(r.title)}</b>${esc(r.detail)}<br><small>${esc(r.cite)}</small></li>`).join("")}</ul>

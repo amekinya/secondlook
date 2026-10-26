@@ -78,8 +78,7 @@ def load_image(src: str) -> tuple[bytes, str] | None:
 def _stamp(res: dict) -> dict:
     top = res["reasons"][0]
     definite = [r for r in res["recalls"] if r["match"] == "definite" and not r.get("remedied")]
-    return {"level": res["level"], "label": res["label"], "tone": res["tone"], "word": {"ILLEGAL_TO_SELL": "DANGER", "RECALLED": "DANGER",
-            "UNSAFE_ADVISORY": "WARNING", "CHECK": "CAUTION", "OK_SO_FAR": "OK"}[res["level"]],
+    return {"level": res["level"], "label": res["label"], "tone": res["tone"], "word": res["word"],
             "headline": top["title"], "category": res["category_label"], "brand": res["item"]["brand"],
             "recalls": [r["id"] for r in definite][:3], "cite": top["cite"], "deaths": max((r.get("deaths") or 0) for r in res["reasons"])}
 
@@ -153,7 +152,7 @@ def stream_scan(listings: list[dict], today: date, prefer_cache: bool):
             break
         done += 1
         cost += item.get("cost_usd", 0.0)
-        flagged += item["level"] in ("ILLEGAL_TO_SELL", "RECALLED", "UNSAFE_ADVISORY")
+        flagged += item["word"] in ("DANGER", "WARNING")
         item["progress"] = {"done": done, "total": total, "flagged": flagged, "cost_usd": round(cost, 4),
                             "elapsed": round(time.perf_counter() - start, 1)}
         yield f"event: stamp\ndata: {json.dumps(item)}\n\n"

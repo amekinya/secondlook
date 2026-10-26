@@ -131,18 +131,36 @@ def assess(item: Item, today: date | None = None, judgments: dict[str, str] | No
     order = {lv: i for i, lv in enumerate(C.LEVELS)}
     reasons.sort(key=lambda r: order[r["level"]])
     level = reasons[0]["level"]
+    word = signal_word(level, reasons, recalls)
     label, tone, sub = C.LEVEL_UI[level]
     questions = list(dict.fromkeys(C.QUESTIONS.get(cat, []) + C.QUESTIONS["_any"]))
     if any(r["rule_id"] == "R-RCL-02" for r in reasons):
         questions.insert(0, "What's the exact model number on the label? (It decides whether the recall applies.)")
     return {
-        "level": level, "label": label, "tone": tone, "sub": sub, "category": cat,
+        "level": level, "word": word, "label": label, "tone": tone, "sub": sub, "category": cat,
         "category_label": C.CATEGORIES.get(cat, cat), "reasons": reasons, "recalls": recalls[:4],
         "car_seat": car_seat, "checklist": C.PARTS.get(cat, []), "questions": questions[:5],
         "item": {**asdict(item), "dom": item.dom.isoformat() if item.dom else None,
                  "printed_expiration": item.printed_expiration.isoformat() if item.printed_expiration else None},
         "rules_verified_as_of": C.RULES_VERIFIED_AS_OF.isoformat(),
     }
+
+
+def signal_word(level: str, reasons: list[dict], recalls: list[dict]) -> str:
+    """Spend DANGER where research says it differs (banned, or recalled with deaths / stop-use); a recall with a
+    repair remedy and no deaths reads WARNING; possible matches read CAUTION with a stated reason."""
+    if level == "ILLEGAL_TO_SELL":
+        return "DANGER"
+    if level == "RECALLED":
+        deaths = max((r.get("deaths") or 0) for r in reasons)
+        rid = next((r.get("recall") for r in reasons if r["level"] == "RECALLED"), None)
+        rc = next((x for x in recalls if x["id"] == rid), {})
+        opts = {o.lower() for o in rc.get("remedy_options", [])}
+        if rc.get("source") == "NHTSA":  # car seat campaigns ship repair kits; use the seat only after the fix
+            return "DANGER" if deaths else "WARNING"
+        stop_use = not opts or opts <= {"refund"}
+        return "DANGER" if deaths or stop_use else "WARNING"
+    return {"UNSAFE_ADVISORY": "WARNING", "CHECK": "CAUTION"}.get(level, "OK")
 
 
 def _add_years(d: date, years: int) -> date:
