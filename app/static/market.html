@@ -65,6 +65,7 @@
     </a>`).join("");
   document.querySelectorAll(".item").forEach((a) => a.addEventListener("click", (e) => e.preventDefault()));
   const params = new URLSearchParams(location.search);
+  if (params.has("plain")) return;  // ?plain: behave like any marketplace page, so the browser extension does the scanning
   SecondLook.init({
     api: "",
     demo: !params.has("live"),
