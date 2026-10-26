@@ -16,7 +16,7 @@ import time
 from pathlib import Path
 
 from app.ai import lookalike
-from app.engine.recalls import cpsc, cpsc_candidates
+from app.engine.recalls import cpsc, cpsc_candidates, find_brand
 
 ROOT = Path(__file__).resolve().parent.parent
 D = ROOT / "data" / "lookalike"
@@ -40,7 +40,8 @@ def rank(rows: list[dict], model: str) -> list[list[tuple[str, float]]]:
 def keyword(rows: list[dict]) -> list[list[tuple[str, float]]]:
     out = []
     for x in rows:
-        c = cpsc_candidates(x["category"], x.get("brand") or "", f"{x['title']} {x['text']}", k=3)
+        text = f"{x['title']} {x['text']}"
+        c = cpsc_candidates(x["category"], find_brand(text), text, k=3)  # the brand as the app would find it in the text
         out.append([(r["id"], float(r["score"])) for r in c])
     return out
 

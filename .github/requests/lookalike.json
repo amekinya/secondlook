@@ -1,1 +1,1 @@
-{"task": "synth", "args": "--split trainval", "note": "first run"}
+{"task": "synth", "args": "--split test --generator Qwen/Qwen3-30B-A3B-Instruct-2507", "note": "held-out test recalls, different writer"}
