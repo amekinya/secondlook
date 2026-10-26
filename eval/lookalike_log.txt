@@ -1,0 +1,3 @@
+generator: deepseek-ai/DeepSeek-V4.1-Flash-1017
+674 recalls -> 3370 listings -> /home/runner/work/secondlook/secondlook/data/lookalike/listings_trainval.jsonl; 674 calls, $0.785
+23482 pairs {'dev/neg': 3699, 'dev/pos': 348, 'train/neg': 17761, 'train/pos': 1674}
