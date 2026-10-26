@@ -22,6 +22,18 @@ class Item:
     missing_parts: list[str] = field(default_factory=list)
 
 
+def short_name(rc: dict) -> str:
+    """'Boppy Newborn Lounger' from a recall record: first product name, else the title before 'Recall'."""
+    import re as _re
+
+    name = (rc.get("products") or [""])[0] if rc.get("products") else ""
+    if not name:
+        name = _re.split(r"\s+(?:Recall|Recalls|Reannounces|Due to)\b", rc.get("title", ""))[0]
+        name = _re.sub(r"^.*?\bRecalls?\s+(?:More than |Over |About )?[\d.,]+\s*(?:Million\s*)?", "", name) or name
+    name = _re.split(r";|,|\(", name)[0].strip()
+    return (name[:48] + "…") if len(name) > 49 else name
+
+
 def _add(reasons: list[dict], rule_id: str, **extra) -> None:
     r = C.RULES[rule_id]
     reasons.append({"rule_id": r.id, "level": r.level, "title": extra.pop("title", r.title), "detail": extra.pop("detail", r.detail),
@@ -84,18 +96,31 @@ def assess(item: Item, today: date | None = None, judgments: dict[str, str] | No
         j = judgments.get(rc["id"])
         if j == "does_not_apply":
             rc["match"] = "ruled_out"
-            continue
-        if j == "applies":
+        elif j == "applies":
             rc["match"] = "definite"
-        if rc["match"] == "definite":
-            remedy = REMEDY_VISIBLE.get(rc["id"])
-            if remedy and f.get(remedy[0]) is not None and f.get(remedy[0]) == remedy[1]:
-                _add(reasons, "R-RCL-03", recall=rc["id"], title=f"Recall {rc['id']} fix appears done")
-                rc["remedied"] = True
-            else:
-                _add(reasons, "R-CS-RCL" if rc["source"] == "NHTSA" else "R-RCL-01", recall=rc["id"], title=rc["title"])
-        elif rc["match"] == "possible":
-            _add(reasons, "R-RCL-02", recall=rc["id"], title=f"Possible recall: {rc['title']}")
+    live = [r for r in recalls if r["match"] != "ruled_out"]
+    definite = [r for r in live if r["match"] == "definite"]
+    for rc in definite:
+        remedy = REMEDY_VISIBLE.get(rc["id"])
+        if remedy and f.get(remedy[0]) is not None and f.get(remedy[0]) == remedy[1]:
+            rc["remedied"] = True
+    open_recalls = [r for r in definite if not r.get("remedied")]
+    if open_recalls:
+        top = max(open_recalls, key=lambda r: (r.get("deaths", 0), r["date"]))
+        name = short_name(top)
+        deaths = max(r.get("deaths", 0) for r in open_recalls)
+        detail = (f"Linked to {deaths} infant death{'s' if deaths != 1 else ''} in the recall notice. " if deaths else "") + C.RULES["R-RCL-01"].detail
+        if len(open_recalls) > 1:
+            detail += f" ({len(open_recalls)} related recall notices.)"
+        _add(reasons, "R-CS-RCL" if top["source"] == "NHTSA" else "R-RCL-01", recall=top["id"], title=f"Recalled: {name}", detail=detail, deaths=deaths)
+    elif any(r.get("remedied") for r in definite):
+        rc = next(r for r in definite if r.get("remedied"))
+        _add(reasons, "R-RCL-03", recall=rc["id"], title=f"Recall fix appears done ({short_name(rc)})")
+    else:
+        possible = [r for r in live if r["match"] == "possible"]
+        if possible:
+            _add(reasons, "R-RCL-02", recall=possible[0]["id"], title=f"Possible recall: {short_name(possible[0])}",
+                 detail=C.RULES["R-RCL-02"].detail + (f" ({len(possible)} candidate notices.)" if len(possible) > 1 else ""))
     recalls = [r for r in recalls if r["match"] != "ruled_out"]
 
     if item.missing_parts:

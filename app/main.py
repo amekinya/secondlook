@@ -16,6 +16,7 @@ from app.ai.client import CallRecord, LiveModelUnavailable, ledger
 from app.config import settings
 from app.engine import catalog as C
 from app.engine.assess import Item, assess
+from app.engine.recalls import find_brand
 
 ROOT = Path(__file__).resolve().parent.parent
 STATIC = Path(__file__).resolve().parent / "static"
@@ -32,7 +33,7 @@ BRANDS = ["Fisher-Price", "Graco", "Chicco", "Evenflo", "Britax", "Boppy", "4mom
           "Simplicity", "Kolcraft", "Angelcare", "Infantino", "Nap Nanny", "DockATot", "Baby Delight", "Dorel", "Little Tikes"]
 CAT_RX = [(c, rx) for c, rx in [
     ("inclined_sleeper", r"rock ?'?n ?play|inclined sleep|rocking sleeper|napper"), ("crib_bumper", r"bumper|slat cover|crib liner"),
-    ("car_seat", r"car ?seat|booster"), ("swing", r"\bswing\b|glider"), ("crib", r"\bcrib\b"), ("bassinet", r"bassinet|cradle|bedside sleeper|co-?sleeper"),
+    ("high_chair", r"high ?chair"), ("car_seat", r"car ?seat|booster car"), ("swing", r"\bswing\b|glider"), ("crib", r"\bcrib\b"), ("bassinet", r"bassinet|cradle|bedside sleeper|co-?sleeper"),
     ("in_bed_sleeper", r"baby nest|in-bed sleeper|sleep pod|dockatot"), ("play_yard", r"play ?yard|pack ?'?n ?play|playpen"),
     ("lounger", r"lounger|positioner"), ("nursing_pillow", r"nursing pillow"),
     ("bouncer_rocker", r"bouncer|rocker|bumbo|floor seat"), ("walker", r"walker|activity center"), ("bath", r"bath seat|bath tub|bathtub"),
@@ -54,7 +55,7 @@ def item_from_text(text: str) -> Item:
     """Rule-based fallback when the vision model isn't available: read the listing text only."""
     t = text.lower()
     cat = next((c for c, rx in CAT_RX if re.search(rx, t)), "other")
-    brand = next((b for b in BRANDS if b.lower() in t), "")
+    brand = next((b for b in BRANDS if b.lower() in t), "") or find_brand(text)
     feats = {}
     if re.search(r"\bdrop(s|ping)?\b|side (slides|drops)", t):
         feats["drop_side"] = True
@@ -64,6 +65,8 @@ def item_from_text(text: str) -> Item:
         feats["marketed_for_sleep"] = True
     if re.search(r"headrest|insert", t) and cat == "swing":
         feats["snuga_headrest_present"] = True
+    if re.search(r"suction", t):
+        feats["suction_cups"] = True
     if re.search(r"(restraint|safety) belt|belt (is )?installed", t) and cat == "bouncer_rocker":
         feats["bumbo_belt_present"] = True
     dom = None
@@ -206,4 +209,65 @@ async def check(images: list[UploadFile] | None = File(None), text: str = Form("
     result["pipeline"] = steps
     result["calls"] = (cached or {}).get("calls", []) if cached else _calls_json(calls)
     result["sample"] = bool(sample)
+    return JSONResponse(result)
+
+
+# --- Page scan (marketplace overlay / browser extension) -------------------------------------
+from fastapi import Request  # noqa: E402
+from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
+from fastapi.responses import StreamingResponse  # noqa: E402
+
+from app import scan  # noqa: E402
+
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET", "POST"], allow_headers=["*"])
+MARKET = STATIC / "market"
+
+
+@app.get("/market")
+def market_page():
+    return FileResponse(STATIC / "market.html")
+
+
+@app.get("/api/market/listings")
+def market_listings():
+    rows = json.loads((MARKET / "listings.json").read_text())
+    return [{k: r[k] for k in ("id", "title", "price", "place", "text", "image")} for r in rows]
+
+
+@app.post("/api/scan")
+async def scan_page(request: Request):
+    body = await request.json()
+    listings = [l for l in (body.get("listings") or [])[:60] if isinstance(l, dict)]
+    if not listings:
+        raise HTTPException(400, "No listings found on this page.")
+    demo = bool(body.get("demo"))
+    today = DEMO_TODAY if demo else date.today()
+    return StreamingResponse(scan.stream_scan(listings, today, prefer_cache=demo and not body.get("force_live")),
+                             media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
+
+
+@app.post("/api/listing")
+async def listing_detail(request: Request):
+    """Full check of one listing (Ultra reads recall notices + writes the summary)."""
+    body = await request.json()
+    calls: list[CallRecord] = []
+    steps: list[dict] = []
+    demo = bool(body.get("demo"))
+    today = DEMO_TODAY if demo else date.today()
+    lid = body.get("id", "")
+    cache = scan._cache().get(lid, {}) if demo else {}
+    text = f"{body.get('title', '')}. {body.get('text', '')}".strip()
+    ident = cache.get("identify")
+    if ident is None:
+        try:
+            img = scan.load_image(body.get("image", ""))
+            if img:
+                ident = tasks.identify([img], text, calls)
+                steps.append({"step": "Looked at the listing", "detail": "", "model": settings.super_vl.model_id})
+        except Exception:
+            ident = None
+    item = tasks.item_from_identify(ident, text) if ident else item_from_text(text)
+    result = run_check(item, today, calls, steps, cache.get("detail"))
+    result["pipeline"] = steps
+    result["calls"] = cache.get("calls", []) if cache else _calls_json(calls)
     return JSONResponse(result)

@@ -46,8 +46,9 @@ CATEGORIES = [  # (category, regex on title + product names); order matters (fir
     ("toy_infant", r"rattle|teether|teething|pacifier|crib mobile|crib toy|activity gym|play mat"),
     ("toddler_bed", r"toddler bed|bed rail"),
 ]
-BABY_HINT = re.compile(r"\b(infant|baby|babies|toddler|newborn|nursery|crib|bassinet|cradle|stroller|car seat|high ?chair|play ?yard|"
-                       r"playard|bouncer|walker|pacifier|teether|swaddle|sleeper|lounger|nursing pillow|changing table|sling)\b", re.I)
+BABY_HINT = re.compile(r"\b(infants?|baby|babies|toddlers?|newborns?|nursery|cribs?|bassinets?|cradles?|strollers?|car seats?|high ?chairs?|"
+                       r"play ?yards?|playards?|bouncers?|walkers?|pacifiers?|teethers?|swaddles?|sleepers?|loungers?|nursing pillows?|"
+                       r"feeding pillows?|changing tables?|slings?|baby carriers?|infant carriers?|travel systems?|bath seats?|jumpers?)\b", re.I)
 MODEL_RE = re.compile(r"\b(?=[A-Z0-9-]*\d)[A-Z]{0,5}-?\d{2,7}[A-Z0-9]*(?:-[A-Z0-9]+)*\b")
 DEATH_WORDS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10}
 
@@ -80,9 +81,10 @@ def build_cpsc(path: Path) -> list[dict]:
     for r in data:
         names = " ".join(p.get("Name", "") or "" for p in r.get("Products", []) or [])
         head = f"{r.get('Title', '')} {names}"
-        if not BABY_HINT.search(head + " " + (r.get("Description") or "")[:400]):
+        head_clean = re.sub(r"walker edison", "", head, flags=re.I)
+        if not BABY_HINT.search(head_clean):
             continue
-        cat = classify(head) or classify((r.get("Description") or "")[:600])
+        cat = classify(head_clean)
         if cat is None:
             continue
         desc = re.sub(r"\s+", " ", r.get("Description") or "").strip()

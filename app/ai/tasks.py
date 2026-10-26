@@ -83,10 +83,15 @@ def _parse_date(s: str) -> date | None:
 
 
 def item_from_identify(d: dict, extra_text: str = "") -> Item:
+    from app.engine.recalls import find_brand  # noqa: PLC0415
+
     feats = {k: (True if v == "yes" else False if v == "no" else None) for k, v in (d.get("features") or {}).items()}
+    brand = (d.get("brand") or "").strip()
+    if not brand or brand.lower() in {"unknown", "n/a", "none"}:
+        brand = find_brand(" ".join([d.get("listing_text", ""), d.get("product_name", ""), extra_text]))
     return Item(
         category=d.get("category", "other"), category_confidence=float(d.get("category_confidence") or 0),
-        brand=d.get("brand", ""), model_text=d.get("model_text", ""), product_name=d.get("product_name", ""),
+        brand=brand, model_text=d.get("model_text", ""), product_name=d.get("product_name", ""),
         listing_text=" ".join(x for x in [d.get("listing_text", ""), extra_text] if x)[:3000],
         dom=_parse_date(d.get("date_of_manufacture", "")), printed_expiration=_parse_date(d.get("printed_expiration", "")),
         features={k: v for k, v in feats.items() if v is not None}, missing_parts=d.get("missing_parts", [])[:6],
@@ -102,7 +107,7 @@ JUDGE_SCHEMA = {
 }
 
 
-def judge_recalls(item: Item, candidates: list[dict], calls: list[CallRecord] | None = None) -> list[dict]:
+def judge_recalls(item: Item, candidates: list[dict], calls: list[CallRecord] | None = None, quick: bool = False) -> list[dict]:
     if not candidates:
         return []
     facts = {"category": item.category, "brand": item.brand, "product_name": item.product_name, "model_text": item.model_text,
@@ -110,12 +115,14 @@ def judge_recalls(item: Item, candidates: list[dict], calls: list[CallRecord] | 
     cands = [{"recall_id": c["id"], "source": c["source"], "title": c["title"], "date": c["date"],
               "covers": c["description"][:1400], "mfg_range": f"{c.get('begin', '')}..{c.get('end', '')}" if c["source"] == "NHTSA" else ""}
              for c in candidates[:6]]
-    out = chat_json(settings.ultra, [
+    spec = settings.nano if quick else settings.ultra
+    out = chat_json(spec, [
         {"role": "system", "content": "You decide whether official product recalls cover a specific second-hand item. Use only the recall text and item facts. "
                                       "'applies' only if the recall text covers this brand AND this product (and model/date when the recall limits them). "
                                       "'unclear' if the deciding detail (model number, manufacture date) is missing. Otherwise 'does_not_apply'."},
         {"role": "user", "content": f"Item: {json.dumps(facts)}\nCandidate recalls: {json.dumps(cands)}"}],
-        schema=JUDGE_SCHEMA, purpose="Judge recall matches", reasoning=True, max_tokens=4000, calls=calls)
+        schema=JUDGE_SCHEMA, purpose="Judge recall matches" + (" (quick)" if quick else ""), reasoning=not quick,
+        max_tokens=900 if quick else 4000, calls=calls)
     return out.get("judgments", [])
 
 
