@@ -41,7 +41,7 @@ class Settings:
     # `python -m scripts.smoke_test` (it calls GET /v1/models).
     nano: ModelSpec = field(
         default_factory=lambda: ModelSpec(
-            "nano", _env("MODEL_NANO", "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B"), 0.06, 0.24
+            "nano", _env("MODEL_NANO", "nvidia/Nemotron-3_5-Lightning"), 0.06, 0.24
         )
     )
     super_vl: ModelSpec = field(

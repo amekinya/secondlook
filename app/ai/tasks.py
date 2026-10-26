@@ -4,7 +4,7 @@
 - judge_recalls  Nemotron 3 Ultra: reads candidate recalls' free text (model lists, date ranges) -> applies / doesn't / unclear
 - write_verdict  Nemotron 3 Ultra: plain-language summary + a polite message to the seller, from the engine's findings only
 - extract_listing Tavily Extract: a public listing URL -> text (+ image URLs)
-- recall_news    Tavily Search + Nemotron 3 Nano: anything newer than our recall snapshot for this brand/product?
+- recall_news    Tavily Search + Nemotron 3.5 Lightning: anything newer than our recall snapshot for this brand/product?
 """
 from __future__ import annotations
 

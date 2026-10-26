@@ -38,7 +38,7 @@ Nemotron 3 Ultra ─────────── reads each candidate recall n
                               same brand? same kind of product? does the recall limit models, dates, prints or a product line?
                               does the listing match, differ, or not show it?  → code turns the answers into a verdict
                               (reasoning off during the page scan; reasoning on when you open a listing)
-Tavily Search + Nemotron Nano ─ anything newer than our recall snapshot for this product?
+Tavily Search + Nemotron 3.5 Lightning ─ anything newer than our recall snapshot for this product?
 Nemotron 3 Ultra ─────────── plain-language summary + a polite message to the seller (from the findings only)
 ```
 
@@ -64,7 +64,7 @@ Every reason cites its rule (16 CFR part, statute, recall number), and recall ca
 | Recognize the product and read labels from amateur photos and screenshots | **Nemotron 3.5 Super VL**, strict JSON schema | Vision plus structured output; many recalled items are unbranded marketplace products, so recognition beats barcode lookup |
 | Read candidate recall notices during the page scan | **Nemotron 3 Ultra**, reasoning off | The CPSC model field is usually empty; model numbers, prints and product lines live in prose. Fast enough for a 24-listing page |
 | Re-read the notices when you open a listing; write the summary and seller message | **Nemotron 3 Ultra**, reasoning on | Careful, grounded wording |
-| Recall-news freshness check | **Nemotron 3 Nano** (+ Tavily Search) | Fast, cheap yes/no |
+| Recall-news freshness check | **Nemotron 3.5 Lightning** (+ Tavily Search) | Fast, cheap yes/no (replaced Nemotron 3 Nano, which Token Factory retires on Nov 9, 2026) |
 | Read a public listing link | **Tavily Extract** | Listing text and image URLs |
 
 Token Factory features used: OpenAI-compatible chat completions with image input, strict JSON-schema output, the per-request reasoning switch (`chat_template_kwargs.enable_thinking`), usage accounting (cost per scan shown live), and a daily spend cap. Rate limits and transient errors are retried; a reply without valid JSON falls back cleanly. Model IDs are verified live via `GET /v1/models` (`scripts/smoke_test.py`).

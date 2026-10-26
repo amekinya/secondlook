@@ -75,6 +75,22 @@ def check_reasoning_toggle(c) -> None:
                 record(f"{spec.role} thinking={think}", False, repr(e))
 
 
+def check_nano_json(c) -> None:
+    """The cheap tier must keep doing strict JSON with reasoning off (it maps headers, checks news, reads recall notices)."""
+    schema = {"type": "object", "properties": {"answer": {"type": "integer"}, "unit": {"type": "string", "enum": ["apples", "pears"]}},
+              "required": ["answer", "unit"], "additionalProperties": False}
+    try:
+        r = c.chat.completions.create(
+            model=settings.nano.model_id, max_tokens=300, temperature=0,
+            messages=[{"role": "user", "content": "Tom has 17 apples and buys 23 more. How many apples? JSON only."}],
+            response_format={"type": "json_schema", "json_schema": {"name": "out", "schema": schema, "strict": True}},
+            extra_body={"chat_template_kwargs": {"enable_thinking": False}})
+        out = json.loads(r.choices[0].message.content)
+        record("nano strict JSON (reasoning off)", out.get("answer") == 40 and out.get("unit") == "apples", json.dumps(out))
+    except Exception as e:
+        record("nano strict JSON (reasoning off)", False, repr(e)[:300])
+
+
 def _form_image_b64() -> str:
     from PIL import Image, ImageDraw, ImageFont
 
@@ -201,6 +217,7 @@ def main() -> int:
     except Exception:
         record("List models", False, traceback.format_exc()[-300:])
     check_reasoning_toggle(c)
+    check_nano_json(c)
     check_vision_json(c)
     if args.long:
         check_long_context(c)
