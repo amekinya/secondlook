@@ -9,3 +9,15 @@ jobs:
         with: { python-version: "3.12" }
       - run: pip install -r requirements.txt
       - run: python -m pytest -q
+  docker:
+    # The same image Render / Hugging Face Spaces will build: it must start and answer without any API keys.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t app .
+      - run: |
+          docker run -d -p 7860:7860 --name app app
+          for i in $(seq 1 30); do curl -sf localhost:7860/api/health && break; sleep 1; done
+          curl -sf localhost:7860/api/health
+          curl -sf -o /dev/null -w "home page: %{http_code}\n" localhost:7860/
+          docker logs app | tail -20

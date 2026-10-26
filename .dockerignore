@@ -1,0 +1,11 @@
+.git
+.github
+__pycache__
+*.pyc
+.pytest_cache
+.env
+tests
+eval
+docs
+data/cpsc_images
+data/stock
