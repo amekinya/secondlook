@@ -42,6 +42,7 @@ jobs:
             synth) python -m scripts.synth_lookalikes $ARGS 2>&1 | tee -a eval/lookalike_log.txt; python -m scripts.build_lookalike_pairs | tee -a eval/lookalike_log.txt ;;
             pairs) python -m scripts.build_lookalike_pairs | tee -a eval/lookalike_log.txt ;;
             eval)  python -m eval.lookalike_eval $ARGS 2>&1 | tee -a eval/lookalike_log.txt ;;
+            chatbot) python -m eval.chatbot_baseline 2>&1 | tee eval/chatbot_baseline_log.txt ;;
           esac
       - name: Commit results
         if: always()

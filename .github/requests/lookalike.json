@@ -1,1 +1,1 @@
-{"task": "synth", "args": "--split test --generator Qwen/Qwen3-30B-A3B-Instruct-2507", "note": "held-out test recalls, different writer"}
+{"task": "chatbot", "args": "", "note": "plain-chatbot baseline on the 24 market listings"}
