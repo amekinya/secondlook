@@ -1,0 +1,372 @@
+{
+ "run_at": "2026-10-26 18:28 UTC",
+ "recognition": {
+  "n": 54,
+  "strict": 0.519,
+  "lenient": 0.648,
+  "by_category": {
+   "bassinet": "4/5",
+   "bath": "2/5",
+   "bouncer_rocker": "1/1",
+   "carrier": "2/4",
+   "crib": "2/5",
+   "crib_bumper": "0/5",
+   "high_chair": "5/5",
+   "inclined_sleeper": "0/5",
+   "lounger": "5/5",
+   "nursing_pillow": "0/1",
+   "stroller": "5/5",
+   "swing": "2/5",
+   "walker": "0/3"
+  },
+  "rows": [
+   {
+    "file": "eval_15131.jpg",
+    "expected": "crib",
+    "got": "crib"
+   },
+   {
+    "file": "eval_16143.jpg",
+    "expected": "bassinet",
+    "got": "swing"
+   },
+   {
+    "file": "eval_16157.jpg",
+    "expected": "carrier",
+    "got": "carrier"
+   },
+   {
+    "file": "eval_16249.jpg",
+    "expected": "stroller",
+    "got": "stroller"
+   },
+   {
+    "file": "eval_16268.jpg",
+    "expected": "carrier",
+    "got": "other"
+   },
+   {
+    "file": "eval_16743.jpg",
+    "expected": "bassinet",
+    "got": "bassinet"
+   },
+   {
+    "file": "eval_17010.png",
+    "expected": "stroller",
+    "got": "stroller"
+   },
+   {
+    "file": "eval_17096.jpg",
+    "expected": "swing",
+    "got": "bouncer_rocker"
+   },
+   {
+    "file": "eval_18112.png",
+    "expected": "high_chair",
+    "got": "high_chair"
+   },
+   {
+    "file": "eval_18167.png",
+    "expected": "stroller",
+    "got": "stroller"
+   },
+   {
+    "file": "eval_19042.png",
+    "expected": "high_chair",
+    "got": "high_chair"
+   },
+   {
+    "file": "eval_19105.jpg",
+    "expected": "inclined_sleeper",
+    "got": "bouncer_rocker"
+   },
+   {
+    "file": "eval_19112.jpg",
+    "expected": "inclined_sleeper",
+    "got": "bouncer_rocker"
+   },
+   {
+    "file": "eval_19151.png",
+    "expected": "inclined_sleeper",
+    "got": "bassinet"
+   },
+   {
+    "file": "eval_19174.jpg",
+    "expected": "bouncer_rocker",
+    "got": "bouncer_rocker"
+   },
+   {
+    "file": "eval_19177.jpeg",
+    "expected": "inclined_sleeper",
+    "got": "ERR"
+   },
+   {
+    "file": "eval_19716.jpeg",
+    "expected": "carrier",
+    "got": "ERR"
+   },
+   {
+    "file": "eval_20071.png",
+    "expected": "carrier",
+    "got": "carrier"
+   },
+   {
+    "file": "eval_20730.png",
+    "expected": "walker",
+    "got": "other"
+   },
+   {
+    "file": "eval_21052.png",
+    "expected": "inclined_sleeper",
+    "got": "bassinet"
+   },
+   {
+    "file": "eval_21198.png",
+    "expected": "lounger",
+    "got": "lounger"
+   },
+   {
+    "file": "eval_22200.jpg",
+    "expected": "swing",
+    "got": "swing"
+   },
+   {
+    "file": "eval_22724.png",
+    "expected": "walker",
+    "got": "other"
+   },
+   {
+    "file": "eval_22768.jpg",
+    "expected": "bath",
+    "got": "bath"
+   },
+   {
+    "file": "eval_23290.png",
+    "expected": "swing",
+    "got": "swing"
+   },
+   {
+    "file": "eval_24145.png",
+    "expected": "swing",
+    "got": "bouncer_rocker"
+   },
+   {
+    "file": "eval_24153.png",
+    "expected": "high_chair",
+    "got": "high_chair"
+   },
+   {
+    "file": "eval_24738.png",
+    "expected": "crib",
+    "got": "other"
+   },
+   {
+    "file": "eval_24739.png",
+    "expected": "crib",
+    "got": "other"
+   },
+   {
+    "file": "eval_25033.png",
+    "expected": "crib_bumper",
+    "got": "play_yard"
+   },
+   {
+    "file": "eval_25044.jpg",
+    "expected": "stroller",
+    "got": "stroller"
+   },
+   {
+    "file": "eval_25054.jpg",
+    "expected": "crib",
+    "got": "crib"
+   },
+   {
+    "file": "eval_25312.png",
+    "expected": "swing",
+    "got": "bouncer_rocker"
+   },
+   {
+    "file": "eval_25315.png",
+    "expected": "bassinet",
+    "got": "bassinet"
+   },
+   {
+    "file": "eval_25361.png",
+    "expected": "walker",
+    "got": "other"
+   },
+   {
+    "file": "eval_25383.png",
+    "expected": "crib_bumper",
+    "got": "lounger"
+   },
+   {
+    "file": "eval_25456.png",
+    "expected": "lounger",
+    "got": "lounger"
+   },
+   {
+    "file": "eval_25471.jpg",
+    "expected": "crib",
+    "got": "other"
+   },
+   {
+    "file": "eval_25473.jpg",
+    "expected": "crib_bumper",
+    "got": "lounger"
+   },
+   {
+    "file": "eval_26071.png",
+    "expected": "bath",
+    "got": "other"
+   },
+   {
+    "file": "eval_26121.jpg",
+    "expected": "high_chair",
+    "got": "high_chair"
+   },
+   {
+    "file": "eval_26132.png",
+    "expected": "crib_bumper",
+    "got": "lounger"
+   },
+   {
+    "file": "eval_26169.jpg",
+    "expected": "crib_bumper",
+    "got": "lounger"
+   },
+   {
+    "file": "eval_26171.png",
+    "expected": "bath",
+    "got": "bath"
+   },
+   {
+    "file": "eval_26195.png",
+    "expected": "nursing_pillow",
+    "got": "other"
+   },
+   {
+    "file": "eval_26266.png",
+    "expected": "bath",
+    "got": "bouncer_rocker"
+   },
+   {
+    "file": "eval_26290.jpg",
+    "expected": "high_chair",
+    "got": "high_chair"
+   },
+   {
+    "file": "eval_26342.jpg",
+    "expected": "bassinet",
+    "got": "bassinet"
+   },
+   {
+    "file": "eval_26525.png",
+    "expected": "lounger",
+    "got": "lounger"
+   },
+   {
+    "file": "eval_26568.png",
+    "expected": "stroller",
+    "got": "stroller"
+   },
+   {
+    "file": "eval_26591.jpg",
+    "expected": "lounger",
+    "got": "lounger"
+   },
+   {
+    "file": "eval_26657.jpg",
+    "expected": "lounger",
+    "got": "lounger"
+   },
+   {
+    "file": "eval_27018.png",
+    "expected": "bath",
+    "got": "bouncer_rocker"
+   },
+   {
+    "file": "eval_27027.png",
+    "expected": "bassinet",
+    "got": "bassinet"
+   }
+  ]
+ },
+ "matching": {
+  "n_positive": 40,
+  "n_decoy": 40,
+  "rules_only": {
+   "recall_caught": 0.95,
+   "false_alarms_on_decoys": 0.0
+  },
+  "rules_plus_ultra": {
+   "recall_caught": 0.825,
+   "false_alarms_on_decoys": 0.15
+  },
+  "ultra_from_memory": {
+   "recall_caught": 0.0,
+   "false_alarms_on_decoys": 0.5
+  }
+ },
+ "demo": {
+  "correct": "4/6",
+  "rows": [
+   {
+    "file": "listing_1.png",
+    "expected": "RECALLED",
+    "got": "OK_SO_FAR",
+    "ok": false
+   },
+   {
+    "file": "listing_2.png",
+    "expected": "ILLEGAL_TO_SELL",
+    "got": "OK_SO_FAR",
+    "ok": false
+   },
+   {
+    "file": "listing_3.png",
+    "expected": "RECALLED",
+    "got": "RECALLED",
+    "ok": true
+   },
+   {
+    "file": "listing_4.png",
+    "expected": "ILLEGAL_TO_SELL",
+    "got": "ILLEGAL_TO_SELL",
+    "ok": true
+   },
+   {
+    "file": "listing_5.png",
+    "expected": "OK_SO_FAR",
+    "got": "OK_SO_FAR",
+    "ok": true
+   },
+   {
+    "file": "listing_6.png",
+    "expected": "UNSAFE_ADVISORY",
+    "got": "UNSAFE_ADVISORY",
+    "ok": true
+   }
+  ]
+ },
+ "tiers": {
+  "nano": {
+   "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+   "calls": 6,
+   "avg_seconds": 0.71,
+   "cost_usd": 0.0005
+  },
+  "super_vl": {
+   "model": "nvidia/Nemotron-3.5-Super-VL",
+   "calls": 58,
+   "avg_seconds": 1.86,
+   "cost_usd": 0.0341
+  },
+  "ultra": {
+   "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+   "calls": 172,
+   "avg_seconds": 4.01,
+   "cost_usd": 0.8043
+  }
+ }
+}
