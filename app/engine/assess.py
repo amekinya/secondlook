@@ -32,6 +32,7 @@ def short_name(rc: dict) -> str:
         name = _re.split(r"\s+(?:Recall|Recalls|Reannounces|Due to)\b", rc.get("title", ""))[0]
         name = _re.sub(r"^.*?\bRecalls?\s+(?:More than |Over |About )?[\d.,]+\s*(?:Million\s*)?", "", name) or name
     name = _re.split(r";|,|\(", name)[0].strip()
+    name = _re.sub(r"^(?:All|Certain|Some)\s+(?:Models|Units|Versions)\s+of\s+(?:the\s+)?", "", name, flags=_re.I)
     return (name[:48] + "…") if len(name) > 49 else name
 
 

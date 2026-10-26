@@ -39,7 +39,7 @@
   @media (prefers-reduced-motion:reduce){.sl-stamp{animation:none}}
   .sl-band{display:flex;align-items:center;gap:8px;padding:6px 10px;font-weight:700;letter-spacing:.04em;font-size:18px;text-transform:uppercase}
   .sl-ico{width:20px;height:18px;flex:none;display:block}
-  .sl-msg{padding:6px 10px 8px;font-weight:700;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .sl-msg{padding:6px 10px 0;margin-bottom:8px;font-weight:700;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .sl-deaths{display:block;margin:-4px 10px 8px;font-size:14px;font-weight:700;color:#B0001E !important}
   .sl-bad{--sl-fill:#B0001E}.sl-bad .sl-band{background:#B0001E;color:#fff}
   .sl-warn{--sl-fill:#FF7A00}.sl-warn .sl-band{background:#FF7A00;color:#000}
