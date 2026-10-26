@@ -4,7 +4,7 @@
 
 Built for the Nebius × NVIDIA Global AI Hackathon (Best Apps and Agents track) with NVIDIA Nemotron models on **Nebius Token Factory** and **Tavily**.
 
-- Live demo: _link added at deploy_ (marketplace scan at `/market`, single-listing check at `/`)
+- **Live demo:** [secondlook-xllm.onrender.com/market](https://secondlook-xllm.onrender.com/market) (marketplace scan; press **Scan this page**) and [single-listing check](https://secondlook-xllm.onrender.com/). Free hosting: the first visit after a quiet spell can take about a minute to wake up.
 - Demo video: _link added after recording_
 
 ![A scanned demo marketplace page with DANGER, CAUTION and No known issues stamps](docs/design/scan_screenshot.png)

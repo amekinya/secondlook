@@ -7,7 +7,7 @@ Stamps warning labels on second-hand baby gear listings as you browse: banned pr
 1. Download this repository (Code → Download ZIP) and unzip it.
 2. Open `chrome://extensions` and turn on **Developer mode** (top right).
 3. Click **Load unpacked** and choose the `extension` folder.
-4. Click the SecondLook icon, enter your SecondLook server address (for example `https://secondlook.onrender.com`), and press **Scan this page** on any listing page.
+4. Click the SecondLook icon, enter your SecondLook server address (for example `https://secondlook-xllm.onrender.com`), and press **Scan this page** on any listing page.
 
 ## How it works
 
