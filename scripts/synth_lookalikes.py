@@ -34,6 +34,33 @@ SCHEMA = {"type": "object", "properties": {
     "required": ["branded", "unbranded", "rebranded", "rebrand_name", "distractors"], "additionalProperties": False}
 
 
+SYL = ["ba", "be", "bi", "lo", "lu", "ma", "mi", "na", "no", "qi", "ra", "ru", "sa", "so", "ta", "tu", "vi", "xo", "yo", "zu", "ka", "ke", "le", "pe"]
+TAILS = ["", "", "", " Baby", " Kids", " Home", "Co", " Life", "Pro"]
+EXAMPLE_NAMES = {"qiyueli", "bebamour"}  # the names given as examples in the prompt; replaced so they can't become a shortcut
+
+
+def fresh_brand(seed: str) -> str:
+    """A made-up marketplace-style brand name, deterministic per listing."""
+    import random
+
+    r = random.Random(seed)
+    name = "".join(r.choice(SYL) for _ in range(r.randint(2, 4)))
+    name = name.upper() if r.random() < 0.5 else name.capitalize()
+    return name + r.choice(TAILS)
+
+
+def diversify(row: dict) -> dict:
+    """Swap a prompt-example brand name for a fresh made-up one everywhere it appears in the listing."""
+    import re
+
+    b = row.get("brand", "")
+    if row.get("style") != "rebranded" or b.lower().strip() not in EXAMPLE_NAMES:
+        return row
+    new = fresh_brand(row["recall"] + row["title"])
+    rx = re.compile(re.escape(b), re.I)
+    return row | {"brand": new, "title": rx.sub(new, row["title"]), "text": rx.sub(new, row["text"]), "photo": rx.sub(new, row["photo"])}
+
+
 def split_of(rid: str) -> str:
     h = int(hashlib.sha1(rid.encode()).hexdigest(), 16) % 100
     return "train" if h < 70 else "dev" if h < 85 else "test"
@@ -70,8 +97,8 @@ def write(r: dict, gen: ModelSpec) -> tuple[list[dict], list[CallRecord]]:
     for style in ("branded", "unbranded", "rebranded"):
         x = out.get(style) or {}
         if x.get("title"):
-            rows.append(base | {"style": style, "title": x["title"], "text": x["text"], "photo": x["photo"], "match": True,
-                                "brand": out.get("rebrand_name", "") if style == "rebranded" else ""})
+            rows.append(diversify(base | {"style": style, "title": x["title"], "text": x["text"], "photo": x["photo"], "match": True,
+                                          "brand": out.get("rebrand_name", "") if style == "rebranded" else ""}))
     for x in (out.get("distractors") or [])[:2]:
         if x.get("title"):
             rows.append(base | {"style": "distractor", "title": x["title"], "text": x["text"], "photo": x["photo"], "match": False, "brand": ""})
