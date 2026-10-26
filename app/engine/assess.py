@@ -20,6 +20,7 @@ class Item:
     printed_expiration: date | None = None
     features: dict = field(default_factory=dict)  # incline_raised, marketed_for_sleep, drop_side, padded_bumper, ...
     missing_parts: list[str] = field(default_factory=list)
+    colors: str = ""  # colors and prints seen in the photos (recalls are often limited to them)
 
 
 def short_name(rc: dict) -> str:
@@ -56,7 +57,7 @@ def assess(item: Item, today: date | None = None, judgments: dict[str, str] | No
             pass
         else:
             _add(reasons, "R-BMP-01")
-    if cat == "crib" and f.get("padded_bumper"):
+    if cat in {"crib", "play_yard", "bassinet"} and f.get("padded_bumper"):
         _add(reasons, "R-BMP-01", title="Listing includes a padded crib bumper",
              detail="The bumper in the photos is banned from sale (since Nov 12, 2022). The crib itself may be fine; leave the bumper out.")
     if cat == "crib":
@@ -106,6 +107,9 @@ def assess(item: Item, today: date | None = None, judgments: dict[str, str] | No
         if remedy and f.get(remedy[0]) is not None and f.get(remedy[0]) == remedy[1]:
             rc["remedied"] = True
     open_recalls = [r for r in definite if not r.get("remedied")]
+    if any("inclined sleep" in r["title"].lower() for r in open_recalls) and not any(x["rule_id"] == "R-INC-01" for x in reasons):
+        # CPSC's own notice says this product violates the inclined sleeper ban (Safe Sleep for Babies Act)
+        _add(reasons, "R-INC-01")
     if open_recalls:
         top = max(open_recalls, key=lambda r: (r.get("deaths", 0), r["date"]))
         name = short_name(top)

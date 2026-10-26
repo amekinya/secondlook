@@ -96,3 +96,33 @@ def test_recall_verdict_is_decided_by_code():
     assert judge_verdict(base | {"recall_limited_to": "model_numbers", "item_detail_vs_limit": "differs"}) == "does_not_apply"
     assert judge_verdict(base | {"same_brand": "no"}) == "does_not_apply"
     assert judge_verdict(base | {"same_brand": "unclear"}) == "unclear"
+
+
+def test_judge_corrections_use_what_the_listing_actually_shows():
+    from app.ai.tasks import judge_verdict
+    from app.engine.assess import Item
+
+    unbranded = Item(category="swing", model_text="BB501")
+    j = {"same_brand": "no", "same_kind_of_product": "yes", "recall_limited_to": "model_numbers", "item_detail_vs_limit": "matches"}
+    assert judge_verdict(dict(j), unbranded) == "applies"  # unknown brand can't differ; the printed model matches
+    no_model = Item(category="lounger", brand="URMYWO")
+    j = {"same_brand": "yes", "same_kind_of_product": "yes", "recall_limited_to": "model_numbers", "item_detail_vs_limit": "differs"}
+    assert judge_verdict(dict(j), no_model) == "unclear"  # no model number shown is "not shown", not "different"
+
+
+def test_recall_for_violating_the_inclined_sleeper_ban_is_also_banned():
+    from app.engine.assess import Item, assess
+
+    it = Item(category="swing", brand="", model_text="BB501K", listing_text="Electric baby swing, white and gray. Model BB501K")
+    r = assess(it, TODAY, {"26074": "applies"})
+    assert r["level"] == "ILLEGAL_TO_SELL" and {x["rule_id"] for x in r["reasons"]} >= {"R-INC-01", "R-RCL-01"}
+
+
+def test_listing_that_names_itself_a_crib_bumper_is_one():
+    from app.engine.assess import Item
+    from app.engine.textfacts import merge_text_facts
+
+    it = merge_text_facts(Item(category="play_yard", category_confidence=0.9, product_name="Braided crib bumper set"), "Braided crib bumper set (gray)")
+    assert it.category == "crib_bumper"
+    crib = merge_text_facts(Item(category="crib", category_confidence=0.9), "Crib with matching bumper")
+    assert crib.category == "crib" and crib.features.get("padded_bumper")

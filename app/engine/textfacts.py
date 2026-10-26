@@ -29,6 +29,8 @@ TEXT_FEATURES = {
 }
 _NEG = re.compile(r"(\bno|\bnot|\bwithout|\bnever|n't|\bremoved)\W+(\w+\W+){0,2}$")
 
+BAN_NAMED = {"crib_bumper", "inclined_sleeper"}
+
 MONTHS = {m: i for i, m in enumerate(["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"], 1)}
 
 
@@ -81,6 +83,11 @@ def merge_text_facts(item: Item, text: str) -> Item:
     tx = item_from_text(" ".join(x for x in [text, item.listing_text] if x))
     if (item.category in ("", "other") or item.category_confidence < 0.5) and tx.category != "other":
         item.category = tx.category
+    named = item_from_text(item.product_name).category if item.product_name else "other"
+    for c in (named, tx.category):  # the listing calls itself a crib bumper or an inclined sleeper: that's what it is
+        if c in BAN_NAMED and item.category not in ("crib", c):
+            item.category = c
+            break
     if not item.brand:
         item.brand = tx.brand
     if item.dom is None:

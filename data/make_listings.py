@@ -73,7 +73,7 @@ def card(photo: Image.Image, title: str, price: str, place: str, text: str, cred
 LISTINGS = [
     ("demo_26074.jpg", "Baby swing with mosquito net, great for naps", "$40", "Listed 2 days ago · Aurora, IL",
      "Electric baby swing / rocker, white and gray, comes with net and remote. My son napped in it every day. Model BB501. Smoke-free home.",
-     "Photo: U.S. CPSC recall notice #26074", "RECALLED"),
+     "Photo: U.S. CPSC recall notice #26074", "ILLEGAL_TO_SELL"),
     ("demo_26169.png", "Braided crib bumper, gray, like new", "$15", "Listed today · Naperville, IL",
      "Soft braided bumper that ties around the crib. Keeps little arms and legs from getting stuck in the slats. Washed, like new.",
      "Photo: U.S. CPSC recall notice #26169", "ILLEGAL_TO_SELL"),

@@ -247,9 +247,9 @@
   "text": "Papablic convertible bedside sleeper, attaches to the side of your bed.",
   "image": "/static/market/img/l21.jpg",
   "photo_source": "CPSC recall notice",
-  "expected_level": "RECALLED",
-  "expected_word": "DANGER",
-  "truth": "Papablic bedside sleeper recall 27027"
+  "expected_level": "CHECK",
+  "expected_word": "CAUTION",
+  "truth": "Papablic recall 27027 covers only model PAPA03001AI; the listing doesn't show the model, so: ask for the label"
  },
  {
   "id": "l22",

@@ -33,13 +33,14 @@ ID_SCHEMA = {
         "date_of_manufacture": {"type": "string", "description": "YYYY-MM-DD or YYYY-MM if printed; empty if not visible"},
         "printed_expiration": {"type": "string", "description": "YYYY-MM-DD or YYYY-MM if a 'do not use after' date is printed; else empty"},
         "listing_text": {"type": "string", "description": "title and description text visible in the screenshot"},
+        "colors_and_prints": {"type": "string", "description": "main colors and any fabric print or pattern name visible, e.g. 'white/gray, white base' or 'grey feather print'"},
         "features": {"type": "object", "properties": {k: {"type": "string", "enum": ["yes", "no", "unknown"]} for k in FEATURES},
                      "required": FEATURES, "additionalProperties": False},
         "missing_parts": {"type": "array", "items": {"type": "string"}},
         "what_i_see": {"type": "string"},
     },
     "required": ["category", "category_confidence", "brand", "product_name", "model_text", "date_of_manufacture", "printed_expiration",
-                 "listing_text", "features", "missing_parts", "what_i_see"],
+                 "listing_text", "colors_and_prints", "features", "missing_parts", "what_i_see"],
     "additionalProperties": False,
 }
 
@@ -62,6 +63,7 @@ ID_PROMPT = (
     "- strap_fastener_present: a strap fastener under a 4moms MamaRoo seat; bumbo_belt_present: a restraint belt on a Bumbo-style floor seat\n"
     "- single_cup_tray: a child tray with a single cupholder on a stroller; cord_cover_present: a rigid cover on a monitor sensor-pad cord\n"
     "- weighted: described or shown as a weighted sleep product\n"
+    "Ignore photo credits and watermarks (e.g. 'Photo: U.S. CPSC recall notice') when reading brand or text.\n"
     "Be literal: never invent brands, models or dates. Use 'unknown' when unsure. category 'other' if it isn't baby gear."
 )
 
@@ -80,6 +82,8 @@ def item_from_identify(d: dict, extra_text: str = "") -> Item:
 
     feats = {k: (True if v == "yes" else False if v == "no" else None) for k, v in (d.get("features") or {}).items()}
     brand = (d.get("brand") or "").strip()
+    if brand.lower().strip(". ") in {"u.s", "us", "cpsc", "u.s. cpsc", "consumer product safety commission"}:
+        brand = ""  # a photo credit, not a brand
     if not brand or brand.lower() in {"unknown", "n/a", "none"}:
         brand = find_brand(" ".join([d.get("listing_text", ""), d.get("product_name", ""), extra_text]))
     item = Item(
@@ -88,6 +92,7 @@ def item_from_identify(d: dict, extra_text: str = "") -> Item:
         listing_text=" ".join(x for x in [d.get("listing_text", ""), extra_text] if x)[:3000],
         dom=parse_any_date(d.get("date_of_manufacture", "")), printed_expiration=parse_any_date(d.get("printed_expiration", "")),
         features={k: v for k, v in feats.items() if v is not None}, missing_parts=d.get("missing_parts", [])[:6],
+        colors=(d.get("colors_and_prints") or "")[:200],
     )
     for k in ("model_text", "product_name"):
         if getattr(item, k).strip().lower() in {"unknown", "n/a", "none", "not visible"}:
@@ -118,23 +123,33 @@ JUDGE_SYSTEM = (
     "- same_brand: is the item the recalled brand (or the brand in the recall's product name)?\n"
     "- same_kind_of_product: is it the same kind of product (lounger, walker, swing, car seat...)?\n"
     "- recall_limited_to: what else must match beyond brand and kind. 'nothing_more' when the notice covers all of that brand's products "
-    "of this kind (e.g. 'This recall involves X-branded baby walkers'), even if it says where a model number is printed. "
+    "of this kind (e.g. 'This recall involves X-branded baby walkers', or every color it was sold in), even if it says where a model number is printed. "
+    "A limit the listing states plainly counts as matching (e.g. the recall covers only models with a 3-point harness and the listing says 3-point harness; "
+    "the recall names a print and the listing or photo shows that print; the recall names a product line and the listing names it). "
     "Otherwise the limit: model_numbers, manufacture_dates, colors_or_prints, named_product_line (only a named product such as 'Snuga swings'), or several.\n"
     "- item_detail_vs_limit: for that limit, does the item's model/date/print/product name match the recall ('matches'), clearly differ ('differs'), "
-    "or is it not shown ('not_shown')? 'not_needed' when recall_limited_to is nothing_more.\n"
+    "or is it not shown ('not_shown')? A missing model number is 'not_shown', never 'differs'. 'not_needed' when recall_limited_to is nothing_more.\n"
     "- why: one short sentence."
 )
 
 
-def judge_verdict(j: dict) -> str:
-    """The rule that turns the model's reading into a verdict (code decides, not the model)."""
+def judge_verdict(j: dict, item: Item | None = None) -> str:
+    """The rule that turns the model's reading into a verdict (code decides, not the model).
+    Code also corrects two readings a model can't justify from the item facts."""
+    if item is not None:
+        if not item.brand and j["same_brand"] == "no":
+            j["same_brand"] = "unclear"  # we don't know the item's brand, so it can't "differ"
+        if j["recall_limited_to"] == "model_numbers" and not item.model_text.strip() and j["item_detail_vs_limit"] == "differs":
+            j["item_detail_vs_limit"] = "not_shown"  # no model number in the listing is "not shown", not "different"
     if j["same_brand"] == "no" or j["same_kind_of_product"] == "no":
         return "does_not_apply"
-    if j["same_brand"] == "yes" and j["same_kind_of_product"] == "yes":
-        if j["recall_limited_to"] == "nothing_more" or j["item_detail_vs_limit"] == "matches":
-            return "applies"
+    if j["same_kind_of_product"] == "yes" and j["same_brand"] in ("yes", "unclear"):
         if j["item_detail_vs_limit"] == "differs":
             return "does_not_apply"
+        if j["same_brand"] == "yes" and (j["recall_limited_to"] == "nothing_more" or j["item_detail_vs_limit"] == "matches"):
+            return "applies"
+        if j["same_brand"] == "unclear" and j["item_detail_vs_limit"] == "matches" and j["recall_limited_to"] in ("model_numbers", "several"):
+            return "applies"  # an unbranded listing whose printed model number matches the recall
     return "unclear"
 
 
@@ -142,20 +157,21 @@ def judge_recalls(item: Item, candidates: list[dict], calls: list[CallRecord] | 
     """Nemotron reads the recall notices (model lists, prints, date ranges) and answers fixed questions; judge_verdict decides."""
     if not candidates:
         return []
-    facts = {"category": item.category, "brand": item.brand, "product_name": item.product_name, "model_text": item.model_text,
-             "date_of_manufacture": str(item.dom) if item.dom else "unknown", "listing_text": item.listing_text[:800]}
+    facts = {"category": item.category, "brand": item.brand or "unknown", "product_name": item.product_name, "model_text": item.model_text or "none shown",
+             "colors_and_prints": item.colors or "unknown", "date_of_manufacture": str(item.dom) if item.dom else "unknown",
+             "listing_text": item.listing_text[:800]}
     cands = [{"recall_id": c["id"], "source": c["source"], "title": c["title"], "date": c["date"],
               "products": c.get("products", [])[:6], "models": c.get("models", [])[:20],
               "covers": c["description"][:1400], "mfg_range": f"{c.get('begin', '')}..{c.get('end', '')}" if c["source"] == "NHTSA" else ""}
              for c in candidates[:6]]
-    spec = settings.nano if quick else settings.ultra
+    spec = settings.ultra  # quick = Ultra with reasoning off (page scan); otherwise reasoning on (detail view)
     out = chat_json(spec, [
         {"role": "system", "content": JUDGE_SYSTEM},
         {"role": "user", "content": f"Item: {json.dumps(facts)}\nRecall notices: {json.dumps(cands)}\nAnswer for every recall_id."}],
         schema=JUDGE_SCHEMA, purpose="Judge recall matches" + (" (quick)" if quick else ""), reasoning=not quick,
         max_tokens=1600 if quick else 6000, calls=calls)
     known = {c["id"] for c in candidates}
-    return [j | {"verdict": judge_verdict(j)} for j in out.get("judgments", []) if j.get("recall_id") in known]
+    return [j | {"verdict": judge_verdict(j, item)} for j in out.get("judgments", []) if j.get("recall_id") in known]
 
 
 VERDICT_SCHEMA = {

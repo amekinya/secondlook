@@ -104,7 +104,7 @@ def scan_one(listing: dict, today: date, live: bool) -> dict:
     item = tasks.item_from_identify(ident, text) if ident else item_from_text(text)
     res = assess(item, today)
     possible = [r for r in res["recalls"] if r["match"] == "possible"]
-    if possible and live:  # Nemotron Nano reads the candidate notices (fast); Ultra re-checks on the detail view
+    if possible and live:  # Nemotron Ultra (reasoning off) reads the candidate notices fast; with reasoning on it re-checks on the detail view
         try:
             js = tasks.judge_recalls(item, possible, calls, quick=True)
             res = assess(item, today, {j["recall_id"]: j["verdict"] for j in js})

@@ -40,7 +40,7 @@ L = [
     ("cpsc:demo_26074", "Electric baby swing with mosquito net", "$40", "Downers Grove", "Swing / rocker with remote and net. My son napped in it every day. Model BB501.", "ILLEGAL_TO_SELL", "Vevor swing recall 26074 (inclined sleep)"),
     ("pexels:25797471", "Full-size stroller, gray", "$55", "Wheaton", "Reclining seat, big basket, adjustable handle. Some wear on the wheels.", "OK_SO_FAR", "No recall matched"),
     ("cpsc:eval_24153", "3-in-1 high chair and booster", "$30", "Lisle", "SINGES high chair, converts to booster seat. Clean and folds.", "RECALLED", "SINGES high chair recall 24153"),
-    ("cpsc:eval_27027", "Bedside sleeper / bassinet", "$50", "Bolingbrook", "Papablic convertible bedside sleeper, attaches to the side of your bed.", "RECALLED", "Papablic bedside sleeper recall 27027"),
+    ("cpsc:eval_27027", "Bedside sleeper / bassinet", "$50", "Bolingbrook", "Papablic convertible bedside sleeper, attaches to the side of your bed.", "CHECK", "Papablic recall 27027 covers only model PAPA03001AI; the listing doesn't show the model, so: ask for the label"),
     ("synth:carseat", "Evenflo convertible car seat", "$30", "Naperville", "Rear or forward facing, clean cover. Sticker from the bottom in the photo.", "UNSAFE_ADVISORY", "Made 03/2015, Evenflo 10-yr life, expired"),
     ("pexels:7708639", "Convertible car seat (installed photo)", "$45", "Aurora", "Car seat in great shape, no stains. Comes with manual.", "CHECK", "Car seat: labels and crash history needed"),
     ("cpsc:eval_25456", "Baby lounger, grey feather", "$15", "Downers Grove", "URMYWO newborn lounger, soft and portable.", "RECALLED", "URMYWO lounger recall 25456"),
