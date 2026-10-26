@@ -1,14 +1,17 @@
 {
- "run_at": "2026-10-26 19:14 UTC",
+ "run_at": "2026-10-26 19:18 UTC",
  "recognition": {
   "n": 54,
-  "strict": 0.481,
-  "lenient": 0.648,
+  "strict": 0.574,
+  "lenient": 0.741,
+  "model_strict": 0.481,
+  "model_lenient": 0.648,
+  "described_but_picked_other": 7,
   "by_category": {
    "bassinet": "4/5",
-   "bath": "1/5",
+   "bath": "2/5",
    "bouncer_rocker": "0/1",
-   "carrier": "2/4",
+   "carrier": "4/4",
    "crib": "2/5",
    "crib_bumper": "0/5",
    "high_chair": "5/5",
@@ -17,278 +20,386 @@
    "nursing_pillow": "0/1",
    "stroller": "5/5",
    "swing": "2/5",
-   "walker": "0/3"
+   "walker": "2/3"
   },
   "rows": [
    {
     "file": "eval_15131.jpg",
     "expected": "crib",
-    "got": "crib"
+    "got": "crib",
+    "app": "crib",
+    "what_i_see": "A nursery room with a gray crib, a matching bookshelf, and a dresser with a changing pad. The crib has a solid headboard and footboard with vertical slats and a patterned crib sheet. No labels, brand "
    },
    {
     "file": "eval_16143.jpg",
     "expected": "bassinet",
-    "got": "swing"
+    "got": "swing",
+    "app": "swing",
+    "what_i_see": "A Fisher-Price baby swing with a beige and white patterned seat, a five-point harness, a mobile with plush animal toys, and a control unit on the base. The product stands on a four-legged base and is "
    },
    {
     "file": "eval_16157.jpg",
     "expected": "carrier",
-    "got": "other"
+    "got": "other",
+    "app": "carrier",
+    "what_i_see": "A baby carrier with orange and blue fabric covers, black straps, and a waist buckle. An inset shows four black plastic buckle fasteners labeled 'KnickKack' and 'ITW Nexus Jet SR'."
    },
    {
     "file": "eval_16249.jpg",
     "expected": "stroller",
-    "got": "stroller"
+    "got": "stroller",
+    "app": "stroller",
+    "what_i_see": "A second-hand listing photo showing a black and beige infant car seat with base on the left and a matching black and beige stroller on the right. No text, labels, or dates are visible in the image."
    },
    {
     "file": "eval_16268.jpg",
     "expected": "carrier",
-    "got": "carrier"
+    "got": "carrier",
+    "app": "carrier",
+    "what_i_see": "A colorful striped baby carrier with multiple black straps and buckles, laid flat on a white surface. A white tag is visible on the left side."
    },
    {
     "file": "eval_16743.jpg",
     "expected": "bassinet",
-    "got": "bassinet"
+    "got": "bassinet",
+    "app": "bassinet",
+    "what_i_see": "A wooden bassinet on a stand with a mesh side panel and a white mattress."
    },
    {
     "file": "eval_17010.png",
     "expected": "stroller",
-    "got": "stroller"
+    "got": "stroller",
+    "app": "stroller",
+    "what_i_see": "A baby stroller with a teal canopy, black seat, and four wheels."
    },
    {
     "file": "eval_17096.jpg",
     "expected": "swing",
-    "got": "bouncer_rocker"
+    "got": "bouncer_rocker",
+    "app": "bouncer_rocker",
+    "what_i_see": "A pink plastic baby bouncer seat suspended by four yellow ropes, with a purple T-shaped restraint bar across the front. The brand name 'Fisher-Price' is visible on the center of the restraint bar."
    },
    {
     "file": "eval_18112.png",
     "expected": "high_chair",
-    "got": "high_chair"
+    "got": "high_chair",
+    "app": "high_chair",
+    "what_i_see": "A high chair with a white tray, black frame, and patterned seat cushion with polka dots."
    },
    {
     "file": "eval_18167.png",
     "expected": "stroller",
-    "got": "stroller"
+    "got": "stroller",
+    "app": "stroller",
+    "what_i_see": "A grey and black four-wheeled baby stroller with a canopy, handlebar, and storage basket."
    },
    {
     "file": "eval_19042.png",
     "expected": "high_chair",
-    "got": "high_chair"
+    "got": "high_chair",
+    "app": "high_chair",
+    "what_i_see": "A high chair and a matching booster seat, both grey with white legs and a cloud-patterned insert on the high chair back."
    },
    {
     "file": "eval_19105.jpg",
     "expected": "inclined_sleeper",
-    "got": "bouncer_rocker"
+    "got": "bouncer_rocker",
+    "app": "bouncer_rocker",
+    "what_i_see": "A pink and white patterned baby bouncer/rocker on a white metal stand with four legs and glides. It has a padded seat with a harness and a small toy attached."
    },
    {
     "file": "eval_19112.jpg",
     "expected": "inclined_sleeper",
-    "got": "bouncer_rocker"
+    "got": "bouncer_rocker",
+    "app": "bouncer_rocker",
+    "what_i_see": "A pink baby bouncer/rocker with a floral pattern, a padded seat, a front fabric panel with a cartoon character, and a white metal rocking base with curved legs."
    },
    {
     "file": "eval_19151.png",
     "expected": "inclined_sleeper",
-    "got": "bassinet"
+    "got": "bassinet",
+    "app": "bassinet",
+    "what_i_see": "A portable play yard / travel crib with a bassinet insert on top, mesh sides, a lower storage shelf, and a patterned mattress pad. The product stands on four legs. No brand, model, or date is visible "
    },
    {
     "file": "eval_19174.jpg",
     "expected": "bouncer_rocker",
-    "got": "swing"
+    "got": "swing",
+    "app": "swing",
+    "what_i_see": "A gray upholstered baby seat on a white curved base with a white overhead toy bar. The seat has a harness and appears to be a powered or automatic rocking seat."
    },
    {
     "file": "eval_19177.jpeg",
     "expected": "inclined_sleeper",
-    "got": "bouncer_rocker"
+    "got": "bouncer_rocker",
+    "app": "bouncer_rocker",
+    "what_i_see": "A purple and white baby bouncer/rocker with a fabric seat, a pink plush toy, and a metal stand with curved rocker legs."
    },
    {
     "file": "eval_19716.jpeg",
     "expected": "carrier",
-    "got": "other"
+    "got": "other",
+    "app": "carrier",
+    "what_i_see": "A blue baby carrier with shoulder straps, a front pocket, and a waist belt."
    },
    {
     "file": "eval_20071.png",
     "expected": "carrier",
-    "got": "carrier"
+    "got": "carrier",
+    "app": "carrier",
+    "what_i_see": "A baby carrier with a grey textured fabric body, black padded shoulder straps, a black waist belt, and a small teal label on the front."
    },
    {
     "file": "eval_20730.png",
     "expected": "walker",
-    "got": "other"
+    "got": "other",
+    "app": "walker",
+    "what_i_see": "A baby in a seated activity walker with a tray, wheels, and a toy on the tray."
    },
    {
     "file": "eval_21052.png",
     "expected": "inclined_sleeper",
-    "got": "bassinet"
+    "got": "bassinet",
+    "app": "bassinet",
+    "what_i_see": "A photo of a baby bassinet with a mesh canopy and a folded travel bassinet next to it."
    },
    {
     "file": "eval_21198.png",
     "expected": "lounger",
-    "got": "lounger"
+    "got": "lounger",
+    "app": "lounger",
+    "what_i_see": "Three baby head-shaping pillows shown side by side: a floral patterned pillow labeled 'Original', a pale pink pillow with a gold crown labeled 'Preferred', and a grey pillow labeled 'Pottery Barn Kids"
    },
    {
     "file": "eval_22200.jpg",
     "expected": "swing",
-    "got": "swing"
+    "got": "swing",
+    "app": "swing",
+    "what_i_see": "A baby swing with a curved metal frame, a fabric seat, a white base with control buttons, and a mobile arch with three plush toys. A magnified inset shows a strap attached to the frame."
    },
    {
     "file": "eval_22724.png",
     "expected": "walker",
-    "got": "other"
+    "got": "other",
+    "app": "other",
+    "what_i_see": "A white and black baby activity seat on a wheeled circular base, with a central seat insert and a surrounding tray-like ring."
    },
    {
     "file": "eval_22768.jpg",
     "expected": "bath",
-    "got": "other"
+    "got": "other",
+    "app": "bouncer_rocker",
+    "what_i_see": "A blue and orange plastic baby floor seat with a T-shaped front support and a contoured backrest, sitting on a flat base with small feet."
    },
    {
     "file": "eval_23290.png",
     "expected": "swing",
-    "got": "swing"
+    "got": "swing",
+    "app": "swing",
+    "what_i_see": "A powered baby swing with a fabric canopy, plush toys hanging above the seat, a padded seat, and a base with a control panel. The product stands on a curved rocker base/stand."
    },
    {
     "file": "eval_24145.png",
     "expected": "swing",
-    "got": "bouncer_rocker"
+    "got": "bouncer_rocker",
+    "app": "bouncer_rocker",
+    "what_i_see": "A second-hand baby product listing photo showing a grey and white infant bouncer/rocker with a canopy, hanging plush toys, and a curved base. The brand 'JoolzBaby' is printed on the base. No text, mod"
    },
    {
     "file": "eval_24153.png",
     "expected": "high_chair",
-    "got": "high_chair"
+    "got": "high_chair",
+    "app": "high_chair",
+    "what_i_see": "A high chair with a white metal frame, light blue padded seat and back, a dark blue tray with a cup holder, and a footrest. No brand, model, or date labels are visible in the image."
    },
    {
     "file": "eval_24738.png",
     "expected": "crib",
-    "got": "other"
+    "got": "other",
+    "app": "other",
+    "what_i_see": "A white rectangular mattress lying flat on a dark floor, with a blue mat partially visible beneath one corner. No brand, model, or date labels are visible in the image."
    },
    {
     "file": "eval_24739.png",
     "expected": "crib",
-    "got": "other"
+    "got": "other",
+    "app": "other",
+    "what_i_see": "A white, three-panel folding mattress lying flat on a dark floor. It has a quilted surface and a small label on the bottom right corner. No brand, model, or date is legible in the image."
    },
    {
     "file": "eval_25033.png",
     "expected": "crib_bumper",
-    "got": "play_yard"
+    "got": "play_yard",
+    "app": "play_yard",
+    "what_i_see": "A white crib with a padded bumper set shown in the foreground. The bumper pieces are long, padded fabric strips with ties at the corners, consistent with crib slat covers/bumpers."
    },
    {
     "file": "eval_25044.jpg",
     "expected": "stroller",
-    "got": "stroller"
+    "got": "stroller",
+    "app": "stroller",
+    "what_i_see": "A compact, foldable stroller with a green canopy, black mesh seat, black frame, white front wheel forks, and a storage basket underneath."
    },
    {
     "file": "eval_25054.jpg",
     "expected": "crib",
-    "got": "crib"
+    "got": "crib",
+    "app": "crib",
+    "what_i_see": "A white wooden crib with vertical slats and four light wood legs, photographed against a plain white background. No labels, text, brand markings, model numbers, or dates are visible in the image."
    },
    {
     "file": "eval_25312.png",
     "expected": "swing",
-    "got": "bouncer_rocker"
+    "got": "bouncer_rocker",
+    "app": "bouncer_rocker",
+    "what_i_see": "A baby bouncer/rocker with a grey fabric seat, white padded headrest, white tray, and a black curved base with a control panel at the front."
    },
    {
     "file": "eval_25315.png",
     "expected": "bassinet",
-    "got": "bassinet"
+    "got": "bassinet",
+    "app": "bassinet",
+    "what_i_see": "A grey portable baby bassinet with a canopy, mesh sides, and a matching carry bag with a shoulder strap. The bag is labeled 'ZHORANGE'."
    },
    {
     "file": "eval_25361.png",
     "expected": "walker",
-    "got": "other"
+    "got": "other",
+    "app": "walker",
+    "what_i_see": "A baby activity walker with a circular tray, toys, and a seat."
    },
    {
     "file": "eval_25383.png",
     "expected": "crib_bumper",
-    "got": "lounger"
+    "got": "lounger",
+    "app": "lounger",
+    "what_i_see": "A cream-colored, chunky-knit pillow shaped into a spiral or coiled nest with a central hollow. No brand, model, or date labels are visible in the image."
    },
    {
     "file": "eval_25456.png",
     "expected": "lounger",
-    "got": "lounger"
+    "got": "lounger",
+    "app": "lounger",
+    "what_i_see": "A baby lounger/nest with a leaf pattern, lying flat on a tiled floor. It has a padded, raised border and a flat interior surface. A white tag is visible on the underside edge, but no text is legible i"
    },
    {
     "file": "eval_25471.jpg",
     "expected": "crib",
-    "got": "other"
+    "got": "other",
+    "app": "other",
+    "what_i_see": "A baby mobile with a remote control, a projector, and hanging plush toys."
    },
    {
     "file": "eval_25473.jpg",
     "expected": "crib_bumper",
-    "got": "lounger"
+    "got": "lounger",
+    "app": "lounger",
+    "what_i_see": "A baby lounger/nest with a leaf pattern, shown with alphabet blocks and a small gift box."
    },
    {
     "file": "eval_26071.png",
     "expected": "bath",
-    "got": "other"
+    "got": "other",
+    "app": "bath",
+    "what_i_see": "A white and grey portable baby bathtub with an integrated cushioned insert featuring a star pattern. A measuring tape is laid out beside it, and a white tag is attached to the front."
    },
    {
     "file": "eval_26121.jpg",
     "expected": "high_chair",
-    "got": "high_chair"
+    "got": "high_chair",
+    "app": "high_chair",
+    "what_i_see": "A beige high chair with a tray, five-point harness, wheels, and foldable legs. Inset images show the chair folded and in different configurations."
    },
    {
     "file": "eval_26132.png",
     "expected": "crib_bumper",
-    "got": "other"
+    "got": "other",
+    "app": "bassinet",
+    "what_i_see": "Two photos of a white, quilted, rectangular baby product with fabric ties at the corners and sides. It appears to be a portable changing pad or bassinet mattress insert, shown folded in one photo and "
    },
    {
     "file": "eval_26169.jpg",
     "expected": "crib_bumper",
-    "got": "lounger"
+    "got": "lounger",
+    "app": "lounger",
+    "what_i_see": "Three braided, rope-like baby loungers or nests in different colors: grey/white, mint/white, and peach/white. They are coiled into circular shapes with a long braided tail."
    },
    {
     "file": "eval_26171.png",
     "expected": "bath",
-    "got": "bath"
+    "got": "bath",
+    "app": "bath",
+    "what_i_see": "A white and light-blue plastic baby bath seat with a high backrest, side arm supports, a front safety bar, and suction-cup feet on the base. No brand, model, or date labels are visible in the image."
    },
    {
     "file": "eval_26195.png",
     "expected": "nursing_pillow",
-    "got": "other"
+    "got": "other",
+    "app": "other",
+    "what_i_see": "A plush white angel-winged bottle holder with a baby bottle inserted, branded 'GREATLE' on a tag."
    },
    {
     "file": "eval_26266.png",
     "expected": "bath",
-    "got": "bouncer_rocker"
+    "got": "bouncer_rocker",
+    "app": "bouncer_rocker",
+    "what_i_see": "A grey plastic baby floor seat with a high back, a wide base, a perforated seat insert, and a small toy bar with colorful beads across the front. A circular control or button is visible on the side of"
    },
    {
     "file": "eval_26290.jpg",
     "expected": "high_chair",
-    "got": "high_chair"
+    "got": "high_chair",
+    "app": "high_chair",
+    "what_i_see": "A grey high chair with a quilted back and seat, a clear plastic tray cover, and a metal frame with legs. A white paper is attached to the backrest. The brand name 'BABYSTAR' is visible on the front ed"
    },
    {
     "file": "eval_26342.jpg",
     "expected": "bassinet",
-    "got": "bassinet"
+    "got": "bassinet",
+    "app": "bassinet",
+    "what_i_see": "A white, quilted fabric bassinet with mesh side panels, standing on four metal legs with feet. No brand, model, or date labels are visible in the image."
    },
    {
     "file": "eval_26525.png",
     "expected": "lounger",
-    "got": "lounger"
+    "got": "lounger",
+    "app": "lounger",
+    "what_i_see": "A U-shaped fabric pillow with a pink floral pattern, consistent with a nursing or infant support pillow."
    },
    {
     "file": "eval_26568.png",
     "expected": "stroller",
-    "got": "stroller"
+    "got": "stroller",
+    "app": "stroller",
+    "what_i_see": "A second-hand baby product listing photo showing a stroller with an attached infant car seat. The stroller has a beige/tan canopy and seat fabric, a black frame, black wheels, and a storage basket und"
    },
    {
     "file": "eval_26591.jpg",
     "expected": "lounger",
-    "got": "lounger"
+    "got": "lounger",
+    "app": "lounger",
+    "what_i_see": "A baby lounger/nest with a padded oval base and raised sides, featuring a blue and white pattern with houses, trees, deer, and moons. A matching small pillow is placed inside. No brand, model, or date"
    },
    {
     "file": "eval_26657.jpg",
     "expected": "lounger",
-    "got": "lounger"
+    "got": "lounger",
+    "app": "lounger",
+    "what_i_see": "A light green, rectangular, padded baby lounger or nest with a raised perimeter and a flat, segmented inner cushion. It is lying flat on a white surface. There are two visible tags: a small white care"
    },
    {
     "file": "eval_27018.png",
     "expected": "bath",
-    "got": "bouncer_rocker"
+    "got": "bouncer_rocker",
+    "app": "bouncer_rocker",
+    "what_i_see": "A four-panel photo showing the same baby floor seat in four color combinations: grey/white, pink/white, blue/white, and green/white. Each unit has a white base, a contoured seat insert, a padded headr"
    },
    {
     "file": "eval_27027.png",
     "expected": "bassinet",
-    "got": "bassinet"
+    "got": "bassinet",
+    "app": "bassinet",
+    "what_i_see": "A grey and black portable bassinet on a wheeled stand with a lower storage shelf. The brand name 'PapaBic' is printed on the side of the bassinet fabric. No model number, manufacture date, or expirati"
    }
   ]
  },
@@ -360,7 +471,7 @@
   "super_vl": {
    "model": "nvidia/Nemotron-3.5-Super-VL",
    "calls": 60,
-   "avg_seconds": 1.97,
+   "avg_seconds": 1.75,
    "cost_usd": 0.0362
   },
   "ultra": {
