@@ -1,0 +1,16 @@
+name: Debug identify (live model)
+on:
+  workflow_dispatch:
+    inputs:
+      files: { description: "Space-separated image paths", required: true }
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements.txt
+      - env:
+          NEBIUS_API_KEY: ${{ secrets.NEBIUS_API_KEY }}
+        run: python -m scripts.debug_identify ${{ inputs.files }}
