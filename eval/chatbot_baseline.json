@@ -1,0 +1,399 @@
+{
+ "what": "24 marketplace listings (12 banned or recalled-for-deaths, 1 expired car seat, 5 ask-first, 6 fine)",
+ "results": {
+  "super_vl": {
+   "exact": 13,
+   "n": 24,
+   "risky": 13,
+   "risky_called_ok": 0,
+   "risky_called_danger_or_warning": 10,
+   "ok_listings_called_danger": 0,
+   "per_listing": [
+    {
+     "id": "l01",
+     "expected": "DANGER",
+     "got": "DANGER"
+    },
+    {
+     "id": "l02",
+     "expected": "CAUTION",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l03",
+     "expected": "DANGER",
+     "got": "DANGER"
+    },
+    {
+     "id": "l04",
+     "expected": "OK",
+     "got": "OK"
+    },
+    {
+     "id": "l05",
+     "expected": "DANGER",
+     "got": "DANGER"
+    },
+    {
+     "id": "l06",
+     "expected": "OK",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l07",
+     "expected": "DANGER",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l08",
+     "expected": "DANGER",
+     "got": "DANGER"
+    },
+    {
+     "id": "l09",
+     "expected": "OK",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l10",
+     "expected": "DANGER",
+     "got": "DANGER"
+    },
+    {
+     "id": "l11",
+     "expected": "DANGER",
+     "got": "WARNING"
+    },
+    {
+     "id": "l12",
+     "expected": "OK",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l13",
+     "expected": "DANGER",
+     "got": "WARNING"
+    },
+    {
+     "id": "l14",
+     "expected": "OK",
+     "got": "WARNING"
+    },
+    {
+     "id": "l15",
+     "expected": "CAUTION",
+     "got": "DANGER"
+    },
+    {
+     "id": "l16",
+     "expected": "CAUTION",
+     "got": "OK"
+    },
+    {
+     "id": "l17",
+     "expected": "DANGER",
+     "got": "DANGER"
+    },
+    {
+     "id": "l18",
+     "expected": "DANGER",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l19",
+     "expected": "OK",
+     "got": "OK"
+    },
+    {
+     "id": "l20",
+     "expected": "DANGER",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l21",
+     "expected": "CAUTION",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l22",
+     "expected": "WARNING",
+     "got": "WARNING"
+    },
+    {
+     "id": "l23",
+     "expected": "CAUTION",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l24",
+     "expected": "DANGER",
+     "got": "DANGER"
+    }
+   ]
+  },
+  "ultra": {
+   "exact": 13,
+   "n": 24,
+   "risky": 13,
+   "risky_called_ok": 0,
+   "risky_called_danger_or_warning": 11,
+   "ok_listings_called_danger": 1,
+   "per_listing": [
+    {
+     "id": "l01",
+     "expected": "DANGER",
+     "got": "DANGER"
+    },
+    {
+     "id": "l02",
+     "expected": "CAUTION",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l03",
+     "expected": "DANGER",
+     "got": "DANGER"
+    },
+    {
+     "id": "l04",
+     "expected": "OK",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l05",
+     "expected": "DANGER",
+     "got": "DANGER"
+    },
+    {
+     "id": "l06",
+     "expected": "OK",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l07",
+     "expected": "DANGER",
+     "got": "DANGER"
+    },
+    {
+     "id": "l08",
+     "expected": "DANGER",
+     "got": "DANGER"
+    },
+    {
+     "id": "l09",
+     "expected": "OK",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l10",
+     "expected": "DANGER",
+     "got": "DANGER"
+    },
+    {
+     "id": "l11",
+     "expected": "DANGER",
+     "got": "DANGER"
+    },
+    {
+     "id": "l12",
+     "expected": "OK",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l13",
+     "expected": "DANGER",
+     "got": "DANGER"
+    },
+    {
+     "id": "l14",
+     "expected": "OK",
+     "got": "DANGER"
+    },
+    {
+     "id": "l15",
+     "expected": "CAUTION",
+     "got": "WARNING"
+    },
+    {
+     "id": "l16",
+     "expected": "CAUTION",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l17",
+     "expected": "DANGER",
+     "got": "DANGER"
+    },
+    {
+     "id": "l18",
+     "expected": "DANGER",
+     "got": "WARNING"
+    },
+    {
+     "id": "l19",
+     "expected": "OK",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l20",
+     "expected": "DANGER",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l21",
+     "expected": "CAUTION",
+     "got": "WARNING"
+    },
+    {
+     "id": "l22",
+     "expected": "WARNING",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l23",
+     "expected": "CAUTION",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l24",
+     "expected": "DANGER",
+     "got": "DANGER"
+    }
+   ]
+  },
+  "secondlook": {
+   "exact": 20,
+   "n": 24,
+   "risky": 13,
+   "risky_called_ok": 0,
+   "risky_called_danger_or_warning": 9,
+   "ok_listings_called_danger": 0,
+   "per_listing": [
+    {
+     "id": "l01",
+     "expected": "DANGER",
+     "got": "DANGER"
+    },
+    {
+     "id": "l02",
+     "expected": "CAUTION",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l03",
+     "expected": "DANGER",
+     "got": "DANGER"
+    },
+    {
+     "id": "l04",
+     "expected": "OK",
+     "got": "OK"
+    },
+    {
+     "id": "l05",
+     "expected": "DANGER",
+     "got": "DANGER"
+    },
+    {
+     "id": "l06",
+     "expected": "OK",
+     "got": "OK"
+    },
+    {
+     "id": "l07",
+     "expected": "DANGER",
+     "got": "DANGER"
+    },
+    {
+     "id": "l08",
+     "expected": "DANGER",
+     "got": "DANGER"
+    },
+    {
+     "id": "l09",
+     "expected": "OK",
+     "got": "OK"
+    },
+    {
+     "id": "l10",
+     "expected": "DANGER",
+     "got": "DANGER"
+    },
+    {
+     "id": "l11",
+     "expected": "DANGER",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l12",
+     "expected": "OK",
+     "got": "OK"
+    },
+    {
+     "id": "l13",
+     "expected": "DANGER",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l14",
+     "expected": "OK",
+     "got": "OK"
+    },
+    {
+     "id": "l15",
+     "expected": "CAUTION",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l16",
+     "expected": "CAUTION",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l17",
+     "expected": "DANGER",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l18",
+     "expected": "DANGER",
+     "got": "DANGER"
+    },
+    {
+     "id": "l19",
+     "expected": "OK",
+     "got": "OK"
+    },
+    {
+     "id": "l20",
+     "expected": "DANGER",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l21",
+     "expected": "CAUTION",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l22",
+     "expected": "WARNING",
+     "got": "WARNING"
+    },
+    {
+     "id": "l23",
+     "expected": "CAUTION",
+     "got": "CAUTION"
+    },
+    {
+     "id": "l24",
+     "expected": "DANGER",
+     "got": "DANGER"
+    }
+   ]
+  }
+ },
+ "cost_usd": {
+  "super_vl": 0.0062,
+  "ultra": 0.0502
+ }
+}

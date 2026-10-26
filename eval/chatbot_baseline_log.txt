@@ -1,0 +1,3 @@
+super_vl     exact 13/24  risky called OK 0/13  risky flagged 10/13  fine called DANGER 0
+ultra        exact 13/24  risky called OK 0/13  risky flagged 11/13  fine called DANGER 1
+secondlook   exact 20/24  risky called OK 0/13  risky flagged 9/13  fine called DANGER 0
