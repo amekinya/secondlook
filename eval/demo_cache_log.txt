@@ -1,11 +1,9 @@
-MISS listing_1.png OK_SO_FAR expected RECALLED | No known recall or ban found
-   item: {"category": "swing", "category_confidence": 0.95, "brand": "", "model_text": "BB501", "product_name": "Baby swing with mosquito net", "dom": null, "printed_expiration": null, "features": {"marketed_for_sleep": true, "drop_side": false, "padded_bumper": false, "mesh_liner": false, "suction_cups": false, "legs_or_stand": true, "snuga_headrest_present": false, "bumbo_belt_present": false, "single_cup_tray": false, "cord_cover_present": false, "weighted": false}, "missing_parts": []}
-   judgments: [{"recall_id": "26074", "same_brand": "no", "same_kind_of_product": "yes", "recall_limited_to": "model_numbers", "item_detail_vs_limit": "differs", "why": "The item's model BB501 does not match any of the recalled model numbers (BB501K, BB702A, BB005) and the VEVOR trademark is not mentioned.", "verdict": "does_not_apply"}]
-MISS listing_2.png OK_SO_FAR expected ILLEGAL_TO_SELL | No known recall or ban found
-   item: {"category": "play_yard", "category_confidence": 0.9, "brand": "U.S.", "model_text": "", "product_name": "Braided crib bumper", "dom": null, "printed_expiration": null, "features": {"incline_raised": false, "marketed_for_sleep": true, "drop_side": false, "padded_bumper": true, "mesh_liner": false, "restraint_strap": false, "suction_cups": false, "legs_or_stand": false, "snuga_headrest_present": false, "strap_fastener_present": false, "bumbo_belt_present": false, "single_cup_tray": false, "cord_cover_present": false, "weighted": false}, "missing_parts": []}
-   judgments: []
+MISS listing_1.png OK_SO_FAR expected ILLEGAL_TO_SELL | No known recall or ban found
+   item: {"category": "swing", "category_confidence": 0.95, "brand": "", "model_text": "BB501", "product_name": "Baby swing with mosquito net", "dom": null, "printed_expiration": null, "features": {"marketed_for_sleep": true, "drop_side": false, "padded_bumper": false, "mesh_liner": false, "suction_cups": false, "legs_or_stand": true, "snuga_headrest_present": false, "bumbo_belt_present": false, "single_cup_tray": false, "cord_cover_present": false, "weighted": false}, "missing_parts": [], "colors": "white and gray"}
+   judgments: [{"recall_id": "26074", "same_brand": "unclear", "same_kind_of_product": "yes", "recall_limited_to": "model_numbers", "item_detail_vs_limit": "differs", "why": "The item's model number BB501 does not match the recalled model BB501K, and the brand is unknown rather than Vevor.", "verdict": "does_not_apply"}]
+OK  listing_2.png ILLEGAL_TO_SELL expected ILLEGAL_TO_SELL | Padded crib bumpers are banned
 OK  listing_3.png RECALLED expected RECALLED | Recalled: All Models of Fisher-Price Snuga Swings
 OK  listing_4.png ILLEGAL_TO_SELL expected ILLEGAL_TO_SELL | Drop-side cribs can't be resold
 OK  listing_5.png OK_SO_FAR expected OK_SO_FAR | Recall fix appears done (Bumbo Baby Seats)
 OK  listing_6.png UNSAFE_ADVISORY expected UNSAFE_ADVISORY | Car seat expired Mar 2025
-wrote demo_cache.json (6/6 listings, 4 as expected)
+wrote demo_cache.json (6/6 listings, 5 as expected)
