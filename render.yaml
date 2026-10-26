@@ -1,0 +1,15 @@
+# One-click deploy on Render: New → Blueprint → pick this repo → paste your two keys when asked.
+services:
+  - type: web
+    name: secondlook
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NEBIUS_API_KEY
+        sync: false
+      - key: TAVILY_API_KEY
+        sync: false
+      - key: DAILY_SPEND_CAP_USD
+        value: "2"

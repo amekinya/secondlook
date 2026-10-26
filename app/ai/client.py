@@ -108,8 +108,19 @@ def chat(
     # Nemotron models toggle reasoning through the chat template.
     kwargs["extra_body"] = {"chat_template_kwargs": {"enable_thinking": reasoning}}
 
+    import openai  # noqa: PLC0415
+
     t0 = time.perf_counter()
-    resp = client.chat.completions.create(**kwargs)
+    for attempt in range(3):  # rate limits and transient 5xx get two retries with backoff
+        try:
+            resp = client.chat.completions.create(**kwargs)
+            break
+        except (openai.RateLimitError, openai.APIConnectionError, openai.APITimeoutError, openai.InternalServerError) as e:
+            if attempt == 2:
+                raise LiveModelUnavailable(f"{type(e).__name__}: {e}") from e
+            time.sleep(1.5 * (attempt + 1))
+        except openai.APIStatusError as e:
+            raise LiveModelUnavailable(f"{type(e).__name__}: {e}") from e
     seconds = time.perf_counter() - t0
 
     usage = getattr(resp, "usage", None)
@@ -126,12 +137,22 @@ def chat(
     return content
 
 
-def chat_json(spec: ModelSpec, messages: list[dict[str, Any]], *, schema: dict[str, Any], **kw) -> dict[str, Any]:
-    """Chat with a strict JSON schema; tolerate models that wrap JSON in code fences."""
-    text = chat(spec, messages, json_schema=schema, **kw)
-    text = text.strip()
+def _parse_json(text: str) -> dict[str, Any]:
+    text = (text or "").strip()
     if text.startswith("```"):
         text = text.strip("`")
         text = text[text.find("{") :]
     start, end = text.find("{"), text.rfind("}")
     return json.loads(text[start : end + 1])
+
+
+def chat_json(spec: ModelSpec, messages: list[dict[str, Any]], *, schema: dict[str, Any], **kw) -> dict[str, Any]:
+    """Chat with a strict JSON schema; tolerate code fences. An empty or cut-off reply is retried once with
+    twice the token budget, then reported as LiveModelUnavailable so the caller's fallback runs."""
+    for attempt in range(2):
+        text = chat(spec, messages, json_schema=schema, **kw)
+        try:
+            return _parse_json(text)
+        except ValueError:
+            kw["max_tokens"] = int(kw.get("max_tokens", 2048)) * 2
+    raise LiveModelUnavailable(f"{spec.model_id} returned no valid JSON")

@@ -16,7 +16,7 @@ from app.ai.client import CallRecord, LiveModelUnavailable, ledger
 from app.config import settings
 from app.engine import catalog as C
 from app.engine.assess import Item, assess
-from app.engine.recalls import find_brand
+from app.engine.textfacts import item_from_text  # noqa: F401  (re-exported for scan/eval)
 
 ROOT = Path(__file__).resolve().parent.parent
 STATIC = Path(__file__).resolve().parent / "static"
@@ -27,19 +27,6 @@ app = FastAPI(title="SecondLook")
 app.mount("/static", StaticFiles(directory=STATIC), name="static")
 MAX = 12 * 1024 * 1024
 
-BRANDS = ["Fisher-Price", "Graco", "Chicco", "Evenflo", "Britax", "Boppy", "4moms", "Bumbo", "Delta", "Stork Craft", "Storkcraft", "Kids2",
-          "Kids II", "Ingenuity", "Bright Starts", "Safety 1st", "Maxi-Cosi", "Nuna", "UPPAbaby", "Baby Trend", "Summer Infant", "Dream On Me",
-          "Munchkin", "Skip Hop", "Halo", "Owlet", "Cosco", "Clek", "Peg Perego", "Joovy", "Cybex", "Doona", "Joie", "Vevor", "Costway",
-          "Simplicity", "Kolcraft", "Angelcare", "Infantino", "Nap Nanny", "DockATot", "Baby Delight", "Dorel", "Little Tikes"]
-CAT_RX = [(c, rx) for c, rx in [
-    ("inclined_sleeper", r"rock ?'?n ?play|inclined sleep|rocking sleeper|napper"), ("crib_bumper", r"bumper|slat cover|crib liner"),
-    ("high_chair", r"high ?chair"), ("car_seat", r"car ?seat|booster car"), ("swing", r"\bswing\b|glider"), ("crib", r"\bcrib\b"), ("bassinet", r"bassinet|cradle|bedside sleeper|co-?sleeper"),
-    ("in_bed_sleeper", r"baby nest|in-bed sleeper|sleep pod|dockatot"), ("play_yard", r"play ?yard|pack ?'?n ?play|playpen"),
-    ("lounger", r"lounger|positioner"), ("nursing_pillow", r"nursing pillow"),
-    ("bouncer_rocker", r"bouncer|rocker|bumbo|floor seat"), ("walker", r"walker|activity center"), ("bath", r"bath seat|bath tub|bathtub"),
-    ("high_chair", r"high ?chair"), ("stroller", r"stroller"), ("carrier", r"carrier|sling"), ("sleep_sack", r"sleep sack|swaddle")]]
-
-
 def _demo_cache() -> dict:
     try:
         return json.loads((LISTINGS / "demo_cache.json").read_text())
@@ -49,32 +36,6 @@ def _demo_cache() -> dict:
 
 def _calls_json(calls: list[CallRecord]) -> list[dict]:
     return [asdict(c) | {"seconds": round(c.seconds, 2), "cost_usd": round(c.cost_usd, 5)} for c in calls]
-
-
-def item_from_text(text: str) -> Item:
-    """Rule-based fallback when the vision model isn't available: read the listing text only."""
-    t = text.lower()
-    cat = next((c for c, rx in CAT_RX if re.search(rx, t)), "other")
-    brand = next((b for b in BRANDS if b.lower() in t), "") or find_brand(text)
-    feats = {}
-    if re.search(r"\bdrop(s|ping)?\b|side (slides|drops)", t):
-        feats["drop_side"] = True
-    if re.search(r"bumper", t):
-        feats["padded_bumper"] = True
-    if re.search(r"\bsleep|\bnap", t):
-        feats["marketed_for_sleep"] = True
-    if re.search(r"headrest|insert", t) and cat == "swing":
-        feats["snuga_headrest_present"] = True
-    if re.search(r"suction", t):
-        feats["suction_cups"] = True
-    if re.search(r"(restraint|safety) belt|belt (is )?installed", t) and cat == "bouncer_rocker":
-        feats["bumbo_belt_present"] = True
-    dom = None
-    m = re.search(r"(?:manufactured|made|mfd|date)\D{0,25}(\d{1,2})\s*/\s*(\d{4})", t)
-    if m:
-        dom = date(int(m.group(2)), int(m.group(1)), 1)
-    models = " ".join(re.findall(r"\b(?=[A-Z0-9-]*\d)[A-Z]{1,5}-?\d{2,7}[A-Z0-9]*\b", text))
-    return Item(category=cat, brand=brand, model_text=models, product_name="", listing_text=text[:3000], dom=dom, features=feats)
 
 
 def run_check(item: Item, today: date, calls: list[CallRecord], steps: list[dict], cached: dict | None = None) -> dict:

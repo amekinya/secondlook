@@ -48,7 +48,8 @@ def assess(item: Item, today: date | None = None, judgments: dict[str, str] | No
     judgments = judgments or {}
 
     # --- Bans and standards (category + visible features) ---------------------------------
-    if cat == "inclined_sleeper" or (f.get("incline_raised") and f.get("marketed_for_sleep") and cat in {"bassinet", "play_yard", "swing", "bouncer_rocker", "in_bed_sleeper"}):
+    # Swings (16 CFR 1223) and bouncers (1229) have their own standards; a baby napping in one doesn't make it an inclined sleeper.
+    if cat == "inclined_sleeper" or (f.get("incline_raised") and f.get("marketed_for_sleep") and cat in {"bassinet", "play_yard", "in_bed_sleeper"}):
         _add(reasons, "R-INC-01")
     if cat == "crib_bumper":
         if f.get("mesh_liner") and not f.get("padded_bumper"):

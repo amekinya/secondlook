@@ -17,13 +17,15 @@ jobs:
           NEBIUS_API_KEY: ${{ secrets.NEBIUS_API_KEY }}
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
         run: |
-          python -m scripts.build_demo_cache
-          python -m scripts.build_market_cache | tee market_cache.log
-          tail -3 market_cache.log >> "$GITHUB_STEP_SUMMARY"
+          export PYTHONUNBUFFERED=1
+          mkdir -p eval
+          python -m scripts.build_demo_cache 2>&1 | tee eval/demo_cache_log.txt
+          python -m scripts.build_market_cache 2>&1 | tee eval/market_scan_log.txt
+          tail -3 eval/market_scan_log.txt >> "$GITHUB_STEP_SUMMARY"
       - name: Commit cache
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/listings/demo_cache.json data/market_cache.json
+          for f in data/listings/demo_cache.json data/market_cache.json eval/demo_cache_log.txt eval/market_scan_log.txt; do [ -f "$f" ] && git add "$f"; done
           git commit -m "Update demo cache" || echo "No changes"
-          git push
+          for i in 1 2 3; do git pull --rebase -q && git push && break; sleep 5; done

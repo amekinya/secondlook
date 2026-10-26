@@ -20,6 +20,7 @@ from urllib.parse import urlparse
 import httpx
 
 from app.ai import tasks
+from app.engine.textfacts import item_from_text
 from app.ai.client import CallRecord, LiveModelUnavailable, ledger
 from app.config import settings
 from app.engine import catalog as C
@@ -85,8 +86,6 @@ def _stamp(res: dict) -> dict:
 
 def scan_one(listing: dict, today: date, live: bool) -> dict:
     """Returns the stamp plus timing/cost; never raises."""
-    from app.main import item_from_text  # noqa: PLC0415
-
     t0 = time.perf_counter()
     calls: list[CallRecord] = []
     text = f"{listing.get('title', '')}. {listing.get('text', '')}".strip()
