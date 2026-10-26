@@ -144,13 +144,19 @@ def tiers() -> dict:
 
 
 def main():
-    r = {"run_at": time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime()), "recognition": recognition(), "matching": matching(), "demo": demo()}
-    r["tiers"] = tiers()
+    import sys
+
+    prev = json.loads((ROOT / "eval/results.json").read_text()) if (ROOT / "eval/results.json").exists() else {}
+    reuse_matching = "--reuse-matching" in sys.argv and "matching" in prev
+    r = {"run_at": time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime()), "recognition": recognition(),
+         "matching": prev["matching"] if reuse_matching else matching(), "demo": demo()}
+    r["matching_run_at"] = prev.get("matching_run_at", prev.get("run_at")) if reuse_matching else r["run_at"]
+    r["tiers"] = tiers() if not reuse_matching else {**prev.get("tiers", {}), **{k: v for k, v in tiers().items() if k == "super_vl"}}
     (ROOT / "eval/results.json").write_text(json.dumps(r, indent=1))
     md = [f"# SecondLook benchmark results\n\nRun {r['run_at']}.\n",
           f"## 1. Product recognition ({r['recognition']['n']} CPSC recall photos, 14 product types)\n",
           f"Nemotron 3.5 Super VL named the exact product type in {r['recognition']['strict']:.0%} of photos ({r['recognition']['lenient']:.0%} counting near neighbors such as swing vs. inclined sleeper).\n",
-          f"## 2. Recall matching ({r['matching']['n_positive']} recalled listings + {r['matching']['n_decoy']} decoys)\n",
+          f"## 2. Recall matching ({r['matching']['n_positive']} recalled listings + {r['matching']['n_decoy']} decoys; run {r['matching_run_at']})\n",
           "| System | Recalls caught | False alarms on decoys |", "|---|---|---|"]
     names = {"rules_only": "Rules + recall index", "rules_plus_ultra": "Rules + recall index + Nemotron 3 Ultra reading the notices",
              "ultra_from_memory": "Nemotron 3 Ultra alone (from memory)"}

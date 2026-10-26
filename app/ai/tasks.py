@@ -25,6 +25,7 @@ FEATURES = ["incline_raised", "marketed_for_sleep", "drop_side", "padded_bumper"
 ID_SCHEMA = {
     "type": "object",
     "properties": {
+        "what_i_see": {"type": "string", "description": "first: say in one or two sentences what product this is and what you see"},
         "category": {"type": "string", "enum": list(C.CATEGORIES)},
         "category_confidence": {"type": "number"},
         "brand": {"type": "string"},
@@ -37,10 +38,9 @@ ID_SCHEMA = {
         "features": {"type": "object", "properties": {k: {"type": "string", "enum": ["yes", "no", "unknown"]} for k in FEATURES},
                      "required": FEATURES, "additionalProperties": False},
         "missing_parts": {"type": "array", "items": {"type": "string"}},
-        "what_i_see": {"type": "string"},
     },
-    "required": ["category", "category_confidence", "brand", "product_name", "model_text", "date_of_manufacture", "printed_expiration",
-                 "listing_text", "colors_and_prints", "features", "missing_parts", "what_i_see"],
+    "required": ["what_i_see", "category", "category_confidence", "brand", "product_name", "model_text", "date_of_manufacture", "printed_expiration",
+                 "listing_text", "colors_and_prints", "features", "missing_parts"],
     "additionalProperties": False,
 }
 
@@ -123,6 +123,10 @@ def item_from_identify(d: dict, extra_text: str = "") -> Item:
     for k in ("model_text", "product_name"):
         if getattr(item, k).strip().lower() in {"unknown", "n/a", "none", "not visible"}:
             setattr(item, k, "")
+    if item.category in ("", "other") and d.get("what_i_see"):  # it described "a baby walker" but picked "other"
+        from app.engine.textfacts import item_from_text  # noqa: PLC0415
+
+        item.category = item_from_text(d["what_i_see"]).category
     if item.dom is None and d.get("what_i_see"):  # a label date the model described but didn't put in the field
         from app.engine.textfacts import item_from_text  # noqa: PLC0415
 
