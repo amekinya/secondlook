@@ -15,8 +15,8 @@
   ],
   "cite": "Safe Sleep for Babies Act; 16 CFR 1310; CPSA \u00a719",
   "deaths": 100,
-  "seconds": 3.8,
-  "cost_usd": 0.00208,
+  "seconds": 3.89,
+  "cost_usd": 0.00224,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
    "category": "inclined_sleeper",
@@ -45,17 +45,18 @@
     "weighted": "no"
    },
    "missing_parts": [],
-   "what_i_see": "A pink and white Fisher-Price Rock 'n Play sleeper on a white metal rocking frame with wheels. The fabric seat is inclined and includes a harness strap. A small plush toy is visible in the seat."
+   "what_i_see": "A pink and white Fisher-Price Rock 'n Play sleeper on a white metal rocking frame with wheels. The fabric seat is inclined and includes a harness strap. A small plush toy is attached near the head area. The listing text confirms it is a Fisher-Price Rock 'n Play sleeper used for infant sleep."
   },
   "quick_judgments": [
    {
     "recall_id": "19151",
     "same_brand": "yes",
     "same_kind_of_product": "yes",
-    "recall_limited_to": "named_product_line",
-    "item_detail_vs_limit": "differs",
-    "why": "The recall covers only the inclined sleeper accessory sold with Ultra-Lite Day & Night Play Yards, while the item is a standalone Rock 'n Play sleeper.",
-    "verdict": "does_not_apply"
+    "recall_limited_to": "model_numbers",
+    "item_detail_vs_limit": "not_shown",
+    "why": "The recall covers only the inclined sleeper accessory sold with specific Ultra-Lite Day & Night Play Yard model numbers, and the item listing does not show a model number.",
+    "verdict": "unclear",
+    "decided_by": "notice reading"
    },
    {
     "recall_id": "13087",
@@ -63,8 +64,9 @@
     "same_kind_of_product": "yes",
     "recall_limited_to": "nothing_more",
     "item_detail_vs_limit": "not_needed",
-    "why": "The recall covers all Fisher-Price Rock 'n Play infant sleepers regardless of model, color, or manufacture date.",
-    "verdict": "applies"
+    "why": "The recall covers all Fisher-Price Rock 'n Play infant sleepers regardless of model, color, or date, and the item is a Fisher-Price Rock 'n Play sleeper.",
+    "verdict": "applies",
+    "decided_by": "notice reading"
    }
   ],
   "detail": {
@@ -72,11 +74,12 @@
     {
      "recall_id": "19151",
      "same_brand": "yes",
-     "same_kind_of_product": "no",
-     "recall_limited_to": "several",
+     "same_kind_of_product": "yes",
+     "recall_limited_to": "named_product_line",
      "item_detail_vs_limit": "differs",
-     "why": "The recall covers only the inclined sleeper accessory sold with Ultra-Lite Day & Night Play Yards (specific model numbers), but the item is a standalone Rock 'n Play sleeper.",
-     "verdict": "does_not_apply"
+     "why": "The recall covers only the inclined sleeper accessory sold with Ultra-Lite Day & Night Play Yards, while the item is a standalone Rock 'n Play sleeper.",
+     "verdict": "does_not_apply",
+     "decided_by": "notice reading"
     },
     {
      "recall_id": "13087",
@@ -84,20 +87,21 @@
      "same_kind_of_product": "yes",
      "recall_limited_to": "nothing_more",
      "item_detail_vs_limit": "not_needed",
-     "why": "The recall includes all Fisher-Price Rock 'n Play infant sleepers with no further restrictions.",
-     "verdict": "applies"
+     "why": "The recall includes all Fisher-Price Rock 'n Play infant sleepers, which matches the item exactly.",
+     "verdict": "applies",
+     "decided_by": "notice reading"
     }
    ],
    "verdict": {
-    "summary": "The Fisher-Price Rock 'n Play sleeper is an inclined infant sleeper that has been recalled and is now banned from sale. The verdict is Don't buy because selling it is illegal under the Safe Sleep for Babies Act and CPSC regulations.",
-    "seller_message": "Hi, thanks for listing this. I wanted to let you know that the Fisher-Price Rock 'n Play sleeper has been recalled (linked to infant deaths) and inclined infant sleepers over 10 degrees are banned hazardous products as of November 2022 (Safe Sleep for Babies Act; 16 CFR 1310). Selling it is unlawful, so I'll have to pass. You can contact Fisher-Price for a refund or voucher per the recall notice.",
+    "summary": "This is a Fisher-Price Rock 'n Play inclined infant sleeper. The verdict is **Don't buy** because inclined sleepers with an incline over 10 degrees have been banned as hazardous products since November 12, 2022, making it illegal to sell.",
+    "seller_message": "Hi, thanks for listing this. I wanted to let you know that the Rock 'n Play sleeper has been recalled and inclined infant sleepers are now banned from sale under the Safe Sleep for Babies Act. Since selling it is unlawful, I\u2019ll have to pass. Best of luck.",
     "safer_alternative": "Look for a flat, firm sleep surface such as a crib, bassinet, or play yard that meets current CPSC safety standards."
    },
    "news": {
     "checked": true,
     "query": "Fisher-Price Rock 'n Play sleeper recall",
     "new_recall": false,
-    "headline": "No new recall or safety warning for Fisher-Price Rock 'n Play sleeper reported after 2026-10-25 snapshot",
+    "headline": "Fisher-Price Rock 'n Play Sleeper Lawsuit Status & Settlements",
     "url": "https://www.consumernotice.org/legal/fisher-price-rock-n-play-lawsuits",
     "date": "Mon, 03 Aug 2026 00:00:00 GMT"
    },
@@ -107,55 +111,55 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 2.14,
+    "seconds": 2.13,
     "tokens_in": 1032,
-    "tokens_out": 359,
+    "tokens_out": 383,
     "cached_in": 0,
-    "cost_usd": 0.00063,
+    "cost_usd": 0.00065,
     "purpose": "Identify the product"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 1.12,
-    "tokens_in": 891,
-    "tokens_out": 185,
+    "seconds": 1.27,
+    "tokens_in": 988,
+    "tokens_out": 199,
     "cached_in": 0,
-    "cost_usd": 0.00145,
+    "cost_usd": 0.00159,
     "purpose": "Judge recall matches (quick)"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 8.65,
-    "tokens_in": 891,
-    "tokens_out": 3549,
+    "seconds": 10.6,
+    "tokens_in": 988,
+    "tokens_out": 2783,
     "cached_in": 0,
-    "cost_usd": 0.01154,
+    "cost_usd": 0.00934,
     "purpose": "Judge recall matches"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 2.41,
-    "tokens_in": 867,
-    "tokens_out": 771,
+    "seconds": 3.6,
+    "tokens_in": 864,
+    "tokens_out": 700,
     "cached_in": 0,
-    "cost_usd": 0.00318,
+    "cost_usd": 0.00296,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-    "seconds": 0.86,
-    "tokens_in": 1099,
-    "tokens_out": 101,
+    "seconds": 0.7,
+    "tokens_in": 1087,
+    "tokens_out": 86,
     "cached_in": 0,
     "cost_usd": 9e-05,
     "purpose": "Check recall news"
    }
   ],
-  "finished_at": 3.8
+  "finished_at": 3.89
  },
  "l02": {
   "id": "l02",
@@ -169,14 +173,14 @@
   "recalls": [],
   "cite": "16 CFR 1130.4; CPSC crib Q&A",
   "deaths": 0,
-  "seconds": 2.72,
-  "cost_usd": 0.00066,
+  "seconds": 2.27,
+  "cost_usd": 0.00064,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
    "category": "crib",
    "category_confidence": 0.95,
    "brand": "unknown",
-   "product_name": "Convertible crib",
+   "product_name": "unknown",
    "model_text": "unknown",
    "date_of_manufacture": "unknown",
    "printed_expiration": "unknown",
@@ -199,23 +203,18 @@
     "weighted": "no"
    },
    "missing_parts": [],
-   "what_i_see": "A white fixed-side convertible crib in a nursery, with a built-in white bookshelf and cabinet unit beside it. The crib has vertical slats and a blanket draped over the front rail. The listing text states it was bought new in 2021 and has a label on the back, but no brand, model, or manufacture date is visible in the photo or text."
+   "what_i_see": "A white fixed-side convertible crib in a nursery, with a built-in white bookshelf and cabinet unit beside it. The listing text states it was bought new in 2021 and has a label on the back, but no brand, model, or manufacture date is visible in the photo or text."
   },
   "quick_judgments": [],
   "detail": {
    "judgments": [],
    "verdict": {
-    "summary": "This is a convertible crib with no visible manufacture date, so you can't confirm it meets current safety standards. The verdict is to ask before you buy. The most important reason is that cribs made after 2010 must have a label showing the model and month/year of manufacture, and without it you can't verify compliance.",
-    "seller_message": "Hi! I'm interested in the crib. Could you let me know: 1) Is it a fixed-side crib (no drop-side)? 2) Can you share a photo of the label with the model number and the month/year it was made? 3) Are all the original parts and instructions included? Thanks!",
-    "safer_alternative": "Look for a crib that has a clear label showing the model number and manufacture date (month/year) to ensure it meets 2010 federal safety standards."
+    "summary": "This is a crib with no visible manufacture date, so we recommend asking the seller for more details before buying. The verdict is \u201cAsk before you buy\u201d because you can\u2019t confirm it meets current safety standards without seeing the label showing the model and month/year of manufacture, which has been required on cribs since 2010.",
+    "seller_message": "Hi! I\u2019m interested in your crib. Could you let me know if it has fixed sides (no drop\u2011side), and could you share a photo of the label with the model number and manufacture date? Also, are all the original parts and instructions included? Thanks!",
+    "safer_alternative": "Look for a crib with a label showing the month and year of manufacture (required since 2010), fixed sides, and all original hardware and instructions."
    },
    "news": {
-    "checked": true,
-    "query": "Convertible crib recall",
-    "new_recall": false,
-    "headline": "No new recall for convertible crib identified; latest recall snapshot remains dated 2026-10-25",
-    "url": "https://www.cpsc.gov/Recalls/2026/Little-Pea-Shop-Crib-Bumpers-Recalled-Due-to-Risk-of-Serious-Injury-or-Death-from-Suffocation-Violates-Federal-Crib-Bumper-Ban-Sold-by-Little-Pea-Shop",
-    "date": "Thu, 04 Dec 2025 00:00:00 GMT"
+    "checked": false
    },
    "level": "CHECK"
   },
@@ -223,35 +222,25 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 1.85,
+    "seconds": 1.72,
     "tokens_in": 1035,
-    "tokens_out": 383,
+    "tokens_out": 364,
     "cached_in": 0,
-    "cost_usd": 0.00066,
+    "cost_usd": 0.00064,
     "purpose": "Identify the product"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 1.4,
-    "tokens_in": 341,
-    "tokens_out": 426,
+    "seconds": 2.85,
+    "tokens_in": 336,
+    "tokens_out": 707,
     "cached_in": 0,
-    "cost_usd": 0.00162,
+    "cost_usd": 0.00246,
     "purpose": "Write verdict"
-   },
-   {
-    "role": "nano",
-    "model_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-    "seconds": 0.96,
-    "tokens_in": 1005,
-    "tokens_out": 148,
-    "cached_in": 0,
-    "cost_usd": 0.0001,
-    "purpose": "Check recall news"
    }
   ],
-  "finished_at": 2.72
+  "finished_at": 2.27
  },
  "l03": {
   "id": "l03",
@@ -265,7 +254,7 @@
   "recalls": [],
   "cite": "Safe Sleep for Babies Act; 16 CFR 1309; CPSA \u00a719",
   "deaths": 0,
-  "seconds": 2.76,
+  "seconds": 2.65,
   "cost_usd": 0.00063,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
@@ -295,21 +284,21 @@
     "weighted": "no"
    },
    "missing_parts": [],
-   "what_i_see": "Three braided fabric bumpers in gray/white, mint, and peach, coiled and laid flat. No labels, dates, brand names, or model numbers are visible in the image or listing text."
+   "what_i_see": "Three braided fabric bumpers in gray/white, mint, and peach, coiled and laid flat. No labels, dates, brands, or model numbers are visible in the image or listing text."
   },
   "quick_judgments": [],
   "detail": {
    "judgments": [],
    "verdict": {
-    "summary": "This is a braided crib bumper set. The verdict is Don't buy because padded crib bumpers have been banned from sale in the U.S. since November 12, 2022 under the Safe Sleep for Babies Act (16 CFR 1309; CPSA \u00a719). The ban applies no matter when the bumper was manufactured.",
-    "seller_message": "Hi, thanks for listing this. I wanted to let you know that padded crib bumpers like this one are banned from sale as of November 2022 under the Safe Sleep for Babies Act (16 CFR 1309). Since it's illegal to sell, I'll have to pass. Best of luck!",
-    "safer_alternative": "Consider a non-padded mesh liner or simply use a bare crib with a tight-fitting sheet."
+    "summary": "This is a braided crib bumper set. The verdict is Don't buy because padded crib bumpers have been banned from sale since November 12, 2022 under the Safe Sleep for Babies Act (16 CFR 1309).",
+    "seller_message": "Hi, thanks for listing this. I wanted to let you know that padded crib bumpers like this have been illegal to sell since November 2022 under the Safe Sleep for Babies Act (16 CFR 1309). Because of that, I won't be able to purchase it. Best of luck!",
+    "safer_alternative": "Look for a non\u2011padded mesh crib liner instead, which is not covered by the ban."
    },
    "news": {
     "checked": true,
     "query": "Braided crib bumper set recall",
     "new_recall": true,
-    "headline": "2026 Baby Product Recalls Parents Should Know - Consumer Reports",
+    "headline": "Saro braided crib bumpers from Kalencom are being recalled for violating a federal ban on crib bumpers per the Safe Sleep for Babies Act. Padded crib bumpers can obstruct a baby\u2019s breathing and pose a risk of suffocation, the CPSC says, creating an unsafe sleep environment for babies. The bumpers have a tag with \"Ref. 1374\" on it and were sold at MacroBaby stores in Orlando, Fla.",
     "url": "https://www.consumerreports.org/babies-kids/baby-product-recalls/baby-product-recalls-parents-caregivers-should-be-aware-of-a5859124070",
     "date": "Thu, 17 Sep 2026 14:28:20 GMT"
    },
@@ -319,9 +308,9 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 1.9,
+    "seconds": 1.96,
     "tokens_in": 1036,
-    "tokens_out": 356,
+    "tokens_out": 353,
     "cached_in": 0,
     "cost_usd": 0.00063,
     "purpose": "Identify the product"
@@ -329,25 +318,25 @@
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 3.49,
+    "seconds": 2.6,
     "tokens_in": 359,
-    "tokens_out": 1258,
+    "tokens_out": 686,
     "cached_in": 0,
-    "cost_usd": 0.00413,
+    "cost_usd": 0.00242,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-    "seconds": 1.03,
+    "seconds": 1.13,
     "tokens_in": 771,
-    "tokens_out": 110,
+    "tokens_out": 193,
     "cached_in": 0,
-    "cost_usd": 7e-05,
+    "cost_usd": 9e-05,
     "purpose": "Check recall news"
    }
   ],
-  "finished_at": 2.76
+  "finished_at": 2.65
  },
  "l04": {
   "id": "l04",
@@ -361,8 +350,8 @@
   "recalls": [],
   "cite": "CPSC and NHTSA recall data",
   "deaths": 0,
-  "seconds": 2.96,
-  "cost_usd": 0.00063,
+  "seconds": 2.82,
+  "cost_usd": 0.00062,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
    "category": "stroller",
@@ -375,37 +364,37 @@
    "listing_text": "Lightweight umbrella stroller. Gray stroller with canopy, 5-point harness, folds easily. Great for travel.",
    "colors_and_prints": "Gray stroller with canopy",
    "features": {
-    "incline_raised": "no",
+    "incline_raised": "unknown",
     "marketed_for_sleep": "no",
-    "drop_side": "no",
-    "padded_bumper": "no",
-    "mesh_liner": "no",
+    "drop_side": "unknown",
+    "padded_bumper": "unknown",
+    "mesh_liner": "unknown",
     "restraint_strap": "yes",
-    "suction_cups": "no",
-    "legs_or_stand": "no",
-    "snuga_headrest_present": "no",
-    "strap_fastener_present": "no",
-    "bumbo_belt_present": "no",
-    "single_cup_tray": "no",
-    "cord_cover_present": "no",
+    "suction_cups": "unknown",
+    "legs_or_stand": "unknown",
+    "snuga_headrest_present": "unknown",
+    "strap_fastener_present": "unknown",
+    "bumbo_belt_present": "unknown",
+    "single_cup_tray": "unknown",
+    "cord_cover_present": "unknown",
     "weighted": "no"
    },
    "missing_parts": [],
-   "what_i_see": "A gray umbrella stroller with a canopy and 5-point harness, occupied by a child wearing a yellow shirt, blue pants, and a gray owl hat. The stroller has a black tray bar and a plush toy attached to the side. The background shows outdoor foliage with autumn colors."
+   "what_i_see": "A gray umbrella stroller with a canopy and 5-point harness, occupied by a child wearing a yellow shirt, blue pants, and a gray owl hat. A plush toy is attached to the side. The stroller is outdoors on grass with trees in the background."
   },
   "quick_judgments": [],
   "detail": {
    "judgments": [],
    "verdict": {
-    "summary": "This is a lightweight umbrella stroller with no known recalls or bans. The verdict is no known problems because no recall or ban was found in CPSC and NHTSA data. However, this isn't a safety guarantee, so inspect it in person.",
-    "seller_message": "Hi! I'm interested in your lightweight umbrella stroller. Could you send a photo of the label with the model number and the month/year it was made? Also, are all the original parts and instructions included? Thanks!",
-    "safer_alternative": ""
+    "summary": "This is a lightweight umbrella stroller with no known recalls or bans. The verdict is no known problems, but the absence of a recall isn't a safety guarantee, so you should inspect it in person.",
+    "seller_message": "Hi! I'm interested in your stroller. Could you share a photo of the label showing the model number and manufacture date? Also, are all the original parts and the instruction manual included? Thanks!",
+    "safer_alternative": "Consider choosing a stroller with a visible manufacture label, all original components, and the user manual to confirm it meets current safety standards."
    },
    "news": {
     "checked": true,
     "query": "Lightweight umbrella stroller recall",
     "new_recall": false,
-    "headline": "No new recall identified for the lightweight umbrella stroller as of 2026-10-25",
+    "headline": "No new recall or safety warning found for the lightweight umbrella stroller in the latest news results.",
     "url": "https://www.nytimes.com/wirecutter/reviews/best-umbrella-strollers",
     "date": "Mon, 15 Jun 2026 17:20:06 GMT"
    },
@@ -415,35 +404,35 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 2.09,
+    "seconds": 2.12,
     "tokens_in": 1022,
-    "tokens_out": 356,
+    "tokens_out": 350,
     "cached_in": 0,
-    "cost_usd": 0.00063,
+    "cost_usd": 0.00062,
     "purpose": "Identify the product"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 2.75,
+    "seconds": 2.28,
     "tokens_in": 300,
-    "tokens_out": 924,
+    "tokens_out": 687,
     "cached_in": 0,
-    "cost_usd": 0.00307,
+    "cost_usd": 0.00236,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-    "seconds": 1.14,
+    "seconds": 0.6,
     "tokens_in": 961,
-    "tokens_out": 96,
+    "tokens_out": 91,
     "cached_in": 0,
     "cost_usd": 8e-05,
     "purpose": "Check recall news"
    }
   ],
-  "finished_at": 2.96
+  "finished_at": 2.82
  },
  "l05": {
   "id": "l05",
@@ -459,8 +448,8 @@
   ],
   "cite": "CPSA \u00a719(a)(2)(B); CPSC 'Stop Online Sale of Recalled Products'",
   "deaths": 8,
-  "seconds": 1.72,
-  "cost_usd": 0.00065,
+  "seconds": 1.97,
+  "cost_usd": 0.00066,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
    "category": "lounger",
@@ -489,21 +478,21 @@
     "weighted": "no"
    },
    "missing_parts": [],
-   "what_i_see": "Three circular loungers shown: a floral Boppy Original, a pale pink Preferred version with a gold crown, and a gray Pottery Barn Kids version. The listing text describes a Boppy newborn lounger in floral, marketed for newborn naps and tummy time, with a washable cover. No labels, model numbers, or dates are visible in the image or text."
+   "what_i_see": "Three circular loungers shown side by side: left is floral (labeled 'Original'), center is light pink with a gold crown (labeled 'Preferred'), right is gray (labeled 'Pottery Barn Kids'). Each has small fabric ties at the bottom. The listing text describes a Boppy newborn lounger in floral, suitable for newborn naps and tummy time, with a washable cover."
   },
   "quick_judgments": [],
   "detail": {
    "judgments": [],
    "verdict": {
-    "summary": "The Boppy Newborn Lounger is an infant lounger that has been recalled (CPSC recall #21198) due to a suffocation risk linked to 8 infant deaths. The verdict is don't buy it \u2014 selling a recalled product is unlawful and the recall remedy is a refund. CPSC also warns against using loungers for sleep, and eBay bans them.",
-    "seller_message": "Hi, thanks for listing this. I noticed the Boppy Newborn Lounger was recalled by the CPSC (recall #21198) after 8 infant deaths, so I\u2019m unable to purchase it. If you have the label with the model number and manufacture date, I can double-check, but the recall makes it unsafe for use.",
-    "safer_alternative": "Consider a firm, flat sleep surface like a crib or bassinet that meets current CPSC safety standards."
+    "summary": "The Boppy Newborn Lounger is an infant lounger that has been recalled after being linked to 8 infant deaths; do not buy it and instead pursue the recall remedy for a refund.",
+    "seller_message": "Hi, I\u2019m interested but I\u2019ve learned this lounger was recalled by the CPSC due to 8 infant deaths (recall #21198). Selling recalled items isn\u2019t allowed, so I\u2019ll have to pass. If you haven\u2019t already, you can contact The Boppy Company for a refund. Thanks for understanding.",
+    "safer_alternative": "Consider a crib or bassinet that meets current CPSC safe\u2011sleep standards instead of a lounger."
    },
    "news": {
     "checked": true,
     "query": "Boppy Boppy Newborn Lounger recall",
     "new_recall": false,
-    "headline": "No new recall or safety warning for Boppy Newborn Lounger reported after 2026-10-25 snapshot",
+    "headline": "2025 Recall Class Action Wave: False Advertising, Mislabeling, and Traceability Shape the Litigation Trends | Retail & Consumer Products Law Observer",
     "url": "https://www.retailconsumerproductslaw.com/2026/02/2025-recall-class-action-wave-false-advertising-mislabeling-and-traceability-shape-the-litigation-trends",
     "date": "Tue, 24 Feb 2026 13:54:54 GMT"
    },
@@ -513,35 +502,35 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 1.71,
+    "seconds": 1.96,
     "tokens_in": 1026,
-    "tokens_out": 380,
+    "tokens_out": 386,
     "cached_in": 0,
-    "cost_usd": 0.00065,
+    "cost_usd": 0.00066,
     "purpose": "Identify the product"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 3.29,
+    "seconds": 5.43,
     "tokens_in": 569,
-    "tokens_out": 1115,
+    "tokens_out": 956,
     "cached_in": 0,
-    "cost_usd": 0.00391,
+    "cost_usd": 0.00344,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-    "seconds": 1.17,
-    "tokens_in": 1103,
-    "tokens_out": 132,
+    "seconds": 0.92,
+    "tokens_in": 1115,
+    "tokens_out": 136,
     "cached_in": 0,
     "cost_usd": 0.0001,
     "purpose": "Check recall news"
    }
   ],
-  "finished_at": 1.72
+  "finished_at": 1.97
  },
  "l06": {
   "id": "l06",
@@ -555,14 +544,14 @@
   "recalls": [],
   "cite": "CPSC and NHTSA recall data",
   "deaths": 0,
-  "seconds": 2.56,
-  "cost_usd": 0.00063,
+  "seconds": 2.35,
+  "cost_usd": 0.00062,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
    "category": "other",
    "category_confidence": 0.95,
    "brand": "unknown",
-   "product_name": "Wooden baby play gym with hanging toys",
+   "product_name": "Wooden baby play gym",
    "model_text": "unknown",
    "date_of_manufacture": "unknown",
    "printed_expiration": "unknown",
@@ -585,23 +574,23 @@
     "weighted": "no"
    },
    "missing_parts": [],
-   "what_i_see": "A wooden baby play gym with hanging wooden and felt toys, photographed with a baby lying on a mat beneath it. The gym is an A-frame style structure made of light-colored wood with various hanging toys including beads and a star-shaped piece. No brand labels, model numbers, or dates are visible in the image or listing text."
+   "what_i_see": "A wooden baby play gym with hanging toys, including a star-shaped wooden toy and bead toys, set up on a floor with a baby lying underneath. The gym is made of natural wood with felt toys. The listing text describes it as a Montessori style wooden activity gym."
   },
   "quick_judgments": [],
   "detail": {
    "judgments": [],
    "verdict": {
-    "summary": "This wooden baby play gym with hanging toys has no known recalls or bans according to CPSC and NHTSA data. The verdict is \"No known problems.\" The key reason is that no recall or ban was found for the visible product.",
-    "seller_message": "Hi! I'm interested in your wooden baby play gym. Could you please share a photo of the label showing the model number and manufacture date? Also, are all the original parts and instructions included? Thanks!",
-    "safer_alternative": ""
+    "summary": "This is a wooden baby play gym with no known recalls or bans. The verdict is no known problems, but the absence of a recall isn't a safety guarantee, so inspect it in person.",
+    "seller_message": "Hi! I'm interested in your wooden baby play gym. Could you send a photo of the label showing the model number and manufacture month/year? Also, are all the original parts and instructions included? Thanks!",
+    "safer_alternative": "Look for a play gym that includes all original parts and has a visible manufacture label."
    },
    "news": {
     "checked": true,
-    "query": "Wooden baby play gym with hanging toys recall",
+    "query": "Wooden baby play gym recall",
     "new_recall": true,
-    "headline": "Mikario Trading Convertible Baby Gyms Recalled Due to Risk of Serious Injury or Death from Suffocation; Violate Mandatory Standard for Infant Support Cushions; Sold on TikTok Shop | CPSC.gov",
-    "url": "https://www.cpsc.gov/Recalls/2026/Mikario-Trading-Convertible-Baby-Gyms-Recalled-Due-to-Risk-of-Serious-Injury-or-Death-from-Suffocation-Violate-Mandatory-Standard-for-Infant-Support-Cushions-Sold-on-TikTok-Shop",
-    "date": "Thu, 22 Jan 2026 00:00:00 GMT"
+    "headline": "Mikario Trading 5-in-1 Convertible Baby Gyms Recalled for Suffocation Risk",
+    "url": "https://www.consumerreports.org/babies-kids/baby-product-recalls/baby-product-recalls-parents-caregivers-should-be-aware-of-a5859124070",
+    "date": "2026-09-17T14:28:20Z"
    },
    "level": "OK_SO_FAR"
   },
@@ -609,35 +598,35 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 1.7,
+    "seconds": 1.67,
     "tokens_in": 1021,
-    "tokens_out": 365,
+    "tokens_out": 352,
     "cached_in": 0,
-    "cost_usd": 0.00063,
+    "cost_usd": 0.00062,
     "purpose": "Identify the product"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 2.5,
-    "tokens_in": 306,
-    "tokens_out": 834,
+    "seconds": 3.13,
+    "tokens_in": 303,
+    "tokens_out": 815,
     "cached_in": 0,
-    "cost_usd": 0.00281,
+    "cost_usd": 0.00275,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-    "seconds": 1.51,
-    "tokens_in": 1036,
-    "tokens_out": 171,
+    "seconds": 0.68,
+    "tokens_in": 1068,
+    "tokens_out": 115,
     "cached_in": 0,
-    "cost_usd": 0.0001,
+    "cost_usd": 9e-05,
     "purpose": "Check recall news"
    }
   ],
-  "finished_at": 2.56
+  "finished_at": 2.35
  },
  "l07": {
   "id": "l07",
@@ -645,7 +634,7 @@
   "label": "Don't buy (or get the fix)",
   "tone": "bad",
   "word": "DANGER",
-  "headline": "Recalled: All Models of Fisher-Price Snuga Swings",
+  "headline": "Recalled: Fisher-Price Snuga Swings",
   "category": "Infant swing or glider",
   "brand": "Fisher-Price",
   "recalls": [
@@ -653,8 +642,8 @@
   ],
   "cite": "CPSA \u00a719(a)(2)(B); CPSC 'Stop Online Sale of Recalled Products'",
   "deaths": 5,
-  "seconds": 3.07,
-  "cost_usd": 0.00243,
+  "seconds": 3.65,
+  "cost_usd": 0.00257,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
    "category": "swing",
@@ -683,7 +672,7 @@
     "weighted": "no"
    },
    "missing_parts": [],
-   "what_i_see": "A Fisher-Price Snugabunny cradle swing on a stand with a bunny headrest and insert, model V0099, as described in the listing text."
+   "what_i_see": "A Fisher-Price Snugabunny cradle swing on a stand with a bunny headrest and insert, plush canopy, and mobile. The control panel is at the top of the frame. The seat is padded and appears to recline slightly, but the product is a powered cradle swing, not marketed as a sleeper."
   },
   "quick_judgments": [
    {
@@ -693,7 +682,8 @@
     "recall_limited_to": "nothing_more",
     "item_detail_vs_limit": "not_needed",
     "why": "The recall covers Rock 'n Play Sleepers, but the item is a Snugabunny Cradle 'n Swing, a different product type.",
-    "verdict": "does_not_apply"
+    "verdict": "does_not_apply",
+    "decided_by": "notice reading"
    },
    {
     "recall_id": "19151",
@@ -702,7 +692,8 @@
     "recall_limited_to": "nothing_more",
     "item_detail_vs_limit": "not_needed",
     "why": "The recall covers an inclined sleeper accessory for Ultra-Lite Day & Night Play Yards, but the item is a Snugabunny Cradle 'n Swing, a different product type.",
-    "verdict": "does_not_apply"
+    "verdict": "does_not_apply",
+    "decided_by": "model number"
    },
    {
     "recall_id": "19105",
@@ -711,7 +702,8 @@
     "recall_limited_to": "nothing_more",
     "item_detail_vs_limit": "not_needed",
     "why": "The recall covers Rock 'n Play Sleepers, but the item is a Snugabunny Cradle 'n Swing, a different product type.",
-    "verdict": "does_not_apply"
+    "verdict": "does_not_apply",
+    "decided_by": "notice reading"
    }
   ],
   "detail": {
@@ -722,8 +714,9 @@
      "same_kind_of_product": "yes",
      "recall_limited_to": "model_numbers",
      "item_detail_vs_limit": "matches",
-     "why": "The recall covers all Fisher-Price Snuga Swings and explicitly lists model V0099 My Little Snugabunny Cradle 'n Swing as included.",
-     "verdict": "applies"
+     "why": "The item is a Fisher-Price swing with model V0099, which appears in the recall's explicit model list.",
+     "verdict": "applies",
+     "decided_by": "model number"
     },
     {
      "recall_id": "23088",
@@ -731,17 +724,19 @@
      "same_kind_of_product": "no",
      "recall_limited_to": "nothing_more",
      "item_detail_vs_limit": "not_needed",
-     "why": "The recall is for Rock 'n Play Sleepers, not swings.",
-     "verdict": "does_not_apply"
+     "why": "The recall covers Rock 'n Play Sleepers, while the item is a Snugabunny cradle swing.",
+     "verdict": "does_not_apply",
+     "decided_by": "notice reading"
     },
     {
      "recall_id": "19151",
      "same_brand": "yes",
      "same_kind_of_product": "no",
-     "recall_limited_to": "nothing_more",
-     "item_detail_vs_limit": "not_needed",
-     "why": "The recall is for an inclined sleeper accessory sold with Ultra-Lite Day & Night Play Yards, not swings.",
-     "verdict": "does_not_apply"
+     "recall_limited_to": "model_numbers",
+     "item_detail_vs_limit": "differs",
+     "why": "The recall is for an inclined sleeper accessory on specific Ultra-Lite play yard models; the item is a swing with a different model number.",
+     "verdict": "does_not_apply",
+     "decided_by": "model number"
     },
     {
      "recall_id": "19105",
@@ -749,22 +744,23 @@
      "same_kind_of_product": "no",
      "recall_limited_to": "nothing_more",
      "item_detail_vs_limit": "not_needed",
-     "why": "The recall is for Rock 'n Play Sleepers, not swings.",
-     "verdict": "does_not_apply"
+     "why": "The recall covers all Rock 'n Play Sleepers, but the item is a Snugabunny cradle swing.",
+     "verdict": "does_not_apply",
+     "decided_by": "notice reading"
     }
    ],
    "verdict": {
-    "summary": "This is a Fisher-Price Snugabunny Cradle 'n Swing (model V0099). It has been recalled due to a suffocation hazard linked to 5 infant deaths, and selling a recalled product is unlawful. The verdict is don't buy unless the recall fix has been completed.",
-    "seller_message": "Hi! I noticed this swing was recalled by the CPSC because of a suffocation hazard linked to 5 infant deaths. Has the recall fix been done (headrest and body support insert removed)? Could you send a photo of the label with the model number and manufacture date? Are all original parts and instructions included? Thanks!",
-    "safer_alternative": "Consider a swing that hasn't been recalled and meets current CPSC safety standards."
+    "summary": "This Fisher-Price Snugabunny Cradle 'n Swing (model V0099) is an infant swing that has been recalled due to a suffocation hazard linked to 5 infant deaths. The verdict is don't buy unless the recall fix has been completed, because selling a recalled product is unlawful.",
+    "seller_message": "Hi, I\u2019m interested in this swing. Has the recall fix been done (headrest and body support insert removed)? Could you send a photo of the label with the model number and manufacture date? Are all original parts and instructions included? Thanks!",
+    "safer_alternative": "Look for an infant swing that hasn\u2019t been recalled and meets current safety standards."
    },
    "news": {
     "checked": true,
     "query": "Fisher-Price Snugabunny Cradle 'n Swing recall",
-    "new_recall": true,
-    "headline": "Fisher-Price Recalls Over 2 Million Snuga Infant Swings Due to Suffocation Hazard",
-    "url": "https://www.torhoermanlaw.com/snuga-swing-lawsuit",
-    "date": "Mon, 14 Sep 2026 00:00:00 GMT"
+    "new_recall": false,
+    "headline": "No new recall or safety warning for Fisher-Price Snugabunny Cradle 'n Swing (swing) reported after 2026-10-25 snapshot",
+    "url": "N/A",
+    "date": "N/A"
    },
    "level": "RECALLED"
   },
@@ -772,55 +768,65 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 1.82,
+    "seconds": 1.96,
     "tokens_in": 1035,
-    "tokens_out": 353,
+    "tokens_out": 389,
     "cached_in": 0,
-    "cost_usd": 0.00063,
+    "cost_usd": 0.00066,
     "purpose": "Identify the product"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 1.01,
-    "tokens_in": 935,
+    "seconds": 1.49,
+    "tokens_in": 1044,
     "tokens_out": 290,
     "cached_in": 0,
-    "cost_usd": 0.0018,
+    "cost_usd": 0.00191,
     "purpose": "Judge recall matches (quick)"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 2.26,
-    "tokens_in": 1436,
-    "tokens_out": 792,
+    "seconds": 19.53,
+    "tokens_in": 1681,
+    "tokens_out": 6000,
     "cached_in": 0,
-    "cost_usd": 0.00381,
+    "cost_usd": 0.01968,
     "purpose": "Judge recall matches"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 5.32,
-    "tokens_in": 700,
-    "tokens_out": 1095,
+    "seconds": 22.45,
+    "tokens_in": 1681,
+    "tokens_out": 8755,
     "cached_in": 0,
-    "cost_usd": 0.00398,
+    "cost_usd": 0.02795,
+    "purpose": "Judge recall matches"
+   },
+   {
+    "role": "ultra",
+    "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
+    "seconds": 3.41,
+    "tokens_in": 697,
+    "tokens_out": 1210,
+    "cached_in": 0,
+    "cost_usd": 0.00433,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-    "seconds": 0.73,
-    "tokens_in": 744,
-    "tokens_out": 88,
+    "seconds": 0.72,
+    "tokens_in": 1212,
+    "tokens_out": 74,
     "cached_in": 0,
-    "cost_usd": 7e-05,
+    "cost_usd": 9e-05,
     "purpose": "Check recall news"
    }
   ],
-  "finished_at": 3.07
+  "finished_at": 3.65
  },
  "l08": {
   "id": "l08",
@@ -834,7 +840,7 @@
   "recalls": [],
   "cite": "16 CFR 1219/1220; CPSIA \u00a7104(c); CPSC Reseller's Guide",
   "deaths": 0,
-  "seconds": 2.33,
+  "seconds": 2.51,
   "cost_usd": 0.00062,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
@@ -849,7 +855,7 @@
    "colors_and_prints": "unknown",
    "features": {
     "incline_raised": "no",
-    "marketed_for_sleep": "unknown",
+    "marketed_for_sleep": "no",
     "drop_side": "yes",
     "padded_bumper": "no",
     "mesh_liner": "no",
@@ -866,14 +872,14 @@
    "missing_parts": [
     "claw"
    ],
-   "what_i_see": "A wooden crib with a drop-side rail. The image includes annotations: 'Upside-Down Drop-Side' pointing to the side rail and 'Broken Claw' pointing to a broken latch mechanism. A doll is positioned inside the crib."
+   "what_i_see": "A wooden crib with a drop-side rail. The image includes annotations: 'Upside-Down Drop-Side' pointing to the side rail, and 'Broken Claw' pointing to a broken latch mechanism on the side rail. The listing text confirms the front side slides down."
   },
   "quick_judgments": [],
   "detail": {
    "judgments": [],
    "verdict": {
     "summary": "This is a drop-side crib, which cannot be legally resold in the U.S. because it fails the federal crib standard that has applied to both new and used cribs since June 28, 2011. The verdict is Don't buy, primarily because drop-side cribs are illegal to sell even if the side has been immobilized.",
-    "seller_message": "Hi, thanks for listing this crib. I wanted to let you know that drop-side cribs can't be resold under federal law (16 CFR 1219/1220) because they don't meet the current safety standard. Since this one has a drop side, I'll have to pass. Good luck!",
+    "seller_message": "Hi, thanks for listing this crib. I wanted to let you know that drop-side cribs can't be resold under federal law (16 CFR 1219/1220; CPSIA \u00a7104(c)) because they don't meet current safety standards. For that reason I'll have to pass, but I appreciate you offering it.",
     "safer_alternative": "Look for a fixed-side crib manufactured after June 2011 that includes all original parts and instructions."
    },
    "news": {
@@ -885,9 +891,9 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 1.82,
+    "seconds": 2.1,
     "tokens_in": 1027,
-    "tokens_out": 346,
+    "tokens_out": 352,
     "cached_in": 0,
     "cost_usd": 0.00062,
     "purpose": "Identify the product"
@@ -895,15 +901,15 @@
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 4.53,
+    "seconds": 3.34,
     "tokens_in": 409,
-    "tokens_out": 677,
+    "tokens_out": 675,
     "cached_in": 0,
-    "cost_usd": 0.00244,
+    "cost_usd": 0.00243,
     "purpose": "Write verdict"
    }
   ],
-  "finished_at": 2.33
+  "finished_at": 2.51
  },
  "l09": {
   "id": "l09",
@@ -917,12 +923,12 @@
   "recalls": [],
   "cite": "CPSC and NHTSA recall data",
   "deaths": 0,
-  "seconds": 2.28,
-  "cost_usd": 0.00064,
+  "seconds": 2.48,
+  "cost_usd": 0.00062,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
    "category": "high_chair",
-   "category_confidence": 0.98,
+   "category_confidence": 0.95,
    "brand": "unknown",
    "product_name": "unknown",
    "model_text": "unknown",
@@ -947,15 +953,15 @@
     "weighted": "no"
    },
    "missing_parts": [],
-   "what_i_see": "A white high chair with a tray and pink side accents, occupied by a child. A 5-point harness is visible. The listing text describes it as an easy-clean high chair with an adjustable tray and 5-point harness, from a smoke-free home. No brand, model, or manufacture/expiration dates are visible in the photo or text."
+   "what_i_see": "A white high chair with a tray and pink side accents, occupied by a child. The listing text describes it as an easy-clean high chair with an adjustable tray and 5-point harness. No brand, model, or date labels are visible in the image or text."
   },
   "quick_judgments": [],
   "detail": {
    "judgments": [],
    "verdict": {
-    "summary": "This appears to be a high chair or booster seat with no known recalls or bans found in CPSC and NHTSA data. However, the lack of a recall doesn't guarantee safety, so you should inspect it in person. The most important step is to verify the model number and manufacture date, and confirm all original parts and instructions are included.",
-    "seller_message": "Hi! I'm interested in this high chair/booster. Could you share a photo of the label showing the model number and month/year it was made? Also, are all the original parts and the instruction manual included? Thanks!",
-    "safer_alternative": "Look for a high chair or booster that meets current ASTM safety standards and has a visible manufacture date label."
+    "summary": "This is a high chair or booster seat with no known recalls or bans found in CPSC and NHTSA data. The verdict is \"No known problems,\" but that isn't a safety guarantee; you should inspect it in person. The most important reason is that no recall or ban was found for the visible information.",
+    "seller_message": "Hi! I'm interested in this high chair/booster. Could you send a photo of the label with the model number and manufacture date? Also, are all the original parts and instructions included? Thanks!",
+    "safer_alternative": "Consider looking for a high chair or booster that meets current ASTM safety standards and has a clear manufacture label for easy recall checks."
    },
    "news": {
     "checked": false
@@ -966,25 +972,25 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 1.63,
+    "seconds": 1.95,
     "tokens_in": 1022,
-    "tokens_out": 367,
+    "tokens_out": 345,
     "cached_in": 0,
-    "cost_usd": 0.00064,
+    "cost_usd": 0.00062,
     "purpose": "Identify the product"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 5.67,
+    "seconds": 3.0,
     "tokens_in": 296,
-    "tokens_out": 595,
+    "tokens_out": 671,
     "cached_in": 0,
-    "cost_usd": 0.00208,
+    "cost_usd": 0.00231,
     "purpose": "Write verdict"
    }
   ],
-  "finished_at": 4.01
+  "finished_at": 4.45
  },
  "l10": {
   "id": "l10",
@@ -1000,8 +1006,8 @@
   ],
   "cite": "CPSA \u00a719(a)(2)(B); CPSC 'Stop Online Sale of Recalled Products'",
   "deaths": 0,
-  "seconds": 4.92,
-  "cost_usd": 0.00165,
+  "seconds": 4.22,
+  "cost_usd": 0.00177,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
    "category": "lounger",
@@ -1012,7 +1018,7 @@
    "date_of_manufacture": "unknown",
    "printed_expiration": "unknown",
    "listing_text": "VEVOR baby lounger, snow deer print. Cozy baby lounger nest, great for naps on the couch or bed.",
-   "colors_and_prints": "snow deer print",
+   "colors_and_prints": "snow deer print with deer, trees, houses, moons, and stars on a light blue/white background; solid dark blue base",
    "features": {
     "incline_raised": "no",
     "marketed_for_sleep": "yes",
@@ -1030,7 +1036,7 @@
     "weighted": "no"
    },
    "missing_parts": [],
-   "what_i_see": "A soft, oval-shaped baby lounger nest with a raised padded rim and a removable pillow, both featuring a light blue background with deer, trees, houses, and moons. The base is solid dark blue fabric. No labels, dates, model numbers, straps, or harnesses are visible in the image."
+   "what_i_see": "A soft, oval-shaped baby lounger nest with raised padded sides and a removable pillow. The fabric has a snow deer print with deer, trees, houses, moons, and stars on a light blue/white background. The base is solid dark blue. There is a drawstring closure at one end. No labels, dates, model numbers, straps, harnesses, suction cups, legs, or stand are visible in the photo."
   },
   "quick_judgments": [
    {
@@ -1039,8 +1045,9 @@
     "same_kind_of_product": "yes",
     "recall_limited_to": "colors_or_prints",
     "item_detail_vs_limit": "matches",
-    "why": "The item is a VEVOR baby lounger in the snow deer print, which is one of the colors and prints listed in the recall.",
-    "verdict": "applies"
+    "why": "The item is a VEVOR baby lounger in the snow deer print, which is one of the specific colors and prints listed in the recall notice.",
+    "verdict": "applies",
+    "decided_by": "notice reading"
    }
   ],
   "detail": {
@@ -1051,20 +1058,21 @@
      "same_kind_of_product": "yes",
      "recall_limited_to": "colors_or_prints",
      "item_detail_vs_limit": "matches",
-     "why": "The item is a VEVOR baby lounger with snow deer print, which matches the recalled brand, product type, and one of the specified prints listed in the recall.",
-     "verdict": "applies"
+     "why": "The item is a VEVOR baby lounger in the snow deer print, which is explicitly listed among the recalled colors/prints.",
+     "verdict": "applies",
+     "decided_by": "notice reading"
     }
    ],
    "verdict": {
-    "summary": "This is a VEVOR baby lounger with a snow deer print. The verdict is don't buy (or get the fix) because the product has been recalled for entrapment and fall hazards, and selling a recalled item is unlawful.",
-    "seller_message": "Hi, thanks for listing this. I wanted to let you know this VEVOR lounger was recalled by the CPSC for serious safety risks, and selling recalled products isn't allowed (CPSA \u00a719(a)(2)(B)). The recall offers a full refund if you contact Vevor and destroy the cover, foam, and pad per their instructions. I'll pass on this one, but appreciate you sharing!",
-    "safer_alternative": "For safe sleep, choose a firm, flat crib mattress or bassinet that meets current CPSC infant sleep standards."
+    "summary": "This VEVOR baby lounger (snow deer print) is an infant positioner that has been recalled due to entrapment and fall hazards. The verdict is don't buy (or get the fix) because selling a recalled product is unlawful and the recall remedy should be used instead.",
+    "seller_message": "Hi, I noticed this VEVOR baby lounger has been recalled by the CPSC (recall #26591) for entrapment and fall hazards. Since selling recalled items isn't allowed, I'll have to pass. You can contact Vevor for a full refund per the recall instructions. Thanks for understanding!",
+    "safer_alternative": "Look for a crib, bassinet, or play yard that meets current CPSC safe-sleep standards instead of an infant lounger."
    },
    "news": {
     "checked": true,
     "query": "VEVOR baby lounger, snow deer print recall",
     "new_recall": true,
-    "headline": "Vevor recalls Baby Loungers due to risk of serious injury or death from entrapment and fall hazards; Violate mandatory standard for infant sleep products - MyParisTexas",
+    "headline": "Vevor Recalls Baby Loungers Due to Risk of Serious Injury or Death from Entrapment and Fall Hazards; Violate Mandatory Standard for Infant Sleep Products",
     "url": "https://myparistexas.com/vevor-recalls-baby-loungers-due-to-risk-of-serious-injury-or-death-from-entrapment-and-fall-hazards-violate-mandatory-standard-for-infant-sleep-products",
     "date": "2026-07-28T22:14:56Z"
    },
@@ -1074,47 +1082,47 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 1.92,
+    "seconds": 2.27,
     "tokens_in": 1027,
-    "tokens_out": 373,
+    "tokens_out": 418,
     "cached_in": 0,
-    "cost_usd": 0.00064,
+    "cost_usd": 0.00068,
     "purpose": "Identify the product"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 2.56,
-    "tokens_in": 672,
-    "tokens_out": 110,
+    "seconds": 1.59,
+    "tokens_in": 750,
+    "tokens_out": 112,
     "cached_in": 0,
-    "cost_usd": 0.001,
+    "cost_usd": 0.00109,
     "purpose": "Judge recall matches (quick)"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 4.64,
-    "tokens_in": 672,
-    "tokens_out": 1088,
+    "seconds": 4.49,
+    "tokens_in": 750,
+    "tokens_out": 1316,
     "cached_in": 0,
-    "cost_usd": 0.00394,
+    "cost_usd": 0.0047,
     "purpose": "Judge recall matches"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 5.71,
+    "seconds": 6.97,
     "tokens_in": 603,
-    "tokens_out": 776,
+    "tokens_out": 1401,
     "cached_in": 0,
-    "cost_usd": 0.00293,
+    "cost_usd": 0.00481,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-    "seconds": 0.86,
+    "seconds": 0.8,
     "tokens_in": 830,
     "tokens_out": 141,
     "cached_in": 0,
@@ -1122,7 +1130,7 @@
     "purpose": "Check recall news"
    }
   ],
-  "finished_at": 7.25
+  "finished_at": 6.49
  },
  "l11": {
   "id": "l11",
@@ -1136,8 +1144,8 @@
   "recalls": [],
   "cite": "CPSC Recalls database",
   "deaths": 0,
-  "seconds": 3.26,
-  "cost_usd": 0.00178,
+  "seconds": 3.39,
+  "cost_usd": 0.0018,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
    "category": "swing",
@@ -1166,7 +1174,7 @@
     "weighted": "no"
    },
    "missing_parts": [],
-   "what_i_see": "A 4moms MamaRoo infant seat with a 3-point harness, base, and mobile toy bar. The listing text confirms all 5 motions and sounds. No date labels are visible in the image or text."
+   "what_i_see": "A 4moms MamaRoo infant seat on a white base with a curved metal frame, black fabric seat, 3-point harness straps, and a mobile with three balls overhead. A magnified inset highlights the strap fastener under the seat. The listing text describes all 5 motions and sounds and a 3-point harness."
   },
   "quick_judgments": [
    {
@@ -1175,8 +1183,9 @@
     "same_kind_of_product": "yes",
     "recall_limited_to": "model_numbers",
     "item_detail_vs_limit": "not_shown",
-    "why": "The recall covers specific MamaRoo model numbers (4M-005, 1026, 1037) with a 3-point harness, but the item listing does not show a model number.",
-    "verdict": "unclear"
+    "why": "The recall covers only specific MamaRoo model numbers with a 3-point harness, but the listing does not show a model number.",
+    "verdict": "unclear",
+    "decided_by": "notice reading"
    }
   ],
   "detail": {
@@ -1185,16 +1194,17 @@
      "recall_id": "22200",
      "same_brand": "yes",
      "same_kind_of_product": "yes",
-     "recall_limited_to": "model_numbers",
+     "recall_limited_to": "several",
      "item_detail_vs_limit": "not_shown",
-     "why": "The recall covers only specific MamaRoo model numbers (4M-005, 1026, 1037) with 3-point harness; the item mentions 3-point harness but does not show a model number.",
-     "verdict": "unclear"
+     "why": "The item is a 4moms MamaRoo swing with a 3\u2011point harness, matching the brand, product type, and harness requirement, but the model number is not shown to confirm it falls within the recalled versions.",
+     "verdict": "unclear",
+     "decided_by": "notice reading"
     }
    ],
    "verdict": {
-    "summary": "This is a 4moms MamaRoo infant seat (an infant swing/glider). The verdict is to ask before you buy because there is a possible recall for this brand and product type that depends on the model number or manufacture date, and the recall involves entanglement and strangulation hazards with one death reported.",
-    "seller_message": "Hi! I'm interested in the MamaRoo seat. Could you share a photo of the label with the model number and manufacture date? There's a CPSC recall on some 4moms swings that depends on those details, and I want to make sure it's safe. Also, has the recall fix (strap fastener) been added, and are all original parts and instructions included? Thanks!",
-    "safer_alternative": "Look for an infant swing that already includes the strap fastener fix or a model not affected by the recall."
+    "summary": "The 4moms MamaRoo infant seat is an infant swing/glider that may be subject to a CPSC recall (ID 22200) for entanglement and strangulation hazards, with one death reported, depending on the model number and manufacture date. The verdict is to ask before you buy. The single most important reason is that the recall applies only to certain models, so you must verify the exact model number and production date from the label to know if this unit is affected.",
+    "seller_message": "Hi! I\u2019m interested in your 4moms MamaRoo infant seat. Could you please send a photo of the label showing the model number and the month/year it was made? There\u2019s a CPSC recall (22200) for some MamaRoo swings due to a strangulation hazard, and I\u2019d like to check if this one is included and whether the free strap\u2011fastener fix has been applied. Also, are all the original parts and instructions included? Thanks!",
+    "safer_alternative": ""
    },
    "news": {
     "checked": true,
@@ -1210,47 +1220,47 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 1.89,
+    "seconds": 1.93,
     "tokens_in": 1026,
-    "tokens_out": 345,
+    "tokens_out": 366,
     "cached_in": 0,
-    "cost_usd": 0.00062,
+    "cost_usd": 0.00064,
     "purpose": "Identify the product"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 1.14,
-    "tokens_in": 777,
-    "tokens_out": 127,
+    "seconds": 1.27,
+    "tokens_in": 845,
+    "tokens_out": 107,
     "cached_in": 0,
-    "cost_usd": 0.00116,
+    "cost_usd": 0.00117,
     "purpose": "Judge recall matches (quick)"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 8.99,
-    "tokens_in": 777,
-    "tokens_out": 1959,
+    "seconds": 11.09,
+    "tokens_in": 845,
+    "tokens_out": 2826,
     "cached_in": 0,
-    "cost_usd": 0.00665,
+    "cost_usd": 0.00932,
     "purpose": "Judge recall matches"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 5.69,
+    "seconds": 5.75,
     "tokens_in": 488,
-    "tokens_out": 1132,
+    "tokens_out": 1254,
     "cached_in": 0,
-    "cost_usd": 0.00388,
+    "cost_usd": 0.00425,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-    "seconds": 0.7,
+    "seconds": 0.71,
     "tokens_in": 654,
     "tokens_out": 103,
     "cached_in": 0,
@@ -1258,7 +1268,7 @@
     "purpose": "Check recall news"
    }
   ],
-  "finished_at": 5.82
+  "finished_at": 5.74
  },
  "l12": {
   "id": "l12",
@@ -1272,48 +1282,53 @@
   "recalls": [],
   "cite": "CPSC and NHTSA recall data",
   "deaths": 0,
-  "seconds": 2.41,
-  "cost_usd": 0.0006,
+  "seconds": 2.32,
+  "cost_usd": 0.00062,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
-   "category": "bouncer_rocker",
-   "category_confidence": 0.0,
+   "category": "carrier",
+   "category_confidence": 0.95,
    "brand": "unknown",
-   "product_name": "unknown",
+   "product_name": "Woven baby wrap carrier",
    "model_text": "unknown",
    "date_of_manufacture": "unknown",
    "printed_expiration": "unknown",
    "listing_text": "Woven baby wrap carrier. Long woven wrap, navy and red stripes. Used for one baby.",
    "colors_and_prints": "navy and red stripes",
    "features": {
-    "incline_raised": "unknown",
+    "incline_raised": "no",
     "marketed_for_sleep": "no",
-    "drop_side": "unknown",
-    "padded_bumper": "unknown",
-    "mesh_liner": "unknown",
-    "restraint_strap": "unknown",
-    "suction_cups": "unknown",
-    "legs_or_stand": "unknown",
-    "snuga_headrest_present": "unknown",
-    "strap_fastener_present": "unknown",
-    "bumbo_belt_present": "unknown",
-    "single_cup_tray": "unknown",
-    "cord_cover_present": "unknown",
-    "weighted": "unknown"
+    "drop_side": "no",
+    "padded_bumper": "no",
+    "mesh_liner": "no",
+    "restraint_strap": "no",
+    "suction_cups": "no",
+    "legs_or_stand": "no",
+    "snuga_headrest_present": "no",
+    "strap_fastener_present": "no",
+    "bumbo_belt_present": "no",
+    "single_cup_tray": "no",
+    "cord_cover_present": "no",
+    "weighted": "no"
    },
    "missing_parts": [],
-   "what_i_see": "A person wearing a navy woven wrap with red and green stripes, carrying a baby in a pink hat. The listing text describes it as a woven baby wrap carrier."
+   "what_i_see": "A person wearing a long woven wrap carrier with navy and red stripes, carrying a baby wearing a pink hat. The wrap is wrapped around the person's torso and over one shoulder, supporting the baby against their chest. No labels, brand names, model numbers, or dates are visible in the image."
   },
   "quick_judgments": [],
   "detail": {
    "judgments": [],
    "verdict": {
-    "summary": "This baby carrier or sling has no known recalls or bans, so the verdict is \u201cNo known problems.\u201d However, the absence of a recall isn\u2019t a safety guarantee, so you should inspect it in person and verify it has all original parts and instructions.",
-    "seller_message": "Hi! I\u2019m interested in your baby carrier. Could you share a photo of the label showing the model number and manufacture date? Also, are all the original parts and instructions included? Thanks!",
-    "safer_alternative": "Look for a carrier that meets current ASTM safety standards, has clear labeling with model and date, and includes all original parts and instructions."
+    "summary": "This woven baby wrap carrier has no known recalls or bans according to CPSC and NHTSA data. However, the absence of a recall isn't a safety guarantee, so you should inspect the carrier in person. The single most important reason is that no recall or ban was found for the visible information.",
+    "seller_message": "Hi! I'm interested in your woven baby wrap carrier. Could you send a photo of the label with the model number and the month/year it was made? Also, are all the original parts and instructions included? Thanks!",
+    "safer_alternative": "Look for a carrier with a clear manufacturer label, model number, date of manufacture, and complete original instructions."
    },
    "news": {
-    "checked": false
+    "checked": true,
+    "query": "Woven baby wrap carrier recall",
+    "new_recall": false,
+    "headline": "No new recall or safety warning for Woven baby wrap carrier found in recent news results.",
+    "url": "N/A",
+    "date": "N/A"
    },
    "level": "OK_SO_FAR"
   },
@@ -1321,25 +1336,35 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 1.77,
+    "seconds": 1.64,
     "tokens_in": 1018,
-    "tokens_out": 322,
+    "tokens_out": 349,
     "cached_in": 0,
-    "cost_usd": 0.0006,
+    "cost_usd": 0.00062,
     "purpose": "Identify the product"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 2.85,
-    "tokens_in": 297,
-    "tokens_out": 587,
+    "seconds": 2.79,
+    "tokens_in": 303,
+    "tokens_out": 712,
     "cached_in": 0,
-    "cost_usd": 0.00206,
+    "cost_usd": 0.00244,
     "purpose": "Write verdict"
+   },
+   {
+    "role": "nano",
+    "model_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+    "seconds": 0.49,
+    "tokens_in": 1160,
+    "tokens_out": 53,
+    "cached_in": 0,
+    "cost_usd": 8e-05,
+    "purpose": "Check recall news"
    }
   ],
-  "finished_at": 5.13
+  "finished_at": 4.83
  },
  "l13": {
   "id": "l13",
@@ -1353,12 +1378,12 @@
   "recalls": [],
   "cite": "CPSC Recalls database",
   "deaths": 0,
-  "seconds": 3.64,
-  "cost_usd": 0.00307,
+  "seconds": 4.78,
+  "cost_usd": 0.00333,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
    "category": "bassinet",
-   "category_confidence": 0.95,
+   "category_confidence": 0.9,
    "brand": "Eddie Bauer",
    "product_name": "Slumber & Soothe rock bassinet",
    "model_text": "unknown",
@@ -1392,17 +1417,19 @@
     "same_kind_of_product": "yes",
     "recall_limited_to": "model_numbers",
     "item_detail_vs_limit": "not_shown",
-    "why": "The recall covers only the Eddie Bauer Slumber and Soothe Bassinet with model number BT055CSY, but the listing does not show a model number.",
-    "verdict": "unclear"
+    "why": "The recall covers the Eddie Bauer Slumber and Soothe Rock Bassinet with model number BT055CSY, but the item listing does not show a model number.",
+    "verdict": "unclear",
+    "decided_by": "notice reading"
    },
    {
     "recall_id": "09219",
     "same_brand": "yes",
     "same_kind_of_product": "no",
-    "recall_limited_to": "nothing_more",
-    "item_detail_vs_limit": "not_needed",
-    "why": "The recall is for Eddie Bauer Soothe & Sway portable play yards with a bassinet attachment, not a standalone rocking bassinet.",
-    "verdict": "does_not_apply"
+    "recall_limited_to": "named_product_line",
+    "item_detail_vs_limit": "differs",
+    "why": "The recall is for Eddie Bauer Soothe & Sway Play Yards, while the item is a Slumber & Soothe Rock Bassinet, a different product line.",
+    "verdict": "does_not_apply",
+    "decided_by": "notice reading"
    },
    {
     "recall_id": "13017",
@@ -1410,17 +1437,19 @@
     "same_kind_of_product": "yes",
     "recall_limited_to": "model_numbers",
     "item_detail_vs_limit": "not_shown",
-    "why": "The recall covers specific model numbers for Eddie Bauer Rocking Wood Bassinets, but the listing does not show a model number.",
-    "verdict": "unclear"
+    "why": "The recall covers specific model numbers of Eddie Bauer Rocking Wood Bassinets, but the item listing does not show a model number.",
+    "verdict": "unclear",
+    "decided_by": "notice reading"
    },
    {
     "recall_id": "10097",
     "same_brand": "yes",
     "same_kind_of_product": "no",
-    "recall_limited_to": "nothing_more",
-    "item_detail_vs_limit": "not_needed",
-    "why": "The recall is for play yards with bassinet attachments, not a standalone rocking bassinet.",
-    "verdict": "does_not_apply"
+    "recall_limited_to": "named_product_line",
+    "item_detail_vs_limit": "differs",
+    "why": "The recall is for Eddie Bauer Complete Care Play Yards with bassinet attachments, while the item is a standalone Slumber & Soothe Rock Bassinet.",
+    "verdict": "does_not_apply",
+    "decided_by": "notice reading"
    }
   ],
   "detail": {
@@ -1431,17 +1460,19 @@
      "same_kind_of_product": "yes",
      "recall_limited_to": "model_numbers",
      "item_detail_vs_limit": "not_shown",
-     "why": "The recall covers only the Eddie Bauer Slumber and Soothe Bassinet with model BT055CSY, but the item shows no model number.",
-     "verdict": "unclear"
+     "why": "The item is an Eddie Bauer bassinet with matching product name words, but the recall is limited to model BT055CSY which is not shown on the item.",
+     "verdict": "unclear",
+     "decided_by": "notice reading"
     },
     {
      "recall_id": "09219",
      "same_brand": "yes",
      "same_kind_of_product": "no",
-     "recall_limited_to": "named_product_line",
-     "item_detail_vs_limit": "differs",
-     "why": "The recall is for Eddie Bauer Soothe & Sway Play Yards, while the item is a Slumber & Soothe rock bassinet.",
-     "verdict": "does_not_apply"
+     "recall_limited_to": "model_numbers",
+     "item_detail_vs_limit": "not_shown",
+     "why": "The recall covers Eddie Bauer Soothe & Sway play yards, not standalone bassinets, so the item is a different product kind.",
+     "verdict": "does_not_apply",
+     "decided_by": "notice reading"
     },
     {
      "recall_id": "13017",
@@ -1449,8 +1480,9 @@
      "same_kind_of_product": "yes",
      "recall_limited_to": "named_product_line",
      "item_detail_vs_limit": "differs",
-     "why": "The recall covers only Eddie Bauer Rocking Wood Bassinets, but the item is a Slumber & Soothe rock bassinet.",
-     "verdict": "does_not_apply"
+     "why": "The recall is for Eddie Bauer Rocking Wood Bassinets, a different product line than the Slumber & Soothe rock bassinet.",
+     "verdict": "does_not_apply",
+     "decided_by": "notice reading"
     },
     {
      "recall_id": "10097",
@@ -1458,22 +1490,23 @@
      "same_kind_of_product": "no",
      "recall_limited_to": "named_product_line",
      "item_detail_vs_limit": "differs",
-     "why": "The recall is for Eddie Bauer Complete Care Play Yards, not a standalone Slumber & Soothe rock bassinet.",
-     "verdict": "does_not_apply"
+     "why": "The recall covers Eddie Bauer Complete Care Play Yards, not standalone bassinets, and the item's product line does not match.",
+     "verdict": "does_not_apply",
+     "decided_by": "notice reading"
     }
    ],
    "verdict": {
-    "summary": "This is an Eddie Bauer Slumber & Soothe rock bassinet. The verdict is to ask before you buy because a possible recall applies depending on the model number or manufacture date, so you need to verify the label details.",
-    "seller_message": "Hi! I'm interested in your Eddie Bauer Slumber & Soothe rock bassinet. Could you share the exact model number from the label and a photo showing the model number and manufacture date? Also, are all original parts and instructions included? There's a possible recall (CPSC Recalls database) that depends on those details, so I want to be sure it's safe. Thanks!",
-    "safer_alternative": ""
+    "summary": "This Eddie Bauer Slumber & Soothe rock bassinet has an \"Ask before you buy\" verdict because a possible recall applies depending on the model number or manufacture date; you need to verify the label details.",
+    "seller_message": "Hi! I'm interested in your bassinet. Could you share the exact model number and a photo of the label with the manufacture date? There's a possible recall on this model (CPSC Recalls database) that depends on those details, so I want to be sure it's safe. Also, are all original parts and instructions included? Thanks!",
+    "safer_alternative": "Look for a bassinet that meets current safety standards, has no outstanding recalls, and includes all original parts and instructions."
    },
    "news": {
     "checked": true,
     "query": "Eddie Bauer Slumber & Soothe rock bassinet recall",
     "new_recall": false,
-    "headline": "Consumer Reports Warns Parents About Bedside ...",
-    "url": "https://www.facebook.com/Eric.Garza.01/posts/consumer-reports-warns-parents-about-bedside-bassinets-after-tilt-tests-on-8-mod/1773929494738744",
-    "date": "2026-10-25"
+    "headline": "Eddie Bauer Slumber and Soothe Rock Bassinet (Model BT055CSY) Recall",
+    "url": "https://kidsrecallchecker.com/categories/sleepers",
+    "date": "2026-09-10T00:00:00Z"
    },
    "level": "CHECK"
   },
@@ -1481,9 +1514,9 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 1.59,
+    "seconds": 1.64,
     "tokens_in": 1028,
-    "tokens_out": 349,
+    "tokens_out": 345,
     "cached_in": 0,
     "cost_usd": 0.00062,
     "purpose": "Identify the product"
@@ -1491,45 +1524,45 @@
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 1.76,
-    "tokens_in": 1395,
-    "tokens_out": 351,
+    "seconds": 2.92,
+    "tokens_in": 1594,
+    "tokens_out": 371,
     "cached_in": 0,
-    "cost_usd": 0.00245,
+    "cost_usd": 0.00271,
     "purpose": "Judge recall matches (quick)"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 21.04,
-    "tokens_in": 1395,
-    "tokens_out": 3806,
+    "seconds": 20.88,
+    "tokens_in": 1594,
+    "tokens_out": 5098,
     "cached_in": 0,
-    "cost_usd": 0.01281,
+    "cost_usd": 0.01689,
     "purpose": "Judge recall matches"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 5.24,
+    "seconds": 4.7,
     "tokens_in": 428,
-    "tokens_out": 1115,
+    "tokens_out": 1054,
     "cached_in": 0,
-    "cost_usd": 0.00377,
+    "cost_usd": 0.00359,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-    "seconds": 0.83,
-    "tokens_in": 771,
-    "tokens_out": 107,
+    "seconds": 0.8,
+    "tokens_in": 940,
+    "tokens_out": 87,
     "cached_in": 0,
-    "cost_usd": 7e-05,
+    "cost_usd": 8e-05,
     "purpose": "Check recall news"
    }
   ],
-  "finished_at": 6.4
+  "finished_at": 7.44
  },
  "l14": {
   "id": "l14",
@@ -1543,12 +1576,12 @@
   "recalls": [],
   "cite": "CPSC recall remedy",
   "deaths": 0,
-  "seconds": 1.81,
+  "seconds": 1.65,
   "cost_usd": 0.0006,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
    "category": "other",
-   "category_confidence": 0.95,
+   "category_confidence": 0.9,
    "brand": "Bumbo",
    "product_name": "Bumbo floor seat",
    "model_text": "unknown",
@@ -1579,9 +1612,9 @@
   "detail": {
    "judgments": [],
    "verdict": {
-    "summary": "This is a Bumbo floor seat, a type of baby bouncer/rocker. The verdict is no known problems, but the single most important reason is that this model was recalled for a fall hazard and the photos suggest the repair kit (restraint belt) was installed, though you should confirm with the seller.",
-    "seller_message": "Hi! I\u2019m interested in your Bumbo floor seat. I noticed this model was recalled (CPSC #12247) for a fall hazard and requires a free repair kit with a restraint belt. Could you share a photo of the label with the model number and manufacture date? Also, are all original parts and instructions included? Thanks!",
-    "safer_alternative": ""
+    "summary": "This is a Bumbo floor seat (a bouncer/rocker/floor seat). The verdict is no known problems, but it was recalled for a fall hazard; photos suggest the repair kit (restraint belt) was installed, though you should confirm with the seller.",
+    "seller_message": "Hi! I\u2019m interested in your Bumbo floor seat. Could you share a photo of the label showing the model number and manufacture date? Also, are all the original parts and instructions included? I noticed this model had a recall for a fall hazard (CPSC recall #12247) with a free repair kit\u2014it looks like the belt may be installed, but I\u2019d love to verify. Thanks!",
+    "safer_alternative": "Consider a floor seat that meets current safety standards and has no recall history."
    },
    "news": {
     "checked": true,
@@ -1597,9 +1630,9 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 1.8,
+    "seconds": 1.64,
     "tokens_in": 1022,
-    "tokens_out": 325,
+    "tokens_out": 324,
     "cached_in": 0,
     "cost_usd": 0.0006,
     "purpose": "Identify the product"
@@ -1607,25 +1640,25 @@
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 8.05,
+    "seconds": 5.91,
     "tokens_in": 472,
-    "tokens_out": 1095,
+    "tokens_out": 1207,
     "cached_in": 0,
-    "cost_usd": 0.00376,
+    "cost_usd": 0.00409,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-    "seconds": 0.71,
+    "seconds": 0.6,
     "tokens_in": 705,
-    "tokens_out": 75,
+    "tokens_out": 74,
     "cached_in": 0,
     "cost_usd": 6e-05,
     "purpose": "Check recall news"
    }
   ],
-  "finished_at": 4.77
+  "finished_at": 4.47
  },
  "l15": {
   "id": "l15",
@@ -1639,7 +1672,7 @@
   "recalls": [],
   "cite": "16 CFR 1215; CPSC Reseller's Guide",
   "deaths": 0,
-  "seconds": 2.36,
+  "seconds": 2.33,
   "cost_usd": 0.0006,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
@@ -1669,15 +1702,15 @@
     "weighted": "no"
    },
    "missing_parts": [],
-   "what_i_see": "A blue and orange plastic infant bath seat with a front support bar and suction cups on the base. No brand, model, or date labels are visible in the image or listing text."
+   "what_i_see": "A blue and orange plastic infant bath seat with a front post/bar and suction cups on the base. No brand, model, or date labels are visible in the image or listing text."
   },
   "quick_judgments": [],
   "detail": {
    "judgments": [],
    "verdict": {
-    "summary": "This is a bath seat or infant tub. The verdict is to ask before you buy. The single most important reason: avoid suction\u2011cup bath seats made before December\u202f6,\u202f2010, or any that lack the permanent drowning warning, as they may not meet current safety standards.",
+    "summary": "This is a bath seat or infant tub. The verdict is to ask before you buy. The single most important reason is to confirm it was made after December\u202f6,\u202f2010 and carries the permanent drowning warning, since suction\u2011cup models made before that date or lacking the warning are unsafe.",
     "seller_message": "Hi! I\u2019m interested in this bath seat. Could you send a photo of the label showing the model number and the month/year it was made? Also, are all the original parts and instructions included? Thanks!",
-    "safer_alternative": "Look for a bath seat manufactured after December\u202f6,\u202f2010, that carries the permanent drowning warning and has all suction cups intact."
+    "safer_alternative": "Look for a bath seat manufactured after December\u202f6,\u202f2010 with a permanent drowning warning and all original suction cups and parts intact."
    },
    "news": {
     "checked": false
@@ -1688,9 +1721,9 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 1.72,
+    "seconds": 1.81,
     "tokens_in": 1025,
-    "tokens_out": 323,
+    "tokens_out": 324,
     "cached_in": 0,
     "cost_usd": 0.0006,
     "purpose": "Identify the product"
@@ -1698,15 +1731,15 @@
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 4.12,
+    "seconds": 2.63,
     "tokens_in": 312,
-    "tokens_out": 634,
+    "tokens_out": 618,
     "cached_in": 0,
-    "cost_usd": 0.00221,
+    "cost_usd": 0.00217,
     "purpose": "Write verdict"
    }
   ],
-  "finished_at": 5.43
+  "finished_at": 5.99
  },
  "l16": {
   "id": "l16",
@@ -1720,8 +1753,8 @@
   "recalls": [],
   "cite": "16 CFR 1130.4; CPSC crib Q&A",
   "deaths": 0,
-  "seconds": 2.7,
-  "cost_usd": 0.00061,
+  "seconds": 2.5,
+  "cost_usd": 0.0006,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
    "category": "crib",
@@ -1750,23 +1783,23 @@
     "weighted": "no"
    },
    "missing_parts": [],
-   "what_i_see": "A natural pine crib with fixed sides in a nursery room. The crib has vertical slats and a mattress inside. No visible labels, brand names, model numbers, or dates are present in the photo or listing text."
+   "what_i_see": "A natural pine crib with fixed sides in a nursery room, with a mattress inside. No visible brand labels, model numbers, or manufacture dates in the photo or listing text."
   },
   "quick_judgments": [],
   "detail": {
    "judgments": [],
    "verdict": {
-    "summary": "This is a natural pine crib with no visible manufacture date or model information. The verdict is to ask before you buy because you cannot verify it meets current safety standards without seeing the required label showing the model and month/year of manufacture.",
-    "seller_message": "Hi! I\u2019m interested in your crib. Could you let me know if it has fixed sides (no drop\u2011side), and can you share a photo of the label that shows the model number and the month/year it was made? Also, are all the original parts and instructions included? Thanks!",
-    "safer_alternative": "Look for a crib with a clear manufacture label (model and date) confirming it was made after June 2011 under the current CPSC standard."
+    "summary": "This natural pine crib lacks a visible manufacture date, so you can't confirm it meets current safety standards. The verdict is to ask before you buy. The most important reason is that cribs made since 2010 must have a label with the model and month/year of manufacture, and without it you can't verify compliance.",
+    "seller_message": "Hi! I'm interested in your natural pine crib. Could you let me know if it has fixed sides (no drop side), and if you can share a photo of the label showing the model number and manufacture month/year? Also, are all original parts and instructions included? Thanks!",
+    "safer_alternative": "Look for a crib with a label showing the model and manufacture date (month/year) to ensure it meets 2010+ safety standards."
    },
    "news": {
     "checked": true,
     "query": "Natural pine crib recall",
     "new_recall": false,
-    "headline": "No new recall or safety warning found for the natural pine crib in the provided news results.",
-    "url": "N/A",
-    "date": "N/A"
+    "headline": "Consumer Reports finds banned, recalled baby products still being sold online",
+    "url": "https://www.yahoo.com/news/videos/consumer-reports-finds-banned-recalled-181251182.html",
+    "date": "Fri, 23 Oct 2026 18:12:51 GMT"
    },
    "level": "CHECK"
   },
@@ -1774,55 +1807,53 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 1.84,
+    "seconds": 1.82,
     "tokens_in": 1024,
-    "tokens_out": 338,
+    "tokens_out": 328,
     "cached_in": 0,
-    "cost_usd": 0.00061,
+    "cost_usd": 0.0006,
     "purpose": "Identify the product"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 2.06,
+    "seconds": 3.08,
     "tokens_in": 341,
-    "tokens_out": 390,
+    "tokens_out": 727,
     "cached_in": 0,
-    "cost_usd": 0.00151,
+    "cost_usd": 0.00252,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-    "seconds": 0.5,
-    "tokens_in": 617,
-    "tokens_out": 54,
+    "seconds": 0.77,
+    "tokens_in": 986,
+    "tokens_out": 96,
     "cached_in": 0,
-    "cost_usd": 5e-05,
+    "cost_usd": 8e-05,
     "purpose": "Check recall news"
    }
   ],
-  "finished_at": 6.5
+  "finished_at": 6.39
  },
  "l17": {
   "id": "l17",
-  "level": "RECALLED",
-  "label": "Don't buy (or get the fix)",
-  "tone": "bad",
-  "word": "DANGER",
-  "headline": "Recalled: Kids & Koalas baby walkers",
+  "level": "CHECK",
+  "label": "Ask before you buy",
+  "tone": "warn",
+  "word": "CAUTION",
+  "headline": "Walker: check stair-fall protection",
   "category": "Infant walker / activity center",
   "brand": "Kids & Koalas",
-  "recalls": [
-   "20730"
-  ],
-  "cite": "CPSA \u00a719(a)(2)(B); CPSC 'Stop Online Sale of Recalled Products'",
+  "recalls": [],
+  "cite": "16 CFR 1216; CPSC Reseller's Guide",
   "deaths": 0,
   "seconds": 3.17,
-  "cost_usd": 0.0016,
+  "cost_usd": 0.00164,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
-   "category": "walker",
+   "category": "other",
    "category_confidence": 0.95,
    "brand": "Kids & Koalas",
    "product_name": "Baby walker with toy tray",
@@ -1848,17 +1879,18 @@
     "weighted": "no"
    },
    "missing_parts": [],
-   "what_i_see": "A baby seated in a wheeled walker with a white tray, black base, and a toy on the tray. The listing text identifies the brand as Kids & Koalas and describes a foldable walker with music and lights on the tray."
+   "what_i_see": "A baby seated in a wheeled activity walker with a circular base, a white tray with a toy, and a black seat. The listing text identifies it as a Kids & Koalas walker that folds flat and has music and lights on the tray."
   },
   "quick_judgments": [
    {
     "recall_id": "20730",
     "same_brand": "yes",
     "same_kind_of_product": "yes",
-    "recall_limited_to": "nothing_more",
-    "item_detail_vs_limit": "not_needed",
-    "why": "The recall covers all Kids & Koalas baby walkers with no further restrictions, and the item is a Kids & Koalas baby walker.",
-    "verdict": "applies"
+    "recall_limited_to": "model_numbers",
+    "item_detail_vs_limit": "not_shown",
+    "why": "The recall is limited to model X002, but the listing does not show a model number.",
+    "verdict": "unclear",
+    "decided_by": "notice reading"
    }
   ],
   "detail": {
@@ -1867,34 +1899,35 @@
      "recall_id": "20730",
      "same_brand": "yes",
      "same_kind_of_product": "yes",
-     "recall_limited_to": "nothing_more",
-     "item_detail_vs_limit": "not_needed",
-     "why": "The recall covers all Kids & Koalas baby walkers and the item is a Kids & Koalas baby walker.",
-     "verdict": "applies"
+     "recall_limited_to": "model_numbers",
+     "item_detail_vs_limit": "not_shown",
+     "why": "The item is a Kids & Koalas baby walker, matching the recalled brand and product type, but the recall is limited to model X002 and the item's model number is not shown.",
+     "verdict": "unclear",
+     "decided_by": "notice reading"
     }
    ],
    "verdict": {
-    "summary": "This is a Kids & Koalas baby walker with a toy tray. It has been recalled due to fall and entrapment hazards, and selling a recalled product is unlawful. The recall requires consumers to stop using it, dismantle it, and throw it away.",
-    "seller_message": "Hi, thanks for listing this. I wanted to let you know that this model has been recalled by the CPSC for fall and entrapment hazards, and selling recalled items isn\u2019t allowed (CPSA \u00a719(a)(2)(B); CPSC \u2018Stop Online Sale of Recalled Products\u2019). The recall remedy is to stop use, dismantle, and discard the walker. I\u2019ll have to pass, but I appreciate you sharing it.",
-    "safer_alternative": "Consider a stationary activity center or a walker that meets current CPSC standards (gripping strips underneath or a base at least 36 inches wide)."
+    "summary": "This is a Kids & Koalas baby walker with a toy tray. The verdict is to ask before you buy because there is a possible recall for this brand and product type that depends on the model number or manufacture date. Additionally, walkers must have stair-fall protection such as gripping strips or a base at least 36 inches wide.",
+    "seller_message": "Hi! I'm interested in your baby walker. Could you please share the exact model number from the label, a photo of the label showing the model number and manufacture date, and let me know if all original parts and instructions are included? This helps me check for a possible recall and safety standards. Thanks!",
+    "safer_alternative": "Consider a stationary activity center that meets current safety standards instead of a walker."
    },
    "news": {
     "checked": true,
     "query": "Kids & Koalas Baby walker with toy tray recall",
     "new_recall": false,
-    "headline": "No new recall or safety warning for Kids & Koalas Baby walker with toy tray (walker) reported after 2026-10-25 snapshot.",
-    "url": "https://www.decal.ga.gov/documents/attachments/CCLC_IndicatorManual.pdf",
-    "date": "Mon, 23 Feb 2026 18:30:37 GMT"
+    "headline": "Kidz Concepts Recalls Kids & Koalas Baby Walkers Due to Fall and Entrapment Hazards",
+    "url": "https://searchrecalls.com/baby",
+    "date": "Mon, 19 Oct 2026 14:00:00 GMT"
    },
-   "level": "RECALLED"
+   "level": "CHECK"
   },
   "calls": [
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 1.83,
+    "seconds": 1.87,
     "tokens_in": 1022,
-    "tokens_out": 349,
+    "tokens_out": 351,
     "cached_in": 0,
     "cost_usd": 0.00062,
     "purpose": "Identify the product"
@@ -1902,60 +1935,62 @@
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 1.03,
-    "tokens_in": 651,
-    "tokens_out": 110,
+    "seconds": 1.05,
+    "tokens_in": 710,
+    "tokens_out": 101,
     "cached_in": 0,
-    "cost_usd": 0.00098,
+    "cost_usd": 0.00101,
     "purpose": "Judge recall matches (quick)"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 5.39,
-    "tokens_in": 651,
-    "tokens_out": 1112,
+    "seconds": 10.58,
+    "tokens_in": 710,
+    "tokens_out": 2343,
     "cached_in": 0,
-    "cost_usd": 0.00399,
+    "cost_usd": 0.00774,
     "purpose": "Judge recall matches"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 3.33,
-    "tokens_in": 517,
-    "tokens_out": 837,
+    "seconds": 5.06,
+    "tokens_in": 506,
+    "tokens_out": 1085,
     "cached_in": 0,
-    "cost_usd": 0.00303,
+    "cost_usd": 0.00376,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-    "seconds": 0.82,
-    "tokens_in": 706,
-    "tokens_out": 108,
+    "seconds": 0.65,
+    "tokens_in": 899,
+    "tokens_out": 83,
     "cached_in": 0,
     "cost_usd": 7e-05,
     "purpose": "Check recall news"
    }
   ],
-  "finished_at": 7.17
+  "finished_at": 7.62
  },
  "l18": {
   "id": "l18",
-  "level": "OK_SO_FAR",
-  "label": "No known problems",
-  "tone": "good",
-  "word": "OK",
-  "headline": "No known recall or ban found",
+  "level": "ILLEGAL_TO_SELL",
+  "label": "Don't buy",
+  "tone": "bad",
+  "word": "DANGER",
+  "headline": "Inclined infant sleepers are banned",
   "category": "Infant swing or glider",
   "brand": "",
-  "recalls": [],
-  "cite": "CPSC and NHTSA recall data",
+  "recalls": [
+   "26074"
+  ],
+  "cite": "Safe Sleep for Babies Act; 16 CFR 1310; CPSA \u00a719",
   "deaths": 0,
-  "seconds": 3.61,
-  "cost_usd": 0.00171,
+  "seconds": 3.28,
+  "cost_usd": 0.00179,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
    "category": "swing",
@@ -1984,53 +2019,55 @@
     "weighted": "unknown"
    },
    "missing_parts": [],
-   "what_i_see": "A white electric baby swing with a mosquito net canopy, a circular base, and a control panel on the front. The listing text identifies it as a swing/rocker with remote and net, model BB501, and notes the child napped in it daily."
+   "what_i_see": "A white electric baby swing with a mosquito net canopy, a circular base, and a control panel on the front. The seat is suspended above the base and appears to be tilted slightly backward. The listing text identifies the model as BB501 and notes that the seller's son napped in it daily."
   },
   "quick_judgments": [
    {
     "recall_id": "26074",
-    "same_brand": "unclear",
+    "same_brand": "no",
     "same_kind_of_product": "yes",
     "recall_limited_to": "model_numbers",
     "item_detail_vs_limit": "differs",
-    "why": "The recall covers Vevor-branded swings with specific model numbers (BB501K, BB702A, BB005), while the item is an unknown brand with model BB501, which does not match any recalled model.",
-    "verdict": "does_not_apply"
+    "why": "The recall covers Vevor-branded swings with specific model numbers (BB005, BB501K, BB702A), while the item is an unknown brand with model BB501, which differs from the recalled models.",
+    "verdict": "applies",
+    "decided_by": "model number"
    }
   ],
   "detail": {
    "judgments": [
     {
      "recall_id": "26074",
-     "same_brand": "unclear",
+     "same_brand": "no",
      "same_kind_of_product": "yes",
      "recall_limited_to": "model_numbers",
      "item_detail_vs_limit": "differs",
-     "why": "The item's model BB501 does not match the recalled model BB501K, and the item's brand is unknown while the recall is specific to Vevor-branded swings.",
-     "verdict": "does_not_apply"
+     "why": "The item's model BB501 is not among the recalled models (BB005, BB501K, BB702A) and the brand is unknown, not Vevor.",
+     "verdict": "applies",
+     "decided_by": "model number"
     }
    ],
    "verdict": {
-    "summary": "This electric baby swing with mosquito net (model BB501) has no known recalls or bans, but that isn't a safety guarantee; you should inspect it in person.",
-    "seller_message": "Hi! I'm interested in this swing. Could you let me know if any recall fixes have been done (like headrest/insert removed or strap fastener added)? Also, could you share a photo of the label showing the model number and manufacture date? And are all original parts and instructions included? Thanks!",
-    "safer_alternative": ""
+    "summary": "This electric baby swing (model BB501) is an inclined infant sleeper, which has been banned since November 12, 2022 because its incline exceeds 10 degrees. The verdict is Don't buy, primarily because selling such products is illegal under the Safe Sleep for Babies Act.",
+    "seller_message": "Hi, thanks for listing this. I wanted to let you know that this swing is an inclined infant sleeper banned since November 2022 under the Safe Sleep for Babies Act, and it\u2019s also been recalled by Vevor (CPSC recall #26074). Because of that, I can\u2019t purchase it. Best of luck!",
+    "safer_alternative": "Look for a flat, firm sleep surface such as a crib or bassinet that meets current CPSC safety standards."
    },
    "news": {
     "checked": true,
     "query": "Electric baby swing with mosquito net recall",
-    "new_recall": true,
-    "headline": "CPSC Recalls Taleco Gear Baby Swings, Jumpers, and 2-in-1 Jumper\u2011Swings Over Fall and Strangulation Hazards",
-    "url": "https://wrnjradio.com/cpsc-recalls-minifridges-ceiling-fans-toys-and-other-products-over-safety-hazards",
-    "date": "Fri, 14 Aug 2026 08:20:54 GMT"
+    "new_recall": false,
+    "headline": "No new recall or safety warning for the Electric baby swing with mosquito net (swing) was identified after the 2026-10-25 snapshot.",
+    "url": "https://www.consumerreports.org/babies-kids/baby-product-recalls/baby-product-recalls-parents-caregivers-should-be-aware-of-a5859124070",
+    "date": "Thu, 17 Sep 2026 14:28:20 GMT"
    },
-   "level": "OK_SO_FAR"
+   "level": "ILLEGAL_TO_SELL"
   },
   "calls": [
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 1.64,
+    "seconds": 1.66,
     "tokens_in": 1029,
-    "tokens_out": 356,
+    "tokens_out": 362,
     "cached_in": 0,
     "cost_usd": 0.00063,
     "purpose": "Identify the product"
@@ -2038,45 +2075,45 @@
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 1.09,
-    "tokens_in": 689,
-    "tokens_out": 131,
+    "seconds": 0.91,
+    "tokens_in": 762,
+    "tokens_out": 130,
     "cached_in": 0,
-    "cost_usd": 0.00108,
+    "cost_usd": 0.00115,
     "purpose": "Judge recall matches (quick)"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 10.04,
-    "tokens_in": 689,
-    "tokens_out": 2036,
+    "seconds": 9.12,
+    "tokens_in": 762,
+    "tokens_out": 2221,
     "cached_in": 0,
-    "cost_usd": 0.0068,
+    "cost_usd": 0.00743,
     "purpose": "Judge recall matches"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 6.15,
-    "tokens_in": 334,
-    "tokens_out": 1074,
+    "seconds": 4.17,
+    "tokens_in": 613,
+    "tokens_out": 1039,
     "cached_in": 0,
-    "cost_usd": 0.00356,
+    "cost_usd": 0.00373,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-    "seconds": 1.23,
-    "tokens_in": 1048,
-    "tokens_out": 117,
+    "seconds": 0.89,
+    "tokens_in": 1053,
+    "tokens_out": 131,
     "cached_in": 0,
     "cost_usd": 9e-05,
     "purpose": "Check recall news"
    }
   ],
-  "finished_at": 8.38
+  "finished_at": 7.75
  },
  "l19": {
   "id": "l19",
@@ -2090,14 +2127,14 @@
   "recalls": [],
   "cite": "CPSC and NHTSA recall data",
   "deaths": 0,
-  "seconds": 2.18,
-  "cost_usd": 0.00061,
+  "seconds": 2.2,
+  "cost_usd": 0.00062,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
    "category": "stroller",
    "category_confidence": 0.95,
    "brand": "unknown",
-   "product_name": "unknown",
+   "product_name": "Full-size stroller",
    "model_text": "unknown",
    "date_of_manufacture": "unknown",
    "printed_expiration": "unknown",
@@ -2126,17 +2163,17 @@
   "detail": {
    "judgments": [],
    "verdict": {
-    "summary": "This is a Full-Size stroller with no visible model number. The verdict is no known problems, as no recall or ban was found in CPSC and NHTSA data. However, this isn't a safety guarantee and the item should be inspected in person.",
-    "seller_message": "Hi! I'm interested in your stroller. Could you send a photo of the label with the model number and the month/year it was made? Also, are all the original parts and the instructions included? Thanks!",
-    "safer_alternative": "Look for a stroller with a clear model label, all original parts, and a recent manufacture date to ensure it meets current safety standards."
+    "summary": "This is a full-size stroller with no known recalls or bans found in CPSC and NHTSA data. The verdict is 'No known problems,' but that isn't a safety guarantee \u2014 you should still inspect it in person. The most important reason is that no recall, standard problem, or ban was identified for the visible information.",
+    "seller_message": "Hi! I\u2019m interested in your stroller. Could you send a photo of the label showing the model number and manufacture month/year? Also, are all the original parts and the instruction manual included? Thanks!",
+    "safer_alternative": ""
    },
    "news": {
     "checked": true,
-    "query": "Full-Size Stroller recall",
+    "query": "Full-Size Full-size stroller recall",
     "new_recall": false,
-    "headline": "No new recall or safety warning for the Full-Size stroller was found in the provided news results; all reported items are general product guides or older safety reminders that predate the 2026-10-25 snapshot.",
-    "url": "https://www.consumerreports.org/babies-kids/baby-product-recalls/baby-product-recalls-parents-caregivers-should-be-aware-of-a5859124070",
-    "date": "Thu, 17 Sep 2026 14:28:20 GMT"
+    "headline": "No new recall or safety warning for the Full-Size Stroller was found in news results newer than the 2026-10-25 snapshot.",
+    "url": "N/A",
+    "date": "N/A"
    },
    "level": "OK_SO_FAR"
   },
@@ -2144,50 +2181,50 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 1.8,
+    "seconds": 1.87,
     "tokens_in": 1022,
-    "tokens_out": 340,
+    "tokens_out": 343,
     "cached_in": 0,
-    "cost_usd": 0.00061,
+    "cost_usd": 0.00062,
     "purpose": "Identify the product"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 4.23,
-    "tokens_in": 298,
-    "tokens_out": 731,
+    "seconds": 2.45,
+    "tokens_in": 303,
+    "tokens_out": 479,
     "cached_in": 0,
-    "cost_usd": 0.00249,
+    "cost_usd": 0.00174,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-    "seconds": 0.71,
-    "tokens_in": 1022,
-    "tokens_out": 150,
+    "seconds": 0.53,
+    "tokens_in": 939,
+    "tokens_out": 67,
     "cached_in": 0,
-    "cost_usd": 0.0001,
+    "cost_usd": 7e-05,
     "purpose": "Check recall news"
    }
   ],
-  "finished_at": 7.31
+  "finished_at": 7.03
  },
  "l20": {
   "id": "l20",
-  "level": "OK_SO_FAR",
-  "label": "No known problems",
-  "tone": "good",
-  "word": "OK",
-  "headline": "No known recall or ban found",
+  "level": "CHECK",
+  "label": "Ask before you buy",
+  "tone": "warn",
+  "word": "CAUTION",
+  "headline": "Possible recall: SINGES 3-in-1 Baby High Chairs and Booster Seats",
   "category": "High chair or booster",
   "brand": "SINGES",
   "recalls": [],
-  "cite": "CPSC and NHTSA recall data",
+  "cite": "CPSC Recalls database",
   "deaths": 0,
-  "seconds": 2.86,
-  "cost_usd": 0.00162,
+  "seconds": 3.25,
+  "cost_usd": 0.00167,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
    "category": "high_chair",
@@ -2224,9 +2261,10 @@
     "same_brand": "yes",
     "same_kind_of_product": "yes",
     "recall_limited_to": "colors_or_prints",
-    "item_detail_vs_limit": "differs",
-    "why": "The recall covers only blue and red color variants, while the listed item is white frame with teal seat and dark blue tray.",
-    "verdict": "does_not_apply"
+    "item_detail_vs_limit": "not_shown",
+    "why": "The recall covers only blue and red color variants, but the listed item is white frame with teal seat and dark blue tray.",
+    "verdict": "unclear",
+    "decided_by": "notice reading"
    }
   ],
   "detail": {
@@ -2237,22 +2275,23 @@
      "same_kind_of_product": "yes",
      "recall_limited_to": "nothing_more",
      "item_detail_vs_limit": "not_needed",
-     "why": "The recall covers all SINGES 3-in-1 high chairs and booster seats without restricting to specific models, dates, or colors.",
-     "verdict": "applies"
+     "why": "The item is a SINGES 3-in-1 high chair and booster, matching the recalled brand and product type; the recall covers all such products without further limitations.",
+     "verdict": "applies",
+     "decided_by": "notice reading"
     }
    ],
    "verdict": {
-    "summary": "This SINGES 3-in-1 high chair and booster seat has been recalled due to a fall hazard and violates federal safety regulations. The verdict is not to buy it because selling a recalled product is unlawful. Instead, use the recall remedy to return it to Walmart for a full refund.",
-    "seller_message": "Hi, thanks for the listing. Just a heads-up: this SINGES 3-in-1 high chair/booster is under a CPSC recall (ID 24153) for a fall hazard. Since selling recalled items isn't permitted, I'll pass. You can return it to Walmart for a full refund per the recall notice.",
-    "safer_alternative": "Look for a high chair or booster seat that meets current CPSC safety standards and has no active recalls."
+    "summary": "This is a SINGES 3-in-1 high chair and booster seat. The verdict is don't buy (or get the fix) because it has been recalled due to a fall hazard and violates federal safety regulations.",
+    "seller_message": "Hi, thanks for listing this. I wanted to let you know this SINGES 3-in-1 high chair/booster has been recalled by the CPSC (recall #24153) due to a fall hazard. It's not legal to sell recalled items, so I'll have to pass. You can return it to Walmart for a full refund per the recall remedy.",
+    "safer_alternative": ""
    },
    "news": {
     "checked": true,
     "query": "SINGES 3-in-1 high chair and booster recall",
     "new_recall": false,
-    "headline": "No new recall or safety warning for the SINGES 3-in-1 high chair and booster (high_chair) was reported in the provided news results after the snapshot date of 2026-10-25.",
-    "url": "N/A",
-    "date": "N/A"
+    "headline": "SINGES 3-in-1 High Chair and Booster Recall: Fall Hazard Identified",
+    "url": "https://www.facebook.com/IllinoisStateFireMarshal/posts/recall-alertthe-blue-cactus-company-reclining-chair-battery-packs-recalled-due-t/1531973418975157",
+    "date": "2026-10-25"
    },
    "level": "RECALLED"
   },
@@ -2260,9 +2299,9 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 1.42,
+    "seconds": 1.69,
     "tokens_in": 1022,
-    "tokens_out": 352,
+    "tokens_out": 351,
     "cached_in": 0,
     "cost_usd": 0.00062,
     "purpose": "Identify the product"
@@ -2270,45 +2309,45 @@
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 0.85,
-    "tokens_in": 674,
+    "seconds": 1.09,
+    "tokens_in": 728,
     "tokens_out": 107,
     "cached_in": 0,
-    "cost_usd": 0.001,
+    "cost_usd": 0.00105,
     "purpose": "Judge recall matches (quick)"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 7.24,
-    "tokens_in": 674,
-    "tokens_out": 2049,
+    "seconds": 16.87,
+    "tokens_in": 728,
+    "tokens_out": 4479,
     "cached_in": 0,
-    "cost_usd": 0.00682,
+    "cost_usd": 0.01417,
     "purpose": "Judge recall matches"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 4.73,
+    "seconds": 6.17,
     "tokens_in": 486,
-    "tokens_out": 1169,
+    "tokens_out": 1448,
     "cached_in": 0,
-    "cost_usd": 0.00399,
+    "cost_usd": 0.00483,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-    "seconds": 0.64,
-    "tokens_in": 1167,
-    "tokens_out": 84,
+    "seconds": 0.78,
+    "tokens_in": 929,
+    "tokens_out": 116,
     "cached_in": 0,
-    "cost_usd": 9e-05,
+    "cost_usd": 8e-05,
     "purpose": "Check recall news"
    }
   ],
-  "finished_at": 8.28
+  "finished_at": 8.99
  },
  "l21": {
   "id": "l21",
@@ -2322,14 +2361,14 @@
   "recalls": [],
   "cite": "CPSC Recalls database",
   "deaths": 0,
-  "seconds": 3.0,
-  "cost_usd": 0.00164,
+  "seconds": 3.74,
+  "cost_usd": 0.00171,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
    "category": "bassinet",
    "category_confidence": 0.95,
    "brand": "Papablic",
-   "product_name": "convertible bedside sleeper",
+   "product_name": "Convertible Bedside Sleeper",
    "model_text": "unknown",
    "date_of_manufacture": "unknown",
    "printed_expiration": "unknown",
@@ -2338,7 +2377,7 @@
    "features": {
     "incline_raised": "no",
     "marketed_for_sleep": "yes",
-    "drop_side": "no",
+    "drop_side": "unknown",
     "padded_bumper": "no",
     "mesh_liner": "no",
     "restraint_strap": "no",
@@ -2352,7 +2391,7 @@
     "weighted": "no"
    },
    "missing_parts": [],
-   "what_i_see": "A Papablic convertible bedside sleeper on a metal stand with wheels and a lower storage shelf. The bassinet has a fabric side panel with the Papablic logo and a mesh window. The listing text describes it as a bedside sleeper / bassinet that attaches to the side of a bed."
+   "what_i_see": "A gray fabric bedside sleeper/bassinet on a metal stand with wheels and a lower storage shelf. The brand name 'Papablic' is printed on the side panel. The product has a flat, rectangular sleep surface with mesh sides and a padded top rail. It is designed to attach to the side of an adult bed."
   },
   "quick_judgments": [
    {
@@ -2361,8 +2400,9 @@
     "same_kind_of_product": "yes",
     "recall_limited_to": "model_numbers",
     "item_detail_vs_limit": "not_shown",
-    "why": "The recall is limited to model PAPA03001AI, but the item listing does not show a model number.",
-    "verdict": "unclear"
+    "why": "The recall is limited to model PAPA03001AI, but the listing does not show a model number.",
+    "verdict": "unclear",
+    "decided_by": "notice reading"
    }
   ],
   "detail": {
@@ -2373,22 +2413,23 @@
      "same_kind_of_product": "yes",
      "recall_limited_to": "model_numbers",
      "item_detail_vs_limit": "not_shown",
-     "why": "The item is a Papablic convertible bedside sleeper but its model number is not shown, so we cannot confirm if it matches the recalled model PAPA03001AI.",
-     "verdict": "unclear"
+     "why": "The item is a Papablic convertible bedside sleeper but lacks a visible model number to confirm it matches the recalled model PAPA03001AI.",
+     "verdict": "unclear",
+     "decided_by": "notice reading"
     }
    ],
    "verdict": {
-    "summary": "This Papablic convertible bedside sleeper has an \"Ask before you buy\" verdict because it may be subject to a recall (CPSC Recall #27027) for entrapment, suffocation, and fall hazards, depending on the model number and manufacture date.",
-    "seller_message": "Hi! I'm interested in your Papablic bedside sleeper. Could you share the exact model number from the label, a photo of the label showing the model number and manufacture month/year, and let me know if all original parts and instructions are included? This model has a possible recall (CPSC #27027) so I want to be sure it's safe. Thanks!",
-    "safer_alternative": "Consider a bedside sleeper that meets current CPSC safety standards and has no active recalls."
+    "summary": "This is a Papablic Convertible Bedside Sleeper. The verdict is \"Ask before you buy\" because a CPSC recall may apply depending on the model number and manufacture date, citing risks of entrapment, suffocation, and falls.",
+    "seller_message": "Hi! I\u2019m interested in your Papablic bedside sleeper. Could you share the exact model number from the label and a photo showing the month/year it was made? Also, are all the original parts and instructions included? There\u2019s a possible CPSC recall (CPSC Recalls database) that depends on those details, so I want to be sure it\u2019s safe.",
+    "safer_alternative": "Consider a bedside sleeper that meets current federal safety standards and has no active recalls."
    },
    "news": {
     "checked": true,
-    "query": "Papablic convertible bedside sleeper recall",
-    "new_recall": true,
-    "headline": "Parents Urged to Stop Using bbl\u00fcv Grow High Chairs and Papablic Bedside Sleepers After CPSC Finds Infant Hazards",
-    "url": "https://www.medicaldaily.com/cpsc-bbluv-high-chair-papablic-bedside-sleeper-warning-480149",
-    "date": "Tue, 20 Oct 2026 06:15:26 GMT"
+    "query": "Papablic Convertible Bedside Sleeper recall",
+    "new_recall": false,
+    "headline": "Consumer Reports safety alert: Some bed rail products linked to injuries, recalls, deaths",
+    "url": "https://www.news4jax.com/health/2026/10/06/consumer-reports-safety-alert-some-bed-rail-products-linked-to-injuries-recalls-deaths/",
+    "date": "2026-10-06T11:50:24GMT"
    },
    "level": "CHECK"
   },
@@ -2396,9 +2437,9 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 1.6,
+    "seconds": 1.91,
     "tokens_in": 1024,
-    "tokens_out": 357,
+    "tokens_out": 363,
     "cached_in": 0,
     "cost_usd": 0.00063,
     "purpose": "Identify the product"
@@ -2406,45 +2447,45 @@
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 0.97,
-    "tokens_in": 692,
-    "tokens_out": 107,
+    "seconds": 1.52,
+    "tokens_in": 757,
+    "tokens_out": 106,
     "cached_in": 0,
-    "cost_usd": 0.00101,
+    "cost_usd": 0.00108,
     "purpose": "Judge recall matches (quick)"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 4.05,
-    "tokens_in": 692,
-    "tokens_out": 1418,
+    "seconds": 7.45,
+    "tokens_in": 757,
+    "tokens_out": 2037,
     "cached_in": 0,
-    "cost_usd": 0.00495,
+    "cost_usd": 0.00687,
     "purpose": "Judge recall matches"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 3.96,
-    "tokens_in": 502,
-    "tokens_out": 989,
+    "seconds": 2.69,
+    "tokens_in": 503,
+    "tokens_out": 631,
     "cached_in": 0,
-    "cost_usd": 0.00347,
+    "cost_usd": 0.0024,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-    "seconds": 0.76,
-    "tokens_in": 807,
-    "tokens_out": 121,
+    "seconds": 0.63,
+    "tokens_in": 1076,
+    "tokens_out": 114,
     "cached_in": 0,
-    "cost_usd": 8e-05,
+    "cost_usd": 9e-05,
     "purpose": "Check recall news"
    }
   ],
-  "finished_at": 8.82
+  "finished_at": 9.73
  },
  "l22": {
   "id": "l22",
@@ -2458,8 +2499,8 @@
   "recalls": [],
   "cite": "Manufacturer instructions; NHTSA used car seat checklist",
   "deaths": 0,
-  "seconds": 1.76,
-  "cost_usd": 0.00062,
+  "seconds": 2.17,
+  "cost_usd": 0.00064,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
    "category": "car_seat",
@@ -2488,23 +2529,23 @@
     "weighted": "unknown"
    },
    "missing_parts": [],
-   "what_i_see": "Evenflo Company, Inc. Piqua, Ohio label with model number 38112244 and manufactured date March 2015 (03/2015)."
+   "what_i_see": "Evenflo Company, Inc. Piqua, Ohio label showing MODEL NO. 38112244 and MANUFACTURED IN MARCH 2015 (03/2015), made in China, conforms to Federal Motor Vehicle Safety Standards."
   },
   "quick_judgments": [],
   "detail": {
    "judgments": [],
    "verdict": {
     "summary": "This Evenflo convertible car seat (model 38112244) was manufactured in March 2015 and expired in March 2025 per the manufacturer\u2019s 10\u2011year lifespan. The verdict is \u201cThink twice\u201d because the seat is past its expiration date, meaning the plastic may have degraded and it no longer meets current safety standards.",
-    "seller_message": "Hi! I\u2019m considering this car seat. Could you let me know if it\u2019s ever been in a crash, and share photos of the manufacture/expiration sticker and the model label? Also, are all the original parts and instructions included? Thanks!",
-    "safer_alternative": "Look for a car seat manufactured within the last 10 years that hasn\u2019t reached its expiration date and comes with all original parts and instructions."
+    "seller_message": "Hi! I\u2019m considering this car seat. Could you tell me if it\u2019s ever been in a crash, and share photos of the manufacture/expiration sticker and the model label? Also, are all the original parts and the instruction manual included? Thanks!",
+    "safer_alternative": "Look for a car seat that is within its manufacturer\u2011set expiration period (typically 10 years from the manufacture date) and comes with all original parts and instructions."
    },
    "news": {
     "checked": true,
     "query": "Evenflo convertible car seat recall",
     "new_recall": true,
-    "headline": "Evenflo Recalls REO by Revolve360 Car Seats - Consumer Reports",
-    "url": "https://www.consumerreports.org/babies-kids/baby-product-recalls/evenflo-reo-car-seat-recall-a1021515953",
-    "date": "Thu, 23 Jul 2026 00:00:00 GMT"
+    "headline": "Evenflo recalls more than 74K car seats because of safety concerns",
+    "url": "https://www.newsnationnow.com/us-news/recalls/more-than-74k-car-seats-recalled-safety-concerns",
+    "date": "2026-01-13T17:45:42Z"
    },
    "level": "UNSAFE_ADVISORY"
   },
@@ -2512,19 +2553,19 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 1.55,
+    "seconds": 2.0,
     "tokens_in": 1023,
-    "tokens_out": 348,
+    "tokens_out": 370,
     "cached_in": 0,
-    "cost_usd": 0.00062,
+    "cost_usd": 0.00064,
     "purpose": "Identify the product"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 2.82,
+    "seconds": 2.86,
     "tokens_in": 507,
-    "tokens_out": 749,
+    "tokens_out": 747,
     "cached_in": 0,
     "cost_usd": 0.00275,
     "purpose": "Write verdict"
@@ -2532,15 +2573,15 @@
    {
     "role": "nano",
     "model_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-    "seconds": 0.92,
-    "tokens_in": 795,
-    "tokens_out": 111,
+    "seconds": 0.57,
+    "tokens_in": 1086,
+    "tokens_out": 98,
     "cached_in": 0,
-    "cost_usd": 7e-05,
+    "cost_usd": 9e-05,
     "purpose": "Check recall news"
    }
   ],
-  "finished_at": 8.16
+  "finished_at": 8.56
  },
  "l23": {
   "id": "l23",
@@ -2554,8 +2595,8 @@
   "recalls": [],
   "cite": "NHTSA Used Car Seat Safety Checklist",
   "deaths": 0,
-  "seconds": 2.28,
-  "cost_usd": 0.00063,
+  "seconds": 2.26,
+  "cost_usd": 0.0006,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
    "category": "car_seat",
@@ -2584,15 +2625,15 @@
     "weighted": "no"
    },
    "missing_parts": [],
-   "what_i_see": "A black and gray convertible car seat installed in a vehicle. The headrest has a 'Safety 1st' logo. A yellow warning label is visible on the seat back. The listing text describes it as a convertible car seat in great shape with no stains and includes a manual."
+   "what_i_see": "A Safety 1st convertible car seat installed in a vehicle, with a warning label visible on the seat back and a harness system present."
   },
   "quick_judgments": [],
   "detail": {
    "judgments": [],
    "verdict": {
-    "summary": "This is a Safety 1st Convertible car seat. The verdict is to ask before you buy because NHTSA recommends verifying it has all labels, the manual, all parts, no open recalls, and has never been in a moderate or severe crash.",
-    "seller_message": "Hi! I'm interested in your car seat. Could you let me know if it's ever been in a crash, even a minor one? Also, could you share photos of the manufacture/expiration date sticker and the model number label? And are all original parts and the instruction manual included? Thanks!",
-    "safer_alternative": "Look for a car seat with a clear manufacture date, all original parts and manual, and no history of crashes."
+    "summary": "This is a Safety 1st Convertible car seat. The verdict is to ask before you buy because NHTSA recommends only purchasing a used car seat if it has its manufacture-date and model labels, all parts, its manual, no open recalls, and has never been in a moderate or severe crash.",
+    "seller_message": "Hi! I'm interested in your Safety 1st Convertible car seat. Could you let me know: Has it ever been in a car crash, even a minor one? Can you share photos of the sticker with the manufacture and expiration dates, and the label with the model number and month/year made? Are all original parts and the instruction manual included? Thanks!",
+    "safer_alternative": "Consider buying a new car seat or a used one that comes with verified labels, the original manual, no crash history, and no open recalls."
    },
    "news": {
     "checked": true,
@@ -2608,35 +2649,35 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 1.86,
+    "seconds": 1.92,
     "tokens_in": 1020,
-    "tokens_out": 360,
+    "tokens_out": 327,
     "cached_in": 0,
-    "cost_usd": 0.00063,
+    "cost_usd": 0.0006,
     "purpose": "Identify the product"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 2.15,
+    "seconds": 2.35,
     "tokens_in": 371,
-    "tokens_out": 661,
+    "tokens_out": 743,
     "cached_in": 0,
-    "cost_usd": 0.00235,
+    "cost_usd": 0.0026,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-    "seconds": 0.81,
-    "tokens_in": 955,
-    "tokens_out": 119,
+    "seconds": 0.66,
+    "tokens_in": 1149,
+    "tokens_out": 121,
     "cached_in": 0,
-    "cost_usd": 9e-05,
+    "cost_usd": 0.0001,
     "purpose": "Check recall news"
    }
   ],
-  "finished_at": 8.78
+  "finished_at": 8.75
  },
  "l24": {
   "id": "l24",
@@ -2652,8 +2693,8 @@
   ],
   "cite": "CPSA \u00a719(a)(2)(B); CPSC 'Stop Online Sale of Recalled Products'",
   "deaths": 0,
-  "seconds": 3.08,
-  "cost_usd": 0.00159,
+  "seconds": 3.11,
+  "cost_usd": 0.00166,
   "model": "nvidia/Nemotron-3.5-Super-VL",
   "identify": {
    "category": "lounger",
@@ -2682,7 +2723,7 @@
     "weighted": "no"
    },
    "missing_parts": [],
-   "what_i_see": "A grey feather-print baby lounger/nest lying flat on a tiled floor. It has raised padded sides and a flat base, with a small white tag visible on the underside. No brand label, model number, or manufacture date is legible in the photo."
+   "what_i_see": "A grey fabric baby lounger with a feather/leaf print, lying flat on a tiled floor. It has raised padded sides and a flat base. A small white tag is visible on the underside edge. No brand label, model number, or date of manufacture is legible in the photo."
   },
   "quick_judgments": [
    {
@@ -2692,7 +2733,8 @@
     "recall_limited_to": "colors_or_prints",
     "item_detail_vs_limit": "matches",
     "why": "The recall covers URMYWO baby loungers in the grey feather style, and the item is a URMYWO newborn lounger with a grey feather print.",
-    "verdict": "applies"
+    "verdict": "applies",
+    "decided_by": "notice reading"
    }
   ],
   "detail": {
@@ -2701,16 +2743,17 @@
      "recall_id": "25456",
      "same_brand": "yes",
      "same_kind_of_product": "yes",
-     "recall_limited_to": "colors_or_prints",
-     "item_detail_vs_limit": "matches",
-     "why": "The item is a URMYWO baby lounger with a grey feather print, matching the recalled brand, product type, and the specific style identified in the recall.",
-     "verdict": "applies"
+     "recall_limited_to": "several",
+     "item_detail_vs_limit": "not_shown",
+     "why": "Item brand and product type match recall, but recall is limited to grey feather style and model UMCZC01AE; item shows grey feather print but model number not shown.",
+     "verdict": "unclear",
+     "decided_by": "notice reading"
     }
    ],
    "verdict": {
-    "summary": "This is a URMYWO newborn lounger. The verdict is don't buy (or get the fix) because the product has been recalled by the CPSC due to a risk of serious injury or death from suffocation and fall hazards, and selling a recalled item is unlawful.",
-    "seller_message": "Hi, just wanted to let you know this URMYWO lounger is under an active CPSC recall (recall #25456) for suffocation and fall hazards. Since selling recalled products isn't permitted, I'll have to pass. Thanks for understanding.",
-    "safer_alternative": "Choose a firm, flat sleep surface such as a crib or bassinet that meets current CPSC safety standards for infant sleep."
+    "summary": "This URMYWO newborn lounger is an infant positioner. The verdict is \"Think twice\" because CPSC warns that infant loungers are not safe for sleep and eBay bans them. There's also a possible recall that depends on the model number and manufacture date.",
+    "seller_message": "Hi! I'm interested in your URMYWO newborn lounger. Could you please share a photo of the label with the model number and manufacture date? Also, are all original parts and instructions included? I want to check if it's affected by a recall. Thanks!",
+    "safer_alternative": "Consider a firm, flat sleep surface such as a crib or bassinet that meets current CPSC safe-sleep standards."
    },
    "news": {
     "checked": true,
@@ -2720,15 +2763,15 @@
     "url": "https://www.cpsc.gov/Recalls/2026/Sofoliana-and-Glotika-Baby-Loungers-Recalled-Due-to-Risk-of-Serious-Injury-or-Death-from-Entrapment-and-Fall-Hazards-Violates-Mandatory-Standard-for-Infant-Sleep-Products-Sold-on-Amazon-by-Bosen-US",
     "date": "2025-11-26"
    },
-   "level": "RECALLED"
+   "level": "UNSAFE_ADVISORY"
   },
   "calls": [
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 1.58,
+    "seconds": 1.71,
     "tokens_in": 1018,
-    "tokens_out": 345,
+    "tokens_out": 350,
     "cached_in": 0,
     "cost_usd": 0.00062,
     "purpose": "Identify the product"
@@ -2736,37 +2779,37 @@
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 0.94,
-    "tokens_in": 636,
+    "seconds": 0.92,
+    "tokens_in": 698,
     "tokens_out": 114,
     "cached_in": 0,
-    "cost_usd": 0.00098,
+    "cost_usd": 0.00104,
     "purpose": "Judge recall matches (quick)"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 4.14,
-    "tokens_in": 636,
-    "tokens_out": 1498,
+    "seconds": 5.95,
+    "tokens_in": 698,
+    "tokens_out": 2375,
     "cached_in": 0,
-    "cost_usd": 0.00513,
+    "cost_usd": 0.00782,
     "purpose": "Judge recall matches"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 2.61,
-    "tokens_in": 598,
-    "tokens_out": 894,
+    "seconds": 3.41,
+    "tokens_in": 585,
+    "tokens_out": 1351,
     "cached_in": 0,
-    "cost_usd": 0.00328,
+    "cost_usd": 0.00464,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-    "seconds": 0.71,
+    "seconds": 0.85,
     "tokens_in": 1105,
     "tokens_out": 149,
     "cached_in": 0,
@@ -2774,6 +2817,6 @@
     "purpose": "Check recall news"
    }
   ],
-  "finished_at": 10.26
+  "finished_at": 10.14
  }
 }
