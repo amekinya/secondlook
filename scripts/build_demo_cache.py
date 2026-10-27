@@ -28,7 +28,7 @@ def main():
         except Exception:
             print(f"ERROR {m['file']}\n{traceback.format_exc()}")
             continue
-        cache[m["file"]] = {"identify": ident, "judgments": res.get("judgments_raw", []), "verdict": res["writeup"], "news": res.get("news", {}),
+        cache[m["file"]] = {"identify": ident, "judgments": res.get("judgments_raw", []), "verdict": res["writeup"], "news": res.get("news", {}), "lookalikes": res.get("lookalikes", []),
                             "calls": [asdict(c) | {"seconds": round(c.seconds, 2), "cost_usd": round(c.cost_usd, 5)} for c in calls]}
         good = res["level"] == m["expected_level"]
         ok += good

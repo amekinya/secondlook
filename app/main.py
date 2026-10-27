@@ -47,7 +47,9 @@ def run_check(item: Item, today: date, calls: list[CallRecord], steps: list[dict
     steps.append({"step": "Checked bans, standards and recalls", "detail": f"{len(first['recalls'])} recall candidates from CPSC/NHTSA data", "model": None})
     judgments: dict[str, str] = {}
     why: dict[str, str] = {}
-    to_judge = [r for r in first["recalls"] if r["match"] == "possible" or not r.get("all_models")]
+    cands = first.get("candidates", first["recalls"])
+    to_judge = [r for r in cands if r["match"] != "lookalike" and (r["match"] == "possible" or not r.get("all_models"))][:4] + \
+        [r for r in cands if r["match"] == "lookalike"][:2]
     if cached and "judgments" in cached:
         js = cached["judgments"]
     elif to_judge:

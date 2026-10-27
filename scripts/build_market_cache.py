@@ -16,7 +16,7 @@ from datetime import date
 from pathlib import Path
 
 from app import scan
-from app.ai import tasks
+from app.ai import lookalike, tasks
 from app.ai.client import CallRecord
 from app.engine.assess import assess
 from app.main import DEMO_TODAY, run_check
@@ -39,13 +39,16 @@ def main():
             img = scan.load_image(r["image"])
             ident = tasks.identify([img], text, calls)
             item = tasks.item_from_identify(ident, text)
-            res = assess(item, DEMO_TODAY)
+            looks = lookalike.for_item(item, calls)  # same steps as scan_one in app/scan.py
+            res = assess(item, DEMO_TODAY, lookalikes=looks)
             quick = []
-            possible = [x for x in res["recalls"] if x["match"] == "possible"]
+            cands = res.get("candidates", res["recalls"])
+            possible = [x for x in cands if x["match"] == "possible" or (x["match"] == "definite" and not x.get("all_models"))][:4] + \
+                [x for x in cands if x["match"] == "lookalike"][:2]
             if possible:
                 try:
                     quick = tasks.judge_recalls(item, possible, calls, quick=True)
-                    res = assess(item, DEMO_TODAY, {j["recall_id"]: j["verdict"] for j in quick})
+                    res = assess(item, DEMO_TODAY, {j["recall_id"]: j["verdict"] for j in quick}, lookalikes=looks)
                 except tasks.LiveModelUnavailable as e:
                     print(f"   quick judge unavailable for {r['id']}: {e}")
             scan_seconds = time.perf_counter() - t0
@@ -60,6 +63,7 @@ def main():
         cache[r["id"]] = {"id": r["id"], **stamp, "seconds": round(scan_seconds, 2), "cost_usd": round(scan_cost, 5),
                           "model": "nvidia/Nemotron-3.5-Super-VL", "identify": ident, "quick_judgments": quick,
                           "detail": {"judgments": detail.get("judgments_raw", []), "verdict": detail["writeup"], "news": detail.get("news", {}),
+                                     "lookalikes": detail.get("lookalikes", []),
                                      "level": detail["level"]},
                           "calls": [asdict(c) | {"seconds": round(c.seconds, 2), "cost_usd": round(c.cost_usd, 5)} for c in calls + dcalls]}
         durations.append((r["id"], scan_seconds))

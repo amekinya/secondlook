@@ -92,7 +92,7 @@ def main() -> None:
             out["methods"][name] = {"threshold_from_dev": th, "no_threshold": metrics(test, r), "at_threshold": metrics(test, r, th),
                                     "seconds_per_listing": round((time.perf_counter() - t0) / max(len(test), 1), 3)}
             if name == "matcher" and th is not None:
-                (D / "threshold.json").write_text(json.dumps({"threshold": th}))
+                (ROOT / "data" / "lookalike_threshold.json").write_text(json.dumps({"threshold": th, "chosen_on": "dev split"}))
     (ROOT / "eval" / "lookalike_results.json").write_text(json.dumps(out, indent=1))
     print(json.dumps(out, indent=1))
 

@@ -42,7 +42,17 @@ def score(pairs: list[tuple[str, str]], model: str | None = None, calls: list[Ca
                            json={"model": model or settings.lookalike_model, "pairs": [list(p) for p in pairs[i:i + 2048]]})
                 if r.status_code != 200:
                     raise LiveModelUnavailable(f"matcher HTTP {r.status_code}: {r.text[:200]}")
-                out += r.json()["scores"]
+                try:
+                    d = r.json()
+                    sc = [float(x) for x in d["scores"]]
+                except Exception as e:  # noqa: BLE001
+                    raise LiveModelUnavailable(f"unexpected reply from the endpoint: {r.text[:120]!r}") from e
+                want = model or settings.lookalike_model
+                if len(sc) != len(pairs[i:i + 2048]):
+                    raise LiveModelUnavailable("endpoint returned the wrong number of scores")
+                if want != "base-reranker" and d.get("fine_tuned") is False:
+                    raise LiveModelUnavailable(f"endpoint answered with the base model, not {want}")
+                out += sc
     except httpx.HTTPError as e:
         raise LiveModelUnavailable(f"matcher unreachable: {e}") from e
     if calls is not None:
@@ -79,5 +89,5 @@ def for_item(item, calls: list[CallRecord] | None = None) -> list[dict]:
         return []
     try:
         return find(item.category, item.product_name, item.listing_text, item.looks, calls)
-    except LiveModelUnavailable:
+    except Exception:  # noqa: BLE001  (the matcher is optional: any failure means no look-alikes, never a crash)
         return []

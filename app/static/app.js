@@ -71,7 +71,7 @@
     $("#recallSec").hidden = !rec.length;
     $("#recallList").innerHTML = rec.map((r) => {
       const img = r.images?.[0];
-      const badge = r.remedied ? `<span class="badge fixed">Fix appears done</span>` : `<span class="badge ${r.match}">${r.match === "definite" ? "Matches this item" : "Possible match"}</span>`;
+      const badge = r.remedied ? `<span class="badge fixed">Fix appears done</span>` : `<span class="badge ${r.match === "lookalike" ? "possible" : r.match}">${r.match === "definite" ? "Matches this item" : r.match === "lookalike" ? "Looks like it" : "Possible match"}</span>`;
       return `<div class="recall">${img ? `<div><img src="${esc(img.url)}" alt="${esc(img.caption)}" loading="lazy"><p class="credit">Image: U.S. CPSC recall #${esc(r.id)}</p></div>` : "<div></div>"}
         <div>${badge}${r.deaths ? `<span class="badge deaths">${r.deaths} death${r.deaths > 1 ? "s" : ""} reported</span>` : ""}
           <p class="rt">${esc(r.title)}</p>

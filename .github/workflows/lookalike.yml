@@ -8,7 +8,7 @@ on:
     paths: [".github/requests/lookalike.json"]
   workflow_dispatch:
     inputs:
-      task: { description: "synth | pairs | eval", required: true, default: "eval" }
+      task: { description: "synth | pairs | eval | chatbot", required: true, default: "eval" }
       args: { description: "extra arguments", required: false, default: "" }
 permissions:
   contents: write
@@ -24,6 +24,8 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Run
         env:
+          IN_TASK: ${{ inputs.task }}
+          IN_ARGS: ${{ inputs.args }}
           NEBIUS_API_KEY: ${{ secrets.NEBIUS_API_KEY }}
           ENDPOINT_URL: ${{ secrets.ENDPOINT_URL }}
           ENDPOINT_TOKEN: ${{ secrets.ENDPOINT_TOKEN }}
@@ -35,7 +37,7 @@ jobs:
             TASK=$(python -c "import json;print(json.load(open('.github/requests/lookalike.json'))['task'])")
             ARGS=$(python -c "import json;print(json.load(open('.github/requests/lookalike.json')).get('args',''))")
           else
-            TASK="${{ inputs.task }}"; ARGS="${{ inputs.args }}"
+            TASK="$IN_TASK"; ARGS="$IN_ARGS"
           fi
           mkdir -p eval data/lookalike
           case "$TASK" in
@@ -43,6 +45,7 @@ jobs:
             pairs) python -m scripts.build_lookalike_pairs | tee -a eval/lookalike_log.txt ;;
             eval)  python -m eval.lookalike_eval $ARGS 2>&1 | tee -a eval/lookalike_log.txt ;;
             chatbot) python -m eval.chatbot_baseline 2>&1 | tee eval/chatbot_baseline_log.txt ;;
+            *) echo "unknown task $TASK"; exit 2 ;;
           esac
       - name: Commit results
         if: always()
@@ -50,5 +53,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add eval data/lookalike 2>/dev/null || true
-          git commit -m "Look-alike matcher: results" || echo "No changes"
+          git commit -m "Pipeline results (look-alike / baselines)" || echo "No changes"
           for i in 1 2 3 4; do git pull --rebase -q && git push && break; sleep 7; done

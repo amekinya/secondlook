@@ -194,8 +194,8 @@
           <div class="sl-dbody"><p><small>${esc([x.category_label, x.item.brand].filter(Boolean).join(" · "))}</small></p>
           <h3>${esc(x.label)}</h3><p>${esc(x.writeup?.summary || "")}</p>
           <ul class="sl-rs">${x.reasons.map((r) => `<li class="${r.level}"><b>${esc(r.title)}</b>${esc(r.detail)}<br><small>${esc(r.cite)}</small></li>`).join("")}</ul>
-          ${(x.recalls || []).filter((r) => r.match === "definite" || r.match === "possible").slice(0, 3).map((r) => `<div class="sl-rc">${r.images?.[0] ? `<img src="${esc(r.images[0].url)}" alt="">` : "<span></span>"}
-            <div>${r.match === "possible" ? `<small class="sl-possible">Possible match: check the label</small>` : ""}<b>${esc(r.title)}</b><small>${esc(r.source)} ${esc(r.id)} · ${esc(r.date)}${r.deaths ? ` · ${r.deaths} deaths reported` : ""}</small>
+          ${(x.recalls || []).filter((r) => r.match === "definite" || r.match === "possible" || r.match === "lookalike").slice(0, 3).map((r) => `<div class="sl-rc">${r.images?.[0] ? `<img src="${esc(r.images[0].url)}" alt="">` : "<span></span>"}
+            <div>${r.match === "possible" ? `<small class="sl-possible">Possible match: check the label</small>` : r.match === "lookalike" ? `<small class="sl-possible">Looks like this recalled product: ask who made it</small>` : ""}<b>${esc(r.title)}</b><small>${esc(r.source)} ${esc(r.id)} · ${esc(r.date)}${r.deaths ? ` · ${r.deaths} deaths reported` : ""}</small>
             ${r.match === "possible" && r.models?.length ? `<small><b>Recalled model numbers:</b> ${esc(r.models.slice(0, 8).join(", "))}</small>` : ""}
             ${r.remedy ? `<small><b>Remedy:</b> ${esc(r.remedy.slice(0, 200))}</small>` : ""}${r.why ? `<small><i>${esc(r.why)}</i></small>` : ""}
             <small><a href="${esc(r.url)}" target="_blank" rel="noopener">Official notice</a></small></div></div>`).join("")}

@@ -50,12 +50,25 @@ def _tokens(s: str) -> set[str]:
     return {_stem(w) for w in re.findall(r"[a-z0-9']+", (s or "").lower().replace("'n", "n")) if len(w) >= 3 and w not in STOP}
 
 
+# Numbers in recall notices that are not model numbers: CPSC phone numbers, ZIP codes, release numbers.
+NOT_MODELS = re.compile(r"^(?:\d{1,3}|\d{3}-\d{4}|\d{5}|\d{2}-\d{3}|800\S*)$")
+
+
+@lru_cache(maxsize=4096)
+def _clean(models: tuple[str, ...]) -> tuple[str, ...]:
+    return tuple(m for m in models if not NOT_MODELS.match(m))
+
+
 def _model_match(m: str, recall_models: list[str], desc_upper: str) -> bool:
-    """Exact, or one is a prefix of the other differing by at most 2 trailing chars (BB501 vs BB501K)."""
-    if m in recall_models or m in desc_upper:
+    """Exact, or one is a prefix of the other differing by at most 2 trailing chars (BB501 vs BB501K). Phone, ZIP and
+    release numbers in the notice don't count, and a bare number is only matched as a whole word."""
+    models = _clean(tuple(recall_models))
+    if NOT_MODELS.match(m):
+        return False
+    if m in models or (re.search(r"[A-Z]", m) or len(re.sub(r"\D", "", m)) >= 5) and re.search(rf"(?<![A-Z0-9-]){re.escape(m)}(?![A-Z0-9])", desc_upper):
         return True
     k = re.sub(r"[^A-Z0-9]", "", m)
-    for rm in recall_models:
+    for rm in models:
         r = re.sub(r"[^A-Z0-9]", "", rm)
         short, long_ = sorted((k, r), key=len)
         if len(short) >= 4 and long_.startswith(short) and len(long_) - len(short) <= 2:
@@ -63,8 +76,25 @@ def _model_match(m: str, recall_models: list[str], desc_upper: str) -> bool:
     return False
 
 
+MODEL_CUE = re.compile(r"(?:model|mod\.?|no\.?|number|#|item|style|sku|ref)\s*[:#.]?\s*$", re.I)
+
+
 def _models(s: str) -> set[str]:
-    return {m for m in MODEL_RE.findall((s or "").upper()) if not re.fullmatch(r"(19|20)\d\d", m) and len(m) >= 3}
+    """Model-number-like tokens in listing text. A token that is only digits (and dashes) counts only right after a cue
+    like 'model', 'No.' or '#', so prices ($100), street numbers and sizes aren't read as model numbers."""
+    up = (s or "").upper()
+    out = set()
+    for m in MODEL_RE.finditer(up):
+        tok = m.group(0)
+        if re.fullmatch(r"(19|20)\d\d", tok) or len(tok) < 3:
+            continue
+        before = up[max(0, m.start() - 12):m.start()]
+        if before.rstrip().endswith("$"):
+            continue
+        if not re.search(r"[A-Z]", tok) and not MODEL_CUE.search(before):
+            continue
+        out.add(tok)
+    return out
 
 
 COMMON = set("""solid great new like barely gently used soft cozy easy clean older electric gray grey white black blue pink green red natural
@@ -154,7 +184,7 @@ def cpsc_candidates(category: str, brand: str, text: str, k: int = 6) -> list[di
             score += min(len(overlap), 3); reasons.append("name: " + ", ".join(sorted(overlap)[:3]))
         same_type = r["category"] in cats
         all_models_hit = r["id"] in ALL_MODELS and brand_hit and ALL_MODELS[r["id"]] <= _tokens(text)
-        definite = (bool(model_hit) and brand_hit) or all_models_hit
+        definite = (bool(model_hit) and brand_hit and same_type) or all_models_hit
         possible = bool(model_hit) or (brand_hit and same_type and bool(overlap))
         if not (definite or possible):
             continue

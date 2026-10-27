@@ -104,7 +104,10 @@ def scan_one(listing: dict, today: date, live: bool) -> dict:
     item = tasks.item_from_identify(ident, text) if ident else item_from_text(text)
     looks = lookalike.for_item(item, calls) if live else []
     res = assess(item, today, lookalikes=looks)
-    possible = [r for r in res["recalls"] if r["match"] in ("possible", "lookalike")]
+    cands = res.get("candidates", res["recalls"])
+    # every candidate Ultra should read: possible matches, definite ones not covering all models, and look-alikes
+    possible = [r for r in cands if r["match"] == "possible" or (r["match"] == "definite" and not r.get("all_models"))][:4] + \
+        [r for r in cands if r["match"] == "lookalike"][:2]
     if possible and live:  # Nemotron Ultra (reasoning off) reads the candidate notices fast; with reasoning on it re-checks on the detail view
         try:
             js = tasks.judge_recalls(item, possible, calls, quick=True)

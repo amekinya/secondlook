@@ -31,3 +31,25 @@ def test_lookalike_kept_when_only_brand_differs():
 def test_no_endpoint_no_change():
     it = Item(category="lounger", product_name="baby lounger")
     assert not any(x["rule_id"] == "R-RCL-LOOK" for x in assess(it, date(2026, 10, 26))["reasons"])
+
+
+def test_lookalike_never_recalled_without_model_number():
+    cand = {"match": "lookalike"}
+    j = {"verdict": "applies", "decided_by": "notice reading", "same_brand": "unclear", "same_kind_of_product": "yes",
+         "recall_limited_to": "several", "item_detail_vs_limit": "matches"}
+    assert lookalike_verdict(j, cand)["verdict"] == "lookalike"
+    assert lookalike_verdict(j | {"decided_by": "model number"}, cand)["verdict"] == "applies"
+
+
+def test_lookalike_kept_when_product_line_name_differs():
+    j = {"verdict": "does_not_apply", "decided_by": "notice reading", "same_brand": "no", "same_kind_of_product": "yes",
+         "recall_limited_to": "named_product_line", "item_detail_vs_limit": "differs"}
+    assert lookalike_verdict(j, {"match": "lookalike"})["verdict"] == "lookalike"
+    assert lookalike_verdict(j, {"match": "possible", "lookalike_score": 0.95})["verdict"] == "lookalike"
+
+
+def test_prices_are_not_model_numbers():
+    from app.engine.recalls import _models
+    assert _models("Graco high chair $100 OBO, pickup 800 Main St") == set()
+    assert "1234567" in _models("Graco stroller model 1234567")
+    assert "BB501" in _models("Bumbo BB501 seat")

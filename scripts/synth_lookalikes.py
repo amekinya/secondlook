@@ -50,15 +50,16 @@ def fresh_brand(seed: str) -> str:
 
 
 def diversify(row: dict) -> dict:
-    """Swap a prompt-example brand name for a fresh made-up one everywhere it appears in the listing."""
+    """Replace the prompt's example brand names (QIYUELI, Bebamour, which is also a real recalled brand) wherever they
+    appear in a listing (title, text, photo, brand) with a fresh made-up name, so they can't become a shortcut."""
     import re
 
-    b = row.get("brand", "")
-    if row.get("style") != "rebranded" or b.lower().strip() not in EXAMPLE_NAMES:
+    rx = re.compile(r"\b(" + "|".join(re.escape(n) for n in EXAMPLE_NAMES) + r")\b", re.I)
+    if not any(rx.search(row.get(k, "") or "") for k in ("title", "text", "photo", "brand")):
         return row
-    new = fresh_brand(row["recall"] + row["title"])
-    rx = re.compile(re.escape(b), re.I)
-    return row | {"brand": new, "title": rx.sub(new, row["title"]), "text": rx.sub(new, row["text"]), "photo": rx.sub(new, row["photo"])}
+    new = fresh_brand(row["recall"] + row["title"] + row.get("style", ""))
+    out = {k: rx.sub(new, row[k]) if isinstance(row.get(k), str) else row.get(k) for k in ("title", "text", "photo")}
+    return row | out | {"brand": rx.sub(new, row.get("brand", "")) if row.get("brand") else row.get("brand", "")}
 
 
 def split_of(rid: str) -> str:
@@ -83,7 +84,7 @@ def write(r: dict, gen: ModelSpec) -> tuple[list[dict], list[CallRecord]]:
         "price and condition, pickup details). Sellers usually don't know about the recall and never mention it.\n"
         "- branded: the recalled product, naming the brand and product the way a seller would (model number only sometimes).\n"
         "- unbranded: the same recalled product, but the seller doesn't know or mention the brand or model; describe it by what it is and looks like.\n"
-        "- rebranded: the same recalled product sold under a different, made-up marketplace brand (like 'QIYUELI' or 'Bebamour'); give that name in rebrand_name.\n"
+        "- rebranded: the same recalled product sold under a different, made-up marketplace brand name (invent one); give that name in rebrand_name.\n"
         "- distractors: two listings of the SAME KIND of product (same category) that are clearly a different design, so they are NOT this recalled product.\n"
         "For each, 'photo' says what a photo shows (shape, colors, prints, parts) as a vision model would describe it.")
     try:
@@ -101,7 +102,7 @@ def write(r: dict, gen: ModelSpec) -> tuple[list[dict], list[CallRecord]]:
                                           "brand": out.get("rebrand_name", "") if style == "rebranded" else ""}))
     for x in (out.get("distractors") or [])[:2]:
         if x.get("title"):
-            rows.append(base | {"style": "distractor", "title": x["title"], "text": x["text"], "photo": x["photo"], "match": False, "brand": ""})
+            rows.append(diversify(base | {"style": "distractor", "title": x["title"], "text": x["text"], "photo": x["photo"], "match": False, "brand": ""}))
     return rows, calls
 
 

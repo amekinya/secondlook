@@ -211,14 +211,17 @@ def judge_recalls(item: Item, candidates: list[dict], calls: list[CallRecord] | 
 
 
 def lookalike_verdict(j: dict, cand: dict) -> dict:
-    """A look-alike (found by our matcher, not by brand or model) is kept unless the notice reading rules it out on what
-    the listing actually shows: a different kind of product, a model number or date that differs. A different brand name
-    does NOT rule it out, because recalled products are resold under other names; the result is CAUTION, never RECALLED,
-    unless the model number confirms it."""
-    if cand.get("match") != "lookalike" or j["verdict"] == "applies":
+    """A look-alike (found by our matcher; maybe also by keywords) is kept unless the notice reading rules it out on what
+    the listing actually shows: a different kind of product, a model number that code found differs, or manufacture
+    dates outside the recall. A different brand or product-line name does NOT rule it out, because recalled products are
+    resold under other names. And it never becomes RECALLED unless code matched the model number."""
+    if cand.get("match") != "lookalike" and not cand.get("lookalike_score"):
         return j
-    ruled_out = j["same_kind_of_product"] == "no" or j["item_detail_vs_limit"] == "differs" or \
-        (j.get("decided_by") == "model number" and j["verdict"] == "does_not_apply")
+    if j["verdict"] == "applies" and j.get("decided_by") == "model number":
+        return j
+    ruled_out = j["same_kind_of_product"] == "no" or \
+        (j.get("decided_by") == "model number" and j["verdict"] == "does_not_apply") or \
+        (j.get("recall_limited_to") == "manufacture_dates" and j.get("item_detail_vs_limit") == "differs")
     return j | {"verdict": "does_not_apply" if ruled_out else "lookalike"}
 
 

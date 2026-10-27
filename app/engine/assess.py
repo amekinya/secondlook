@@ -98,7 +98,13 @@ def assess(item: Item, today: date | None = None, judgments: dict[str, str] | No
         recalls = nhtsa_candidates(item.brand, f"{item.model_text} {item.product_name}", item.dom)
     elif cat != "other":
         recalls = cpsc_candidates(cat, item.brand, text)
+        found = {x["id"]: x["score"] for x in (lookalikes or [])}
+        for rc in recalls:  # found by keywords AND the matcher: it gets the look-alike reading too
+            if rc["id"] in found:
+                rc["lookalike_score"] = found[rc["id"]]
         recalls += lookalike_candidates(lookalikes or [], {r["id"] for r in recalls})
+        if judgments:  # judging ran: a look-alike nobody read can't be a reason on its own
+            recalls = [r for r in recalls if r["match"] != "lookalike" or r["id"] in judgments]
     for rc in recalls:
         j = judgments.get(rc["id"])
         if j == "does_not_apply":
@@ -156,7 +162,7 @@ def assess(item: Item, today: date | None = None, judgments: dict[str, str] | No
         questions.insert(0, "Who made it? Could you send a photo of the label with the brand and model number?")
     return {
         "level": level, "word": word, "label": label, "tone": tone, "sub": sub, "category": cat,
-        "category_label": C.CATEGORIES.get(cat, cat), "reasons": reasons, "recalls": recalls[:4],
+        "category_label": C.CATEGORIES.get(cat, cat), "reasons": reasons, "recalls": recalls[:4], "candidates": recalls,
         "car_seat": car_seat, "checklist": C.PARTS.get(cat, []), "questions": questions[:5],
         "item": {**asdict(item), "dom": item.dom.isoformat() if item.dom else None,
                  "printed_expiration": item.printed_expiration.isoformat() if item.printed_expiration else None},

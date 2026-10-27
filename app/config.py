@@ -13,7 +13,19 @@ except Exception:  # pragma: no cover
 
 
 def _env(name: str, default: str = "") -> str:
-    return os.environ.get(name, default).strip()
+    return os.environ.get(name, default).strip() or default
+
+
+def _threshold() -> float:
+    if _env("LOOKALIKE_THRESHOLD"):
+        return float(_env("LOOKALIKE_THRESHOLD"))
+    try:
+        import json
+        from pathlib import Path
+
+        return float(json.loads((Path(__file__).resolve().parents[1] / "data" / "lookalike_threshold.json").read_text())["threshold"])
+    except Exception:  # noqa: BLE001
+        return 0.8
 
 
 @dataclass(frozen=True)
@@ -39,7 +51,8 @@ class Settings:
     endpoint_url: str = field(default_factory=lambda: _env("ENDPOINT_URL"))
     endpoint_token: str = field(default_factory=lambda: _env("ENDPOINT_TOKEN"))
     lookalike_model: str = field(default_factory=lambda: _env("LOOKALIKE_MODEL", "secondlook-matcher"))
-    lookalike_threshold: float = field(default_factory=lambda: float(_env("LOOKALIKE_THRESHOLD", "0.8")))
+    # Chosen on the dev split by eval/lookalike_eval.py (data/lookalike_threshold.json); LOOKALIKE_THRESHOLD overrides.
+    lookalike_threshold: float = field(default_factory=lambda: _threshold())
 
     # Model IDs are overridable because Token Factory's live catalog is the source of truth.
     # Defaults come from third-party catalog listings (Oct 2026) and MUST be confirmed with

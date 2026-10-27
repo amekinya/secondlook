@@ -6,6 +6,12 @@ services:
     plan: free
     healthCheckPath: /api/health
     autoDeploy: true
+    buildFilter:  # data and eval commits from the pipeline workflows don't redeploy the demo
+      ignoredPaths:
+        - data/lookalike/**
+        - eval/**
+        - .github/**
+        - train/**
     envVars:
       - key: NEBIUS_API_KEY
         sync: false
