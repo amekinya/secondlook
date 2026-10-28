@@ -1,7 +1,7 @@
 {
  "listing_1.png": {
   "identify": {
-   "what_i_see": "A white and gray electric baby swing with a mosquito net canopy, shown on a white background. The listing text identifies it as a baby swing/rocker with net and remote, model BB501.",
+   "what_i_see": "A white and gray electric baby swing with a mosquito net canopy, shown on a stand. The listing text identifies it as an electric baby swing/rocker with net and remote, model BB501, and notes the seller's son napped in it daily.",
    "category": "swing",
    "category_confidence": 0.95,
    "brand": "unknown",
@@ -36,15 +36,15 @@
     "same_kind_of_product": "yes",
     "recall_limited_to": "model_numbers",
     "item_detail_vs_limit": "differs",
-    "why": "The item is a baby swing but its model BB501 does not match any recalled model (BB005, BB501K, BB702A) and the Vevor brand is not indicated.",
+    "why": "The item is a baby swing but its brand is unknown (not Vevor) and its model BB501 does not match any recalled model numbers (BB005, BB501K, BB702A).",
     "verdict": "applies",
     "decided_by": "model number"
    }
   ],
   "verdict": {
-   "summary": "This is a baby swing with mosquito net (model BB501) categorized as an infant swing or glider. The verdict is Don't buy because inclined infant sleepers with an incline over 10 degrees have been banned as hazardous products since November 12, 2022, making their sale unlawful regardless of manufacture date.",
-   "seller_message": "Hi, I\u2019m interested in this swing but wanted to let you know that infant swings with an incline over 10\u00b0 are banned under the Safe Sleep for Babies Act (16 CFR 1310) and this specific Vevor model has been recalled for a suffocation hazard (CPSC recall #26074). Since selling recalled or banned items isn\u2019t allowed, I\u2019ll have to pass. If you haven\u2019t already, you can contact Sanven Technology for a full refund per the recall remedy. Thanks for understanding.",
-   "safer_alternative": "Look for a flat, firm sleep surface such as a crib, bassinet, or play yard that meets current CPSC safety standards for infant sleep."
+   "summary": "This is a baby swing with mosquito net (model BB501) categorized as an infant swing/glider. The verdict is Don't buy because inclined infant sleepers with an incline over 10 degrees have been banned since November 2022 under the Safe Sleep for Babies Act, making it illegal to sell. Additionally, this specific model has been recalled by Vevor for a suffocation hazard.",
+   "seller_message": "Hi, thanks for the listing. Just so you know, infant swings with an incline over 10\u00b0 have been banned since Nov 2022 (Safe Sleep for Babies Act, 16 CFR 1310), and this Vevor model (BB501) was also recalled for a suffocation risk (CPSC recall #26074). Since selling it isn't allowed, I'll have to pass. Good luck!",
+   "safer_alternative": "Consider a flat, firm sleep surface like a crib, bassinet, or play yard that meets current CPSC safety standards."
   },
   "news": {
    "checked": true,
@@ -59,17 +59,17 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 4.85,
+    "seconds": 3.18,
     "tokens_in": 1667,
-    "tokens_out": 358,
+    "tokens_out": 370,
     "cached_in": 0,
-    "cost_usd": 0.00082,
+    "cost_usd": 0.00083,
     "purpose": "Identify the product"
    },
    {
     "role": "matcher",
     "model_id": "secondlook-matcher (Nebius endpoint)",
-    "seconds": 1.16,
+    "seconds": 1.18,
     "tokens_in": 63,
     "tokens_out": 0,
     "cached_in": 0,
@@ -79,27 +79,27 @@
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 6.34,
+    "seconds": 8.48,
     "tokens_in": 747,
-    "tokens_out": 2615,
+    "tokens_out": 2813,
     "cached_in": 0,
-    "cost_usd": 0.00859,
+    "cost_usd": 0.00919,
     "purpose": "Judge recall matches"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 2.95,
+    "seconds": 4.37,
     "tokens_in": 612,
-    "tokens_out": 1087,
+    "tokens_out": 1413,
     "cached_in": 0,
-    "cost_usd": 0.00387,
+    "cost_usd": 0.00485,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/Nemotron-3_5-Lightning",
-    "seconds": 0.56,
+    "seconds": 0.65,
     "tokens_in": 1049,
     "tokens_out": 97,
     "cached_in": 0,
@@ -110,15 +110,15 @@
  },
  "listing_2.png": {
   "identify": {
-   "what_i_see": "A listing for a braided crib bumper in gray, with additional images of mint and peach braided bumpers. The title and description identify it as a soft braided bumper that ties around the crib.",
+   "what_i_see": "A listing for a braided crib bumper in gray, with additional images of mint and peach versions. The product is a soft, knitted braid intended to tie around a crib.",
    "category": "play_yard",
-   "category_confidence": 0.5,
+   "category_confidence": 0.9,
    "brand": "unknown",
    "product_name": "Braided crib bumper",
    "model_text": "unknown",
    "date_of_manufacture": "unknown",
    "printed_expiration": "unknown",
-   "listing_text": "$15 Braided crib bumper, gray, like new Listed today \u00b7 Naperville, IL Seller's description Soft braided bumper that ties around the crib. Keeps little arms and legs from getting stuck in the slats. Washed, like new. Photo: U.S. CPSC recall notice #26169",
+   "listing_text": "$15\nBraided crib bumper, gray, like new\nListed today \u00b7 Naperville, IL\nSeller's description\nSoft braided bumper that ties around the crib. Keeps little arms and legs from getting stuck in the slats. Washed, like new.\nPhoto: U.S. CPSC recall notice #26169",
    "colors_and_prints": "gray, mint, peach",
    "features": {
     "incline_raised": "no",
@@ -145,37 +145,37 @@
     "same_kind_of_product": "yes",
     "recall_limited_to": "model_numbers",
     "item_detail_vs_limit": "not_shown",
-    "why": "The item is a braided crib bumper but does not show the SARO brand or the required model 1374 reference.",
+    "why": "The item is a braided crib bumper but lacks the SARO brand and the required Model 1374 reference printed on the tag.",
     "verdict": "lookalike",
     "decided_by": "notice reading"
    }
   ],
   "verdict": {
-   "summary": "This is a U.S. braided crib bumper. The verdict is Don't buy because padded crib bumpers have been banned from sale since November 12, 2022 under the Safe Sleep for Babies Act (16 CFR 1309), regardless of when they were made.",
-   "seller_message": "Hi, thanks for listing this. Just so you know, padded crib bumpers like this have been illegal to sell since November 2022 under the Safe Sleep for Babies Act (16 CFR 1309). This item also matches a recalled product (SARO Braided Crib Bumpers, CPSC recall). For safety, I\u2019ll have to pass. Best of luck!",
-   "safer_alternative": "Look for a non\u2011padded mesh crib liner instead, which is not covered by the ban."
+   "summary": "This is a braided crib bumper from a U.S. brand. The verdict is Don't buy because padded crib bumpers have been banned from sale under federal law since November 12, 2022, regardless of when they were manufactured.",
+   "seller_message": "Hi, thanks for listing this. Just so you know, padded crib bumpers have been illegal to sell since November 2022 under the Safe Sleep for Babies Act (16 CFR 1309). This item also matches a recalled SARO braided crib bumper. For safety, I won't be purchasing. Best of luck.",
+   "safer_alternative": "Consider a non-padded mesh crib liner instead, which is not covered by the ban."
   },
   "news": {
    "checked": true,
    "query": "U.S. Braided crib bumper recall",
    "new_recall": false,
-   "headline": "No new recalls for U.S. Braided crib bumper (Model 1374) found in the provided results.",
+   "headline": "No new recalls found for U.S. Braided crib bumper (Model 1374) newer than the snapshot date of 2026-10-25.",
    "url": "https://www.cpsc.gov/Recalls/2026/The-Kalencom-Corporation-Recalls-SARO-Braided-Crib-Bumpers-Due-to-Risk-of-Serious-Injury-or-Death-from-Suffocation-Violates-Federal-Crib-Bumper-Ban",
    "date": "Thu, 08 Jan 2026 00:00:00 GMT"
   },
   "lookalikes": [
    {
     "id": "26169",
-    "score": 0.9991
+    "score": 0.9993
    }
   ],
   "calls": [
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 4.7,
+    "seconds": 2.93,
     "tokens_in": 1609,
-    "tokens_out": 393,
+    "tokens_out": 396,
     "cached_in": 0,
     "cost_usd": 0.00084,
     "purpose": "Identify the product"
@@ -183,7 +183,7 @@
    {
     "role": "matcher",
     "model_id": "secondlook-matcher (Nebius endpoint)",
-    "seconds": 0.68,
+    "seconds": 0.56,
     "tokens_in": 14,
     "tokens_out": 0,
     "cached_in": 0,
@@ -193,29 +193,29 @@
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 5.21,
-    "tokens_in": 725,
-    "tokens_out": 2134,
+    "seconds": 8.72,
+    "tokens_in": 731,
+    "tokens_out": 3001,
     "cached_in": 0,
-    "cost_usd": 0.00713,
+    "cost_usd": 0.00973,
     "purpose": "Judge recall matches"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 2.18,
+    "seconds": 2.31,
     "tokens_in": 688,
-    "tokens_out": 740,
+    "tokens_out": 750,
     "cached_in": 0,
-    "cost_usd": 0.00291,
+    "cost_usd": 0.00294,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/Nemotron-3_5-Lightning",
-    "seconds": 0.69,
+    "seconds": 0.73,
     "tokens_in": 1140,
-    "tokens_out": 139,
+    "tokens_out": 152,
     "cached_in": 0,
     "cost_usd": 0.0001,
     "purpose": "Check recall news"
@@ -224,7 +224,7 @@
  },
  "listing_3.png": {
   "identify": {
-   "what_i_see": "A Fisher-Price Snugabunny cradle 'n swing on a stand with a mobile and bunny headrest insert. Listing text includes price, location, seller description, and model number.",
+   "what_i_see": "A Fisher-Price Snugabunny cradle 'n swing on a stand with a mobile and plush bunny headrest. The listing text identifies the model as V0099 and notes that all music and motion settings work. A photo credit references a U.S. CPSC recall notice #25009, but no brand, model, or date is visible on the product itself in the image.",
    "category": "swing",
    "category_confidence": 0.95,
    "brand": "Fisher-Price",
@@ -232,8 +232,8 @@
    "model_text": "V0099",
    "date_of_manufacture": "unknown",
    "printed_expiration": "unknown",
-   "listing_text": "$35\nFisher-Price Snugabunny cradle 'n swing\nListed 5 days ago \u00b7 Wheaton, IL\n\nSeller's description\nCradle swing with the cute bunny headrest and insert, all music and motion settings work. Model V0099. Pick up only.\n\nPhoto: U.S. CPSC recall notice #25009",
-   "colors_and_prints": "beige/tan seat, brown frame, white bunny headrest, green and brown mobile accents",
+   "listing_text": "Fisher-Price Snugabunny cradle 'n swing. Cradle swing with the cute bunny headrest and insert, all music and motion settings work. Model V0099. Pick up only.",
+   "colors_and_prints": "beige/tan seat with white and brown bunny accents, brown frame, white mobile elements",
    "features": {
     "incline_raised": "unknown",
     "marketed_for_sleep": "no",
@@ -259,7 +259,7 @@
     "same_kind_of_product": "yes",
     "recall_limited_to": "model_numbers",
     "item_detail_vs_limit": "matches",
-    "why": "The item is a Fisher-Price swing (Snugabunny cradle 'n swing) and its model V0099 appears in the recall's explicit list of 21 Snuga Swing models.",
+    "why": "Item is a Fisher-Price Snugabunny cradle swing with model V0099, which appears in the recall's list of 21 Snuga Swing models.",
     "verdict": "applies",
     "decided_by": "model number"
    },
@@ -269,7 +269,7 @@
     "same_kind_of_product": "no",
     "recall_limited_to": "nothing_more",
     "item_detail_vs_limit": "not_needed",
-    "why": "The recall covers Rock 'n Play Sleepers, but the item is a Snugabunny cradle swing, a different product kind.",
+    "why": "Item is a swing, not a Rock 'n Play Sleeper.",
     "verdict": "does_not_apply",
     "decided_by": "notice reading"
    },
@@ -277,9 +277,9 @@
     "recall_id": "19151",
     "same_brand": "yes",
     "same_kind_of_product": "no",
-    "recall_limited_to": "model_numbers",
-    "item_detail_vs_limit": "differs",
-    "why": "The recall is for an inclined sleeper accessory sold with specific Ultra-Lite Day & Night Play Yard models, while the item is a Snugabunny cradle swing with model V0099, which is not among the recalled play yard models.",
+    "recall_limited_to": "named_product_line",
+    "item_detail_vs_limit": "not_needed",
+    "why": "Item is a swing, not an inclined sleeper accessory for Ultra-Lite Day & Night Play Yards.",
     "verdict": "does_not_apply",
     "decided_by": "model number"
    },
@@ -289,40 +289,40 @@
     "same_kind_of_product": "no",
     "recall_limited_to": "nothing_more",
     "item_detail_vs_limit": "not_needed",
-    "why": "The recall covers all Rock 'n Play Sleepers, but the item is a Snugabunny cradle swing, a different product kind.",
+    "why": "Item is a swing, not a Rock 'n Play Sleeper.",
     "verdict": "does_not_apply",
     "decided_by": "notice reading"
    }
   ],
   "verdict": {
-   "summary": "This is a Fisher\u2011Price Snugabunny cradle \u2019n swing (model V0099). The verdict is **Don\u2019t buy (or get the fix)** because the product was recalled for a suffocation hazard linked to 5 infant deaths, and selling a recalled item is unlawful.",
-   "seller_message": "Hi! I\u2019m interested in this swing. Could you let me know if the recall fix (removing the headrest and body support insert) has been done? Also, could you share a photo of the label with the model number and manufacture date? Are all original parts and instructions included? Thanks!",
-   "safer_alternative": "Look for a newer infant swing that meets current safety standards and has no recall history."
+   "summary": "This is a Fisher-Price Snugabunny cradle 'n swing (model V0099). The verdict is don't buy unless the recall fix has been completed, because it was recalled due to a suffocation hazard linked to five infant deaths, and selling a recalled product is unlawful.",
+   "seller_message": "Hi! I\u2019m interested in this swing. Could you let me know if the recall fix has been done (headrest and body support insert removed)? Also, could you share a photo of the label with the model number and manufacture date, and confirm all original parts and instructions are included? Thanks!",
+   "safer_alternative": "Consider a swing that hasn't been recalled and meets current safety standards."
   },
   "news": {
    "checked": true,
    "query": "Fisher-Price Snugabunny cradle 'n swing recall",
    "new_recall": false,
    "headline": "No new recall or safety warning found for Fisher-Price Snugabunny cradle 'n swing (swing) newer than the 2026-10-25 snapshot.",
-   "url": "https://www.tiktok.com/discover/fisher-price-recall",
-   "date": "Sun, 18 Oct 2026 19:00:00 GMT"
+   "url": "https://www.cpsc.gov/recalls/2024/fisher-price-snuga-infant-swings",
+   "date": "2024-09-23"
   },
   "lookalikes": [],
   "calls": [
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 5.49,
+    "seconds": 3.34,
     "tokens_in": 1638,
-    "tokens_out": 422,
+    "tokens_out": 427,
     "cached_in": 0,
-    "cost_usd": 0.00087,
+    "cost_usd": 0.00088,
     "purpose": "Identify the product"
    },
    {
     "role": "matcher",
     "model_id": "secondlook-matcher (Nebius endpoint)",
-    "seconds": 1.12,
+    "seconds": 1.01,
     "tokens_in": 63,
     "tokens_out": 0,
     "cached_in": 0,
@@ -332,37 +332,27 @@
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 20.5,
-    "tokens_in": 1715,
-    "tokens_out": 6000,
+    "seconds": 5.52,
+    "tokens_in": 1670,
+    "tokens_out": 2172,
     "cached_in": 0,
-    "cost_usd": 0.01971,
+    "cost_usd": 0.00819,
     "purpose": "Judge recall matches"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 7.42,
-    "tokens_in": 1715,
-    "tokens_out": 2756,
+    "seconds": 3.74,
+    "tokens_in": 697,
+    "tokens_out": 1459,
     "cached_in": 0,
-    "cost_usd": 0.00998,
-    "purpose": "Judge recall matches"
-   },
-   {
-    "role": "ultra",
-    "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 2.71,
-    "tokens_in": 741,
-    "tokens_out": 998,
-    "cached_in": 0,
-    "cost_usd": 0.00374,
+    "cost_usd": 0.00507,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/Nemotron-3_5-Lightning",
-    "seconds": 0.57,
+    "seconds": 0.61,
     "tokens_in": 1172,
     "tokens_out": 102,
     "cached_in": 0,
@@ -382,7 +372,7 @@
    "date_of_manufacture": "unknown",
    "printed_expiration": "unknown",
    "listing_text": "$60\nSolid wood crib, side drops down for easy access\nListed 1 week ago \u00b7 Lisle, IL\nSeller's description\nOlder crib but sturdy. The front side slides down so it's easy to lift baby out. Mattress not included.\nPhoto: U.S. CPSC recall notice #10046",
-   "colors_and_prints": "Wooden crib, blue bedding visible in background",
+   "colors_and_prints": "Solid wood, natural finish",
    "features": {
     "incline_raised": "no",
     "marketed_for_sleep": "no",
@@ -400,14 +390,14 @@
     "weighted": "no"
    },
    "missing_parts": [
-    "Mattress not included"
+    "mattress not included"
    ]
   },
   "judgments": [],
   "verdict": {
-   "summary": "This is a U.S. solid wood crib with a drop-side design. The verdict is Don't buy because drop-side cribs cannot be legally resold under the federal crib standard effective June 28, 2011, even if the side has been immobilized.",
-   "seller_message": "Hi, thanks for listing this crib. I wanted to let you know that drop-side cribs can't be resold under the current federal safety standard (16 CFR 1219/1220; CPSIA \u00a7104(c)). Even if the side is immobilized, they don't meet the standard. I'll have to pass, but I appreciate you sharing it.",
-   "safer_alternative": "Look for a fixed-side crib manufactured after June 2011 that includes all original parts and instructions."
+   "summary": "This is a U.S. solid wood crib. The verdict is Don't buy because drop-side cribs cannot be legally resold under federal standards effective June 28, 2011, even if the side has been immobilized.",
+   "seller_message": "Hi! I\u2019m interested in your crib. Could you let me know: 1) Is it a fixed-side crib (no side that slides up and down)? 2) Can you share a photo of the label with the model number and manufacture date? 3) Are all original parts and instructions included? Thanks!",
+   "safer_alternative": "Look for a fixed-side crib made after June 2011 that meets the current federal crib safety standard (16 CFR 1219/1220)."
   },
   "news": {
    "checked": true,
@@ -422,17 +412,17 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 8.36,
+    "seconds": 2.89,
     "tokens_in": 1667,
-    "tokens_out": 395,
+    "tokens_out": 387,
     "cached_in": 0,
-    "cost_usd": 0.00086,
+    "cost_usd": 0.00085,
     "purpose": "Identify the product"
    },
    {
     "role": "matcher",
     "model_id": "secondlook-matcher (Nebius endpoint)",
-    "seconds": 2.24,
+    "seconds": 2.08,
     "tokens_in": 205,
     "tokens_out": 0,
     "cached_in": 0,
@@ -442,17 +432,17 @@
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 2.0,
-    "tokens_in": 420,
-    "tokens_out": 668,
+    "seconds": 3.69,
+    "tokens_in": 419,
+    "tokens_out": 1290,
     "cached_in": 0,
-    "cost_usd": 0.00242,
+    "cost_usd": 0.00429,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/Nemotron-3_5-Lightning",
-    "seconds": 0.62,
+    "seconds": 0.54,
     "tokens_in": 966,
     "tokens_out": 92,
     "cached_in": 0,
@@ -471,7 +461,7 @@
    "model_text": "unknown",
    "date_of_manufacture": "unknown",
    "printed_expiration": "unknown",
-   "listing_text": "$12 Bumbo floor seat with safety belt Listed 3 days ago \u00b7 Downers Grove, IL Seller's description Bumbo seat in good shape, has the restraint belt installed. Great for sitting practice on the floor. Photo: U.S. CPSC recall notice #12247",
+   "listing_text": "$12\nBumbo floor seat with safety belt\nListed 3 days ago \u00b7 Downers Grove, IL\n\nSeller's description\nBumbo seat in good shape, has the restraint belt installed. Great for sitting practice on the floor.\n\nPhoto: U.S. CPSC recall notice #12247",
    "colors_and_prints": "bright green plastic seat with black safety belt",
    "features": {
     "incline_raised": "no",
@@ -493,9 +483,9 @@
   },
   "judgments": [],
   "verdict": {
-   "summary": "This Bumbo floor seat with safety belt has no known problems, but it was recalled for a fall hazard; the photos suggest the repair kit (restraint belt) has been installed, though you should confirm with the seller.",
-   "seller_message": "Hi! I\u2019m interested in your Bumbo floor seat. Could you send a photo of the label showing the model number and manufacture date? Also, are all the original parts and instructions included? I noticed this model was recalled for a fall hazard (CPSC recall #12247), but it looks like the repair belt may already be installed\u2014just want to be sure. Thanks!",
-   "safer_alternative": "If you\u2019d prefer to avoid any recall concerns, look for a floor seat with a permanently attached restraint harness that meets current ASTM safety standards."
+   "summary": "This is a Bumbo floor seat with a safety belt. The verdict is no known problems, but the model was recalled for a fall hazard and the photos suggest the repair kit (restraint belt, warning label, and instructions) has been installed; confirm with the seller that the fix was completed.",
+   "seller_message": "Hi! I\u2019m interested in this Bumbo floor seat. Could you send a photo of the label showing the model number and manufacture date? Also, are all the original parts and instructions included? Thanks!",
+   "safer_alternative": ""
   },
   "news": {
    "checked": true,
@@ -510,9 +500,9 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 9.78,
+    "seconds": 2.88,
     "tokens_in": 1319,
-    "tokens_out": 424,
+    "tokens_out": 428,
     "cached_in": 0,
     "cost_usd": 0.00078,
     "purpose": "Identify the product"
@@ -520,7 +510,7 @@
    {
     "role": "matcher",
     "model_id": "secondlook-matcher (Nebius endpoint)",
-    "seconds": 1.28,
+    "seconds": 1.01,
     "tokens_in": 63,
     "tokens_out": 0,
     "cached_in": 0,
@@ -530,17 +520,17 @@
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 2.79,
+    "seconds": 2.26,
     "tokens_in": 473,
-    "tokens_out": 987,
+    "tokens_out": 798,
     "cached_in": 0,
-    "cost_usd": 0.00343,
+    "cost_usd": 0.00287,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/Nemotron-3_5-Lightning",
-    "seconds": 0.66,
+    "seconds": 0.54,
     "tokens_in": 291,
     "tokens_out": 92,
     "cached_in": 0,
@@ -575,15 +565,17 @@
     "bumbo_belt_present": "unknown",
     "single_cup_tray": "unknown",
     "cord_cover_present": "unknown",
-    "weighted": "unknown"
+    "weighted": "no"
    },
-   "missing_parts": []
+   "missing_parts": [
+    "unknown"
+   ]
   },
   "judgments": [],
   "verdict": {
    "summary": "This Evenflo convertible car seat (model 38112244) was manufactured in March 2015 and expired in March 2025. The verdict is \"Think twice\" because the seat is past its 10\u2011year lifespan \u2014 plastic degrades and safety standards change, so manufacturers advise against using it beyond the expiration date.",
-   "seller_message": "Hi! I\u2019m interested in this car seat. Could you let me know: 1) Has it ever been in a crash, even a minor one? 2) Can you share a photo of the sticker showing the manufacture and expiration dates? 3) Can you send a picture of the label with the model number and month/year it was made? 4) Are all the original parts and the instruction manual included? Thanks!",
-   "safer_alternative": "Look for a car seat manufactured within the last few years that still has several years left before its expiration date and confirm it has never been in a crash."
+   "seller_message": "Hi! I\u2019m interested in this car seat. Could you let me know: 1) Has it ever been in a crash, even a minor one? 2) Can you share a photo of the label showing the manufacture/expiration dates and model number? 3) Are all original parts and the instruction manual included? Thanks!",
+   "safer_alternative": "Look for a car seat manufactured within the last 10 years that has all original parts, no crash history, and a current expiration date."
   },
   "news": {
    "checked": true,
@@ -598,27 +590,27 @@
    {
     "role": "super_vl",
     "model_id": "nvidia/Nemotron-3.5-Super-VL",
-    "seconds": 10.8,
+    "seconds": 2.38,
     "tokens_in": 1493,
-    "tokens_out": 359,
+    "tokens_out": 364,
     "cached_in": 0,
-    "cost_usd": 0.00077,
+    "cost_usd": 0.00078,
     "purpose": "Identify the product"
    },
    {
     "role": "ultra",
     "model_id": "nvidia/Nemotron-3-Ultra-550b-a55b",
-    "seconds": 2.42,
-    "tokens_in": 507,
-    "tokens_out": 773,
+    "seconds": 2.24,
+    "tokens_in": 554,
+    "tokens_out": 721,
     "cached_in": 0,
-    "cost_usd": 0.00283,
+    "cost_usd": 0.00272,
     "purpose": "Write verdict"
    },
    {
     "role": "nano",
     "model_id": "nvidia/Nemotron-3_5-Lightning",
-    "seconds": 0.54,
+    "seconds": 0.55,
     "tokens_in": 1075,
     "tokens_out": 93,
     "cached_in": 0,
