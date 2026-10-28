@@ -1,1 +1,1 @@
-{"task": "report,eval", "args": "", "note": "endpoint up: publish the training report and measure the look-alike matcher (retry with the endpoint secrets added)"}
+{"task": "report,eval", "args": "", "note": "endpoint up: training report and look-alike eval (retry: empty-args check fixed)"}

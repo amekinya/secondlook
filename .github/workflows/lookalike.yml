@@ -41,7 +41,7 @@ jobs:
             TASK="$IN_TASK"; ARGS="$IN_ARGS"
           fi
           mkdir -p eval data/lookalike
-          if ! printf '%s' "$ARGS" | grep -Eq '^[A-Za-z0-9 ,._/=-]*$'; then echo "arguments contain characters that aren't allowed"; exit 2; fi
+          if ! printf '%s\n' "$ARGS" | grep -Eq '^[A-Za-z0-9 ,._/=-]*$'; then echo "arguments contain characters that aren't allowed"; exit 2; fi
           for TASK in ${TASK//,/ }; do
           case "$TASK" in
             synth) python -m scripts.synth_lookalikes $ARGS 2>&1 | tee -a eval/lookalike_log.txt; python -m scripts.build_lookalike_pairs | tee -a eval/lookalike_log.txt ;;
@@ -57,7 +57,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add eval data/lookalike data/lookalike_threshold.json 2>/dev/null || true
+          for p in eval data/lookalike data/lookalike_threshold.json; do [ -e "$p" ] && git add "$p"; done
           git commit -m "Pipeline results (look-alike / baselines)" || echo "No changes"
           for i in 1 2 3 4; do if git pull --rebase -q && git push; then exit 0; fi; sleep 7; done
           echo "couldn't push the results"; exit 1
