@@ -5,21 +5,101 @@
   "keyword": {
    "branded": {
     "n": 132,
-    "top1": 0.568,
-    "top3": 0.636
+    "top1": 0.591,
+    "top3": 0.652
    },
    "unbranded": {
     "n": 132,
-    "top1": 0.098,
-    "top3": 0.121
+    "top1": 0.091,
+    "top3": 0.106
    },
    "rebranded": {
     "n": 132,
-    "top1": 0.159,
-    "top3": 0.22
+    "top1": 0.136,
+    "top3": 0.182
    },
-   "distractor_any_candidate_rate": 0.42,
-   "seconds": 75.3
+   "distractor_any_candidate_rate": 0.322,
+   "seconds": 90.9
+  },
+  "base_ranker": {
+   "threshold_from_dev": 0.74,
+   "no_threshold": {
+    "branded": {
+     "n": 132,
+     "top1": 0.894,
+     "top3": 0.992
+    },
+    "unbranded": {
+     "n": 132,
+     "top1": 0.659,
+     "top3": 0.811
+    },
+    "rebranded": {
+     "n": 132,
+     "top1": 0.598,
+     "top3": 0.758
+    },
+    "distractor_any_candidate_rate": 1.0
+   },
+   "at_threshold": {
+    "branded": {
+     "n": 132,
+     "top1": 0.864,
+     "top3": 0.962
+    },
+    "unbranded": {
+     "n": 132,
+     "top1": 0.47,
+     "top3": 0.538
+    },
+    "rebranded": {
+     "n": 132,
+     "top1": 0.356,
+     "top3": 0.417
+    },
+    "distractor_false_lookalike_rate": 0.174
+   },
+   "seconds_per_listing": 1.408
+  },
+  "matcher": {
+   "threshold_from_dev": 0.98,
+   "no_threshold": {
+    "branded": {
+     "n": 132,
+     "top1": 0.932,
+     "top3": 0.985
+    },
+    "unbranded": {
+     "n": 132,
+     "top1": 0.78,
+     "top3": 0.871
+    },
+    "rebranded": {
+     "n": 132,
+     "top1": 0.826,
+     "top3": 0.909
+    },
+    "distractor_any_candidate_rate": 1.0
+   },
+   "at_threshold": {
+    "branded": {
+     "n": 132,
+     "top1": 0.917,
+     "top3": 0.955
+    },
+    "unbranded": {
+     "n": 132,
+     "top1": 0.682,
+     "top3": 0.72
+    },
+    "rebranded": {
+     "n": 132,
+     "top1": 0.705,
+     "top3": 0.75
+    },
+    "distractor_false_lookalike_rate": 0.064
+   },
+   "seconds_per_listing": 1.411
   }
  }
 }

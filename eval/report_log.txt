@@ -1,0 +1,1 @@
+secondlook-matcher: 17904 training pairs, 2.0 epochs on NVIDIA L40S (1059 s); test AUC 0.9395 before fine-tuning, 0.9936 after; F1 at the dev threshold 0.6203 -> 0.8979

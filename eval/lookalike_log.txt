@@ -4,3 +4,109 @@ generator: deepseek-ai/DeepSeek-V4.1-Flash-1017
 generator: Qwen/Qwen3-30B-A3B-Instruct-2507
 132 recalls -> 660 listings -> /home/runner/work/secondlook/secondlook/data/lookalike/listings_test.jsonl; 133 calls, $0.195
 28102 pairs {'dev/neg': 3699, 'dev/pos': 348, 'test/neg': 4224, 'test/pos': 396, 'train/neg': 17761, 'train/pos': 1674}
+test listings: 660, dev listings: 580, recalls in index: 813
+{
+ "n_test": 660,
+ "generator_test": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+ "methods": {
+  "keyword": {
+   "branded": {
+    "n": 132,
+    "top1": 0.591,
+    "top3": 0.652
+   },
+   "unbranded": {
+    "n": 132,
+    "top1": 0.091,
+    "top3": 0.106
+   },
+   "rebranded": {
+    "n": 132,
+    "top1": 0.136,
+    "top3": 0.182
+   },
+   "distractor_any_candidate_rate": 0.322,
+   "seconds": 90.9
+  },
+  "base_ranker": {
+   "threshold_from_dev": 0.74,
+   "no_threshold": {
+    "branded": {
+     "n": 132,
+     "top1": 0.894,
+     "top3": 0.992
+    },
+    "unbranded": {
+     "n": 132,
+     "top1": 0.659,
+     "top3": 0.811
+    },
+    "rebranded": {
+     "n": 132,
+     "top1": 0.598,
+     "top3": 0.758
+    },
+    "distractor_any_candidate_rate": 1.0
+   },
+   "at_threshold": {
+    "branded": {
+     "n": 132,
+     "top1": 0.864,
+     "top3": 0.962
+    },
+    "unbranded": {
+     "n": 132,
+     "top1": 0.47,
+     "top3": 0.538
+    },
+    "rebranded": {
+     "n": 132,
+     "top1": 0.356,
+     "top3": 0.417
+    },
+    "distractor_false_lookalike_rate": 0.174
+   },
+   "seconds_per_listing": 1.408
+  },
+  "matcher": {
+   "threshold_from_dev": 0.98,
+   "no_threshold": {
+    "branded": {
+     "n": 132,
+     "top1": 0.932,
+     "top3": 0.985
+    },
+    "unbranded": {
+     "n": 132,
+     "top1": 0.78,
+     "top3": 0.871
+    },
+    "rebranded": {
+     "n": 132,
+     "top1": 0.826,
+     "top3": 0.909
+    },
+    "distractor_any_candidate_rate": 1.0
+   },
+   "at_threshold": {
+    "branded": {
+     "n": 132,
+     "top1": 0.917,
+     "top3": 0.955
+    },
+    "unbranded": {
+     "n": 132,
+     "top1": 0.682,
+     "top3": 0.72
+    },
+    "rebranded": {
+     "n": 132,
+     "top1": 0.705,
+     "top3": 0.75
+    },
+    "distractor_false_lookalike_rate": 0.064
+   },
+   "seconds_per_listing": 1.411
+  }
+ }
+}
