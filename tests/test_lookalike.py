@@ -53,3 +53,12 @@ def test_prices_are_not_model_numbers():
     assert _models("Graco high chair $100 OBO, pickup 800 Main St") == set()
     assert "1234567" in _models("Graco stroller model 1234567")
     assert "BB501" in _models("Bumbo BB501 seat")
+
+
+def test_keyword_match_that_applies_is_not_demoted_by_a_lookalike_score():
+    # e.g. the right brand in the recalled print: the notice reading says it applies; the matcher also scored it
+    j = {"verdict": "applies", "decided_by": "notice reading", "same_brand": "yes", "same_kind_of_product": "yes",
+         "recall_limited_to": "colors_or_prints", "item_detail_vs_limit": "matches"}
+    assert lookalike_verdict(j, {"match": "possible", "lookalike_score": 0.99})["verdict"] == "applies"
+    # found only by the matcher: never RECALLED without a model-number match
+    assert lookalike_verdict(j, {"match": "lookalike", "lookalike_score": 0.99})["verdict"] == "lookalike"

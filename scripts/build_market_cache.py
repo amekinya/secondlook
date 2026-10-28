@@ -39,8 +39,10 @@ def main():
             img = scan.load_image(r["image"])
             ident = tasks.identify([img], text, calls)
             item = tasks.item_from_identify(ident, text)
-            looks = lookalike.for_item(item, calls)  # same steps as scan_one in app/scan.py
-            res = assess(item, DEMO_TODAY, lookalikes=looks)
+            res = assess(item, DEMO_TODAY)  # same steps as scan_one in app/scan.py
+            looks = lookalike.for_item(item, calls) if not res.get("candidates", res["recalls"]) else []
+            if looks:
+                res = assess(item, DEMO_TODAY, lookalikes=looks)
             quick = []
             cands = res.get("candidates", res["recalls"])
             possible = [x for x in cands if x["match"] == "possible" or (x["match"] == "definite" and not x.get("all_models"))][:4] + \

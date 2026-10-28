@@ -215,8 +215,8 @@ def lookalike_verdict(j: dict, cand: dict) -> dict:
     the listing actually shows: a different kind of product, a model number that code found differs, or manufacture
     dates outside the recall. A different brand or product-line name does NOT rule it out, because recalled products are
     resold under other names. And it never becomes RECALLED unless code matched the model number."""
-    if cand.get("match") != "lookalike" and not cand.get("lookalike_score"):
-        return j
+    if cand.get("match") != "lookalike" and (not cand.get("lookalike_score") or j["verdict"] == "applies"):
+        return j  # found by brand, model or name too: when the notice reading says it applies, that stands
     if j["verdict"] == "applies" and j.get("decided_by") == "model number":
         return j
     ruled_out = j["same_kind_of_product"] == "no" or \

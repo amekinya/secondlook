@@ -102,8 +102,12 @@ def scan_one(listing: dict, today: date, live: bool) -> dict:
         except Exception:
             ident = None
     item = tasks.item_from_identify(ident, text) if ident else item_from_text(text)
-    looks = lookalike.for_item(item, calls) if live else []
-    res = assess(item, today, lookalikes=looks)
+    res = assess(item, today)
+    # The matcher looks for recalled products sold under no brand or another brand, so the scan asks it only when brand,
+    # model and name matching found no recall candidate (keeps the page scan fast; the detail view always asks).
+    looks = lookalike.for_item(item, calls) if live and not res.get("candidates", res["recalls"]) else []
+    if looks:
+        res = assess(item, today, lookalikes=looks)
     cands = res.get("candidates", res["recalls"])
     # every candidate Ultra should read: possible matches, definite ones not covering all models, and look-alikes
     possible = [r for r in cands if r["match"] == "possible" or (r["match"] == "definite" and not r.get("all_models"))][:4] + \
