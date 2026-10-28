@@ -15,8 +15,17 @@ from app.ai.client import CallRecord, LiveModelUnavailable
 from app.config import settings
 
 
+_down_until = 0.0  # after a failed connection, skip the matcher for a while instead of making every listing wait
+
+
 def available() -> bool:
-    return bool(settings.endpoint_url)
+    return bool(settings.endpoint_url) and time.monotonic() >= _down_until
+
+
+def _mark_down() -> None:
+    """A connection failure, a timeout or a gateway error (a stopped endpoint) pauses the matcher for 2 minutes."""
+    global _down_until
+    _down_until = time.monotonic() + 120
 
 
 def passage(r: dict) -> str:
@@ -36,11 +45,13 @@ def score(pairs: list[tuple[str, str]], model: str | None = None, calls: list[Ca
     t0 = time.perf_counter()
     out: list[float] = []
     try:
-        with httpx.Client(timeout=timeout) as c:
+        with httpx.Client(timeout=httpx.Timeout(timeout, connect=4.0)) as c:
             for i in range(0, len(pairs), 2048):
                 r = c.post(settings.endpoint_url.rstrip("/") + "/score", headers=headers,
                            json={"model": model or settings.lookalike_model, "pairs": [list(p) for p in pairs[i:i + 2048]]})
                 if r.status_code != 200:
+                    if r.status_code in (502, 503, 504):
+                        _mark_down()
                     raise LiveModelUnavailable(f"matcher HTTP {r.status_code}: {r.text[:200]}")
                 try:
                     d = r.json()
@@ -54,6 +65,7 @@ def score(pairs: list[tuple[str, str]], model: str | None = None, calls: list[Ca
                     raise LiveModelUnavailable(f"endpoint answered with the base model, not {want}")
                 out += sc
     except httpx.HTTPError as e:
+        _mark_down()
         raise LiveModelUnavailable(f"matcher unreachable: {e}") from e
     if calls is not None:
         calls.append(CallRecord("matcher", f"{model or settings.lookalike_model} (Nebius endpoint)", time.perf_counter() - t0, len(pairs), 0, 0, 0.0,
