@@ -38,6 +38,7 @@ Nemotron 3 Ultra ─────────── reads each candidate recall n
                               same brand? same kind of product? does the recall limit models, dates, prints or a product line?
                               does the listing match, differ, or not show it?  → code turns the answers into a verdict
                               (reasoning off during the page scan; reasoning on when you open a listing)
+Our fine-tuned matcher ────── (Nebius endpoint) recalled products this listing looks like, even unbranded or re-branded
 Tavily Search + Nemotron 3.5 Lightning ─ anything newer than our recall snapshot for this product?
 Nemotron 3 Ultra ─────────── plain-language summary + a polite message to the seller (from the findings only)
 ```
@@ -57,7 +58,7 @@ Every reason cites its rule (16 CFR part, statute, recall number), and recall ca
 
 [`extension/`](extension/) runs the same scan on any listing page: site adapters for common marketplaces plus a generic finder (an image next to a price). Install with Load unpacked; see [`extension/README.md`](extension/README.md). It only runs when you press **Scan this page**.
 
-## How NVIDIA Nemotron and Nebius Token Factory are used
+## How NVIDIA Nemotron, Nebius Token Factory and Nebius AI Cloud are used
 
 | Job | Model | Why this tier |
 |---|---|---|
@@ -66,6 +67,7 @@ Every reason cites its rule (16 CFR part, statute, recall number), and recall ca
 | Re-read the notices when you open a listing; write the summary and seller message | **Nemotron 3 Ultra**, reasoning on | Careful, grounded wording |
 | Recall-news freshness check | **Nemotron 3.5 Lightning** (+ Tavily Search) | Fast, cheap yes/no (replaced Nemotron 3 Nano, which Token Factory retires on Nov 9, 2026) |
 | Read a public listing link | **Tavily Extract** | Listing text and image URLs |
+| Find recalled products sold unbranded or re-branded | **Our fine-tuned NVIDIA llama-nemotron-rerank-1b-v2** on a **Nebius AI Cloud** Serverless Endpoint (trained in a Nebius Serverless Job) | Brand and model matching can't find a product sold under another name; a 1B reranker trained on recall notices can, cheaply, for every listing |
 
 Token Factory features used: OpenAI-compatible chat completions with image input, strict JSON-schema output, the per-request reasoning switch (`chat_template_kwargs.enable_thinking`), usage accounting (cost per scan shown live), and a daily spend cap. Rate limits and transient errors are retried; a reply without valid JSON falls back cleanly. Model IDs are verified live via `GET /v1/models` (`scripts/smoke_test.py`).
 
@@ -86,7 +88,7 @@ Colors, signal words and layout follow published warning research rather than ta
 | CAUTION (5 ask-first) | | | 5 | |
 | No known issues (6) | | | | 6 |
 
-20 of 24 exactly right, **no banned or recalled listing marked safe, and no false alarm on a safe listing.** The 4 that got CAUTION instead of DANGER are recalls whose notice names a model number the listing doesn't show; SecondLook tells the buyer which number to look for. All 24 checked in **about 15 seconds** (8 in parallel) for **$0.029** in model costs. The 6 single-listing demo screenshots: 6 of 6 as expected.
+20 of 24 exactly right, **no banned or recalled listing marked safe, and no false alarm on a safe listing.** The 4 that got CAUTION instead of DANGER are recalls whose notice names a model number the listing doesn't show; SecondLook tells the buyer which number to look for. All 24 checked in **about 16 seconds** (8 in parallel) for **$0.032** in model costs. The 6 single-listing demo screenshots: 6 of 6 as expected.
 
 **Compared with asking a chatbot** ([`eval/chatbot_baseline.json`](eval/chatbot_baseline.json); each of the same 24 listings asked in a single prompt, "is this safe and legal to buy?", with no recall data or rules):
 
@@ -97,6 +99,16 @@ Colors, signal words and layout follow published warning research rather than ta
 | **SecondLook** | **20 of 24** | 0 of 13 | 9 of 13 (the other 4: CAUTION, naming the model number to check) | **0 of 6** |
 
 A careful chatbot doesn't call dangerous gear safe, and it stamps a few more of them DANGER than SecondLook does. But it does that by hedging on almost everything: Ultra flagged every safe listing, calling a Bumbo seat with its recall fix installed DANGER. A warning that fires on everything stops being read. SecondLook clears the safe listings and ties every flag to a specific ban, standard or recall notice.
+
+**Look-alike matcher, fine-tuned on Nebius AI Cloud** ([`eval/lookalike_results.json`](eval/lookalike_results.json), [`eval/lookalike_training.json`](eval/lookalike_training.json)). Recalled products are often resold with no brand, or under a made-up one, so brand and model matching can't find them. We fine-tuned NVIDIA `llama-nemotron-rerank-1b-v2` to read a listing against recall notices of the same kind of product and score whether it *is* that product: 17,904 training pairs from listings written by DeepSeek for 674 real CPSC recalls, 2 epochs on one L40S in a Nebius Serverless Job (18 minutes), served from a Nebius Serverless Endpoint. Tested on 660 listings for 132 other recalls, written by a different model family (Qwen), with the threshold chosen on a separate dev split:
+
+| Recalled product found in the top 3 | Branded listing | Unbranded listing | Re-branded listing | Decoys wrongly flagged as a look-alike |
+|---|---|---|---|---|
+| Keyword search (brand, model, name) | 65% | 11% | 18% | (any candidate: 32%) |
+| NVIDIA rerank-1b before fine-tuning | 96% | 54% | 42% | 17% |
+| **Our fine-tuned matcher** | **96%** | **72%** | **75%** | **6%** |
+
+On the pairs themselves, fine-tuning took AUC from 0.94 to 0.99. A look-alike is never more than CAUTION ("looks like a recalled product: ask for the label"), because the brand isn't confirmed; Nemotron 3 Ultra still reads the notice, and code decides. The page scan asks the matcher only when brand, model and name matching found nothing, so the scan stays fast; the single-listing check always asks. Without the endpoint the app works as before, minus look-alikes.
 
 **Benchmark** ([`eval/RESULTS.md`](eval/RESULTS.md), generated by `python -m eval.run_eval` against live models):
 
