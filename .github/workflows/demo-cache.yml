@@ -1,6 +1,10 @@
 name: Build demo cache (live models)
-# Actions tab → "Build demo cache (live models)" → Run workflow. Costs a few cents.
-on: workflow_dispatch
+# Actions tab → "Build demo cache (live models)" → Run workflow, or commit a change to .github/requests/demo-cache.json.
+# Costs a few cents. With ENDPOINT_URL set, the recorded scan includes our fine-tuned look-alike matcher.
+on:
+  push:
+    paths: [".github/requests/demo-cache.json"]
+  workflow_dispatch:
 permissions:
   contents: write
 jobs:
@@ -16,7 +20,10 @@ jobs:
         env:
           NEBIUS_API_KEY: ${{ secrets.NEBIUS_API_KEY }}
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+          ENDPOINT_URL: ${{ secrets.ENDPOINT_URL }}
+          ENDPOINT_TOKEN: ${{ secrets.ENDPOINT_TOKEN }}
         run: |
+          set -o pipefail
           export PYTHONUNBUFFERED=1
           mkdir -p eval
           python -m scripts.build_demo_cache 2>&1 | tee eval/demo_cache_log.txt
@@ -28,4 +35,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           for f in data/listings/demo_cache.json data/market_cache.json eval/demo_cache_log.txt eval/market_scan_log.txt; do [ -f "$f" ] && git add "$f"; done
           git commit -m "Update demo cache" || echo "No changes"
-          for i in 1 2 3; do git pull --rebase -q && git push && break; sleep 5; done
+          for i in 1 2 3 4; do if git pull --rebase -q && git push; then exit 0; fi; sleep 7; done
+          echo "couldn't push the results"; exit 1
