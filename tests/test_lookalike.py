@@ -62,3 +62,11 @@ def test_keyword_match_that_applies_is_not_demoted_by_a_lookalike_score():
     assert lookalike_verdict(j, {"match": "possible", "lookalike_score": 0.99})["verdict"] == "applies"
     # found only by the matcher: never RECALLED without a model-number match
     assert lookalike_verdict(j, {"match": "lookalike", "lookalike_score": 0.99})["verdict"] == "lookalike"
+
+
+def test_unknown_missing_parts_is_not_a_finding():
+    from datetime import date
+
+    from app.engine.assess import Item, assess
+    item = Item(category="carrier", product_name="Woven baby wrap carrier", listing_text="woven wrap", missing_parts=["unknown"])
+    assert not any(r["rule_id"] == "R-PARTS" for r in assess(item, date(2026, 10, 25))["reasons"])

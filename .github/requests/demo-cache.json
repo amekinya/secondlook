@@ -1,1 +1,1 @@
-{"note": "re-record after the look-alike fixes: keyword matches that the notice reading confirms stay RECALLED; the page scan asks the matcher only when nothing else matched"}
+{"note": "re-record after fixing a bug: the photo reader writing unknown for missing parts no longer counts as parts missing"}

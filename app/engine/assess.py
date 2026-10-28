@@ -145,8 +145,11 @@ def assess(item: Item, today: date | None = None, judgments: dict[str, str] | No
             _add(reasons, "R-RCL-LOOK", recall=looks[0]["id"], title=f"Looks like a recalled product: {short_name(looks[0])}")
     recalls = [r for r in recalls if r["match"] != "ruled_out"]
 
-    if item.missing_parts:
-        _add(reasons, "R-PARTS", title="Parts look missing", detail="From the photos: " + "; ".join(item.missing_parts[:5]))
+    # The reader writes "unknown" when it can't tell from the photos; that isn't a missing part.
+    missing = [p for p in item.missing_parts if p.strip().lower().strip(".") not in {"", "unknown", "none", "n/a", "na", "not visible",
+                                                                                     "unclear", "cannot tell", "can't tell", "not shown"}]
+    if missing:
+        _add(reasons, "R-PARTS", title="Parts look missing", detail="From the photos: " + "; ".join(missing[:5]))
     if not reasons:
         _add(reasons, "R-NONE")
 
