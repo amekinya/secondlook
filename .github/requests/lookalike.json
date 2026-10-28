@@ -1,1 +1,1 @@
-{"task": "chatbot", "args": "", "note": "plain-chatbot baseline on the 24 market listings"}
+{"task": "report,eval", "args": "", "note": "endpoint up: publish the training report and measure the look-alike matcher"}

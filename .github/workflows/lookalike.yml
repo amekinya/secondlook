@@ -24,6 +24,7 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Run
         env:
+          EVENT: ${{ github.event_name }}
           IN_TASK: ${{ inputs.task }}
           IN_ARGS: ${{ inputs.args }}
           NEBIUS_API_KEY: ${{ secrets.NEBIUS_API_KEY }}
@@ -33,25 +34,30 @@ jobs:
           PYTHONUNBUFFERED: "1"
         run: |
           set -o pipefail
-          if [ "${{ github.event_name }}" = "push" ]; then
+          if [ "$EVENT" = "push" ]; then
             TASK=$(python -c "import json;print(json.load(open('.github/requests/lookalike.json'))['task'])")
             ARGS=$(python -c "import json;print(json.load(open('.github/requests/lookalike.json')).get('args',''))")
           else
             TASK="$IN_TASK"; ARGS="$IN_ARGS"
           fi
           mkdir -p eval data/lookalike
+          if ! printf '%s' "$ARGS" | grep -Eq '^[A-Za-z0-9 ,._/=-]*$'; then echo "arguments contain characters that aren't allowed"; exit 2; fi
+          for TASK in ${TASK//,/ }; do
           case "$TASK" in
             synth) python -m scripts.synth_lookalikes $ARGS 2>&1 | tee -a eval/lookalike_log.txt; python -m scripts.build_lookalike_pairs | tee -a eval/lookalike_log.txt ;;
             pairs) python -m scripts.build_lookalike_pairs | tee -a eval/lookalike_log.txt ;;
             eval)  python -m eval.lookalike_eval $ARGS 2>&1 | tee -a eval/lookalike_log.txt ;;
             chatbot) python -m eval.chatbot_baseline 2>&1 | tee eval/chatbot_baseline_log.txt ;;
+            report) python train/report.py secondlook-matcher eval/lookalike_training.json 2>&1 | tee eval/report_log.txt ;;
             *) echo "unknown task $TASK"; exit 2 ;;
           esac
+          done
       - name: Commit results
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add eval data/lookalike 2>/dev/null || true
+          git add eval data/lookalike data/lookalike_threshold.json 2>/dev/null || true
           git commit -m "Pipeline results (look-alike / baselines)" || echo "No changes"
-          for i in 1 2 3 4; do git pull --rebase -q && git push && break; sleep 7; done
+          for i in 1 2 3 4; do if git pull --rebase -q && git push; then exit 0; fi; sleep 7; done
+          echo "couldn't push the results"; exit 1
